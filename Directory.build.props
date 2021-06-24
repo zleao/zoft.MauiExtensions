@@ -1,0 +1,40 @@
+<Project>
+  <PropertyGroup>
+    <Copyright>Copyright (c) zleao</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>zleao</Authors>
+    <Owners>zleao</Owners>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/zleao/zoft.MauiExtensions</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Version>1.0.0-alfa.1</Version>
+
+    <LangVersion>latest</LangVersion>
+    <PackageOutputPath>$(SolutionDir)nugets</PackageOutputPath>
+    <Platform>AnyCPU</Platform>
+    <DebugType>full</DebugType>
+
+    <LangVersion>8.0</LangVersion>
+
+    <IsLibraryProject>$(MSBuildProjectName.Contains('zoft'))</IsLibraryProject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' AND '$(IsLibraryProject)' == 'true' ">
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <IncludeSymbols>true</IncludeSymbols>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(IsLibraryProject)' == 'true'">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>
+
+</Project>
