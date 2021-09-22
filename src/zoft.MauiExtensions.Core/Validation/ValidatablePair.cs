@@ -4,26 +4,38 @@ using System.Linq;
 
 namespace zoft.MauiExtensions.Core.Validation
 {
+    /// <summary>
+    /// Enables 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ValidatablePair<T> : IValidatable<ValidatablePair<T>>
     {
+        /// <inheritdoc/>
         public List<IValidationRule<ValidatablePair<T>>> Validations { get; } = new List<IValidationRule<ValidatablePair<T>>>();
 
+        /// <inheritdoc/>
         public bool IsValid { get; set; } = true;
 
+        /// <inheritdoc/>
         public List<string> Errors { get; set; } = new List<string>();
 
+        /// <inheritdoc/>
         public ValidatableObject<T> Item1 { get; set; } = new ValidatableObject<T>();
 
+        /// <inheritdoc/>
         public ValidatableObject<T> Item2 { get; set; } = new ValidatableObject<T>();
 
+        /// <inheritdoc/>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <inheritdoc/>
         public void RaisePropertyChanged()
         {
             Item1?.RaisePropertyChanged();
             Item2?.RaisePropertyChanged();
         }
 
+        /// <inheritdoc/>
         public bool Validate()
         {
             var item1IsValid = Item1.Validate();

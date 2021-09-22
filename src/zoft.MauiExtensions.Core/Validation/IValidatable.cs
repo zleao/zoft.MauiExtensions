@@ -45,7 +45,7 @@ namespace zoft.MauiExtensions.Core.Validation
     public interface IValidatable<T> : IValidatable
     {
         /// <summary>
-        /// Gets the validations.
+        /// Gets a list of validations associated with this object.
         /// </summary>
         /// <value>
         /// The validations.
