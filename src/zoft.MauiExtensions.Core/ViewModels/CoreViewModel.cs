@@ -16,10 +16,106 @@ using zoft.MauiExtensions.Core.WeakSubscription;
 namespace zoft.MauiExtensions.Core.ViewModels
 {
     /// <summary>
-    /// Core viewmodel, built on top of <see cref="MvvmHelpers.BaseViewModel"/>
+    /// Core viewmodel"/>
     /// </summary>
-    public abstract class CoreViewModel : MvvmHelpers.BaseViewModel, IDisposable
+    public abstract class CoreViewModel : ObservableObject, IDisposable
     {
+        private string _title = string.Empty;
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        /// <value>The title.</value>
+        public string Title
+        {
+            get => _title;
+            set => Set(ref _title, value);
+        }
+
+        private string _subtitle = string.Empty;
+        /// <summary>
+        /// Gets or sets the subtitle.
+        /// </summary>
+        /// <value>The subtitle.</value>
+        public string Subtitle
+        {
+            get => _subtitle;
+            set => Set(ref _subtitle, value);
+        }
+
+        private string _icon = string.Empty;
+        /// <summary>
+        /// Gets or sets the icon.
+        /// </summary>
+        /// <value>The icon.</value>
+        public string Icon
+        {
+            get => _icon;
+            set => Set(ref _icon, value);
+        }
+
+        private bool _isBusy;
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is busy.
+        /// </summary>
+        /// <value><c>true</c> if this instance is busy; otherwise, <c>false</c>.</value>
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                if (Set(ref _isBusy, value))
+                    IsNotBusy = !_isBusy;
+            }
+        }
+
+        private bool _isNotBusy = true;
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is not busy.
+        /// </summary>
+        /// <value><c>true</c> if this instance is not busy; otherwise, <c>false</c>.</value>
+        public bool IsNotBusy
+        {
+            get => _isNotBusy;
+            set
+            {
+                if (Set(ref _isNotBusy, value))
+                    IsBusy = !_isNotBusy;
+            }
+        }
+
+        private bool _canLoadMore = true;
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can load more.
+        /// </summary>
+        /// <value><c>true</c> if this instance can load more; otherwise, <c>false</c>.</value>
+        public bool CanLoadMore
+        {
+            get => _canLoadMore;
+            set => Set(ref _canLoadMore, value);
+        }
+
+        private string _header = string.Empty;
+        /// <summary>
+        /// Gets or sets the header.
+        /// </summary>
+        /// <value>The header.</value>
+        public string Header
+        {
+            get => _header;
+            set => Set(ref _header, value);
+        }
+
+        private string _footer = string.Empty;
+        /// <summary>
+        /// Gets or sets the footer.
+        /// </summary>
+        /// <value>The footer.</value>
+        public string Footer
+        {
+            get => _footer;
+            set => Set(ref _footer, value);
+        }
+
         #region Constructor
 
         /// <summary>
@@ -334,14 +430,14 @@ namespace zoft.MauiExtensions.Core.ViewModels
                             var mauiCommand = property.Info.GetValue(this, null) as Microsoft.Maui.Controls.Command;
                             mauiCommand?.ChangeCanExecute();
                         }
-                        else if (typeof(MvvmHelpers.Commands.Command).IsAssignableFrom(property.Info.PropertyType))
+                        else if (typeof(Commands.Command).IsAssignableFrom(property.Info.PropertyType))
                         {
-                            var mvvmHelpersCommand = property.Info.GetValue(this, null) as MvvmHelpers.Commands.Command;
+                            var mvvmHelpersCommand = property.Info.GetValue(this, null) as Commands.Command;
                             mvvmHelpersCommand?.RaiseCanExecuteChanged();
                         }
-                        else if (typeof(MvvmHelpers.Commands.AsyncCommand).IsAssignableFrom(property.Info.PropertyType))
+                        else if (typeof(Commands.AsyncCommand).IsAssignableFrom(property.Info.PropertyType))
                         {
-                            var asyncCommand = property.Info.GetValue(this, null) as MvvmHelpers.Commands.AsyncCommand;
+                            var asyncCommand = property.Info.GetValue(this, null) as Commands.AsyncCommand;
                             asyncCommand?.RaiseCanExecuteChanged();
                         }
                         else if (typeof(IValidatable).IsAssignableFrom(property.Info.PropertyType))
@@ -441,7 +537,7 @@ namespace zoft.MauiExtensions.Core.ViewModels
         public string BusyMessage
         {
             get => _busyMessage;
-            set => SetProperty(ref _busyMessage, value);
+            set => Set(ref _busyMessage, value);
         }
         private string _busyMessage;
 
