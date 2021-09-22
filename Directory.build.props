@@ -10,7 +10,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.0-alfa.2</Version>
+    <Version>1.0.0-alfa.3</Version>
 
     <LangVersion>latest</LangVersion>
     <PackageOutputPath>$(SolutionDir)nugets</PackageOutputPath>
