@@ -17,7 +17,7 @@
     <Platform>AnyCPU</Platform>
     <DebugType>full</DebugType>
 
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
 
     <IsLibraryProject>$(MSBuildProjectName.Contains('zoft'))</IsLibraryProject>
   </PropertyGroup>
