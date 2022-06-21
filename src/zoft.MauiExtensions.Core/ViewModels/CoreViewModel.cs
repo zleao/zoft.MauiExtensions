@@ -1,4 +1,4 @@
-﻿using Microsoft.Maui.Essentials;
+﻿using Microsoft.Maui.ApplicationModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -138,7 +138,7 @@ namespace zoft.MauiExtensions.Core.ViewModels
         /// <summary>
         /// Helper list used to prevent PropertyCHanged propagation in cases where an action is ExecuteWithoutConditionalDependsOn 
         /// </summary>
-        private readonly Dictionary<string, int> _dependsOnConditionalCount = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _dependsOnConditionalCount = new();
 
         /// <summary>
         /// PropertyChanged subscriptipn of this instance
@@ -148,23 +148,23 @@ namespace zoft.MauiExtensions.Core.ViewModels
         /// <summary>
         /// List of all the properties that have DependsOn attribute configured
         /// </summary>
-        private readonly Dictionary<string, IList<DependencyInfo>> _propertyDependencies = new Dictionary<string, IList<DependencyInfo>>();
+        private readonly Dictionary<string, IList<DependencyInfo>> _propertyDependencies = new();
 
         /// <summary>
         /// List of all the notifiable collection properties that have the PropagateCollectionChange attribute configured, with the respective CollectionChanged subscription
         /// </summary>
-        private readonly Dictionary<string, CollectionSubscriptionInfo> _notifiableCollectionsPropertyDependencies = new Dictionary<string, CollectionSubscriptionInfo>();
+        private readonly Dictionary<string, CollectionSubscriptionInfo> _notifiableCollectionsPropertyDependencies = new();
 
         /// <summary>
         /// List of the found dependencies (and respective PropertyCahngeEventSubscription) that correspond to an IValidatable object.
         /// Each subscription will trigger a PropertyChanged of the respective PropertyName
         /// </summary>
-        private readonly Dictionary<string, ValidatableCollectionInfo> _validatabalePropertyDependencies = new Dictionary<string, ValidatableCollectionInfo>();
+        private readonly Dictionary<string, ValidatableCollectionInfo> _validatabalePropertyDependencies = new();
 
         /// <summary>
         /// List of all the methods that have DependsOn attribute configured
         /// </summary>
-        private readonly Dictionary<string, IList<MethodInfo>> _methodDependencies = new Dictionary<string, IList<MethodInfo>>();
+        private readonly Dictionary<string, IList<MethodInfo>> _methodDependencies = new();
 
         /// <summary>
         /// Gets a value indicating whether this instance should react to property changed events

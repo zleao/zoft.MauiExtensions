@@ -1,14 +1,14 @@
-﻿using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui;
 using System;
 using System.Windows.Input;
 
 namespace zoft.MauiExtensions.Core.Commands
 {
-	/// <summary>
-	/// Generic Implementation of ICommand
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	public class Command<T> : Command
+    /// <summary>
+    /// Generic Implementation of ICommand
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class Command<T> : Command
 	{
 		/// <summary>
 		/// Command that takes an action to execute
