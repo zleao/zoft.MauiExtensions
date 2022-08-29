@@ -33,6 +33,8 @@ namespace zoft.MauiExtensions.Core.Validation
         {
             Item1?.RaisePropertyChanged();
             Item2?.RaisePropertyChanged();
+            
+            PropertyChanged?.Invoke(this, null);
         }
 
         /// <inheritdoc/>
