@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using zoft.MauiExtensions.Core.Attributes;
 using zoft.MauiExtensions.Core.Extensions;
 using zoft.MauiExtensions.Core.Models;
+using zoft.MauiExtensions.Core.Services;
 using zoft.MauiExtensions.Core.Validation;
 using zoft.MauiExtensions.Core.WeakSubscription;
 
@@ -20,6 +21,12 @@ namespace zoft.MauiExtensions.Core.ViewModels
     /// </summary>
     public abstract class CoreViewModel : ObservableObject, IDisposable
     {
+        /// <summary>
+        /// Get the instance of the MainThreadService. <br/>
+        /// </summary>
+        /// <remarks>This instance can be null, depending on how the <see cref="CoreViewModel"/> was instantiated</remarks>
+        public IMainThreadService MainThreadService { get; }
+
         private string _title = string.Empty;
         /// <summary>
         /// Gets or sets the title.
@@ -129,6 +136,15 @@ namespace zoft.MauiExtensions.Core.ViewModels
             InitializeMethodDependencies(GetType());
 
             InitializePropertyChanged();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CoreViewModel" /> class.
+        /// </summary>
+        /// <param name="mainThreadService">Instance of the <see cref="IMainThreadService"/></param>
+        protected CoreViewModel(IMainThreadService mainThreadService)
+        {
+            MainThreadService = mainThreadService;
         }
 
         #endregion
@@ -405,10 +421,21 @@ namespace zoft.MauiExtensions.Core.ViewModels
             }
 
             // Ensure this method runs in the main thread
-            if (!MainThread.IsMainThread)
+            if (MainThreadService != null)
             {
-                MainThread.BeginInvokeOnMainThread(() => RaiseDependenciesPropertyChanged(dependencyName));
-                return;
+                if(MainThreadService.IsMainThread)
+                {
+                    MainThreadService.BeginInvokeOnMainThread(() => RaiseDependenciesPropertyChanged(dependencyName));
+                    return;
+                }
+            }
+            else
+            {
+                if (!MainThread.IsMainThread)
+                {
+                    MainThread.BeginInvokeOnMainThread(() => RaiseDependenciesPropertyChanged(dependencyName));
+                    return;
+                }
             }
 
             //Prevents the conditional DependsOn from firing, if the execution was made
@@ -505,24 +532,48 @@ namespace zoft.MauiExtensions.Core.ViewModels
         /// <param name="action">The action.</param>
         protected void ExecuteWithoutConditionalDependsOn(string propertyName, Action action)
         {
-            MainThread.BeginInvokeOnMainThread(() =>
+            if (MainThreadService != null)
             {
-                try
+                MainThreadService.BeginInvokeOnMainThread(() =>
                 {
-                    if (!_dependsOnConditionalCount.ContainsKey(propertyName))
-                        _dependsOnConditionalCount.Add(propertyName, 1);
-                    else
-                        _dependsOnConditionalCount[propertyName]++;
+                    try
+                    {
+                        if (!_dependsOnConditionalCount.ContainsKey(propertyName))
+                            _dependsOnConditionalCount.Add(propertyName, 1);
+                        else
+                            _dependsOnConditionalCount[propertyName]++;
 
-                    action.Invoke();
+                        action.Invoke();
 
-                    _dependsOnConditionalCount[propertyName] = Math.Max(0, _dependsOnConditionalCount[propertyName] - 1);
-                }
-                catch
+                        _dependsOnConditionalCount[propertyName] = Math.Max(0, _dependsOnConditionalCount[propertyName] - 1);
+                    }
+                    catch
+                    {
+                        _dependsOnConditionalCount.Remove(propertyName);
+                    }
+                });
+            }
+            else
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    _dependsOnConditionalCount.Remove(propertyName);
-                }
-            });
+                    try
+                    {
+                        if (!_dependsOnConditionalCount.ContainsKey(propertyName))
+                            _dependsOnConditionalCount.Add(propertyName, 1);
+                        else
+                            _dependsOnConditionalCount[propertyName]++;
+
+                        action.Invoke();
+
+                        _dependsOnConditionalCount[propertyName] = Math.Max(0, _dependsOnConditionalCount[propertyName] - 1);
+                    }
+                    catch
+                    {
+                        _dependsOnConditionalCount.Remove(propertyName);
+                    }
+                });
+            }
         }
 
         #endregion
