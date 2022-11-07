@@ -1,12 +1,7 @@
-﻿using Microsoft.Maui.ApplicationModel;
-using System;
-using System.Collections.Generic;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using zoft.MauiExtensions.Core.Attributes;
 using zoft.MauiExtensions.Core.Extensions;
 using zoft.MauiExtensions.Core.Models;
@@ -19,7 +14,7 @@ namespace zoft.MauiExtensions.Core.ViewModels
     /// <summary>
     /// Core viewmodel"/>
     /// </summary>
-    public abstract class CoreViewModel : ObservableObject, IDisposable
+    public abstract partial class CoreViewModel : ObservableObject, IDisposable
     {
         /// <summary>
         /// Get the instance of the MainThreadService. <br/>
@@ -27,40 +22,27 @@ namespace zoft.MauiExtensions.Core.ViewModels
         /// <remarks>This instance can be null, depending on how the <see cref="CoreViewModel"/> was instantiated</remarks>
         public IMainThreadService MainThreadService { get; }
 
-        private string _title = string.Empty;
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
         /// <value>The title.</value>
-        public string Title
-        {
-            get => _title;
-            set => Set(ref _title, value);
-        }
+        [ObservableProperty]
+        private string _title = string.Empty;
 
-        private string _subtitle = string.Empty;
         /// <summary>
         /// Gets or sets the subtitle.
         /// </summary>
         /// <value>The subtitle.</value>
-        public string Subtitle
-        {
-            get => _subtitle;
-            set => Set(ref _subtitle, value);
-        }
+        [ObservableProperty]
+        private string _subtitle = string.Empty;
 
-        private string _icon = string.Empty;
         /// <summary>
         /// Gets or sets the icon.
         /// </summary>
         /// <value>The icon.</value>
-        public string Icon
-        {
-            get => _icon;
-            set => Set(ref _icon, value);
-        }
+        [ObservableProperty]
+        private string _icon = string.Empty;
 
-        private bool _isBusy;
         /// <summary>
         /// Gets or sets a value indicating whether this instance is busy.
         /// </summary>
@@ -70,12 +52,14 @@ namespace zoft.MauiExtensions.Core.ViewModels
             get => _isBusy;
             set
             {
-                if (Set(ref _isBusy, value))
+                if (SetProperty(ref _isBusy, value))
+                {
                     IsNotBusy = !_isBusy;
+                }
             }
         }
+        private bool _isBusy;
 
-        private bool _isNotBusy = true;
         /// <summary>
         /// Gets or sets a value indicating whether this instance is not busy.
         /// </summary>
@@ -85,43 +69,34 @@ namespace zoft.MauiExtensions.Core.ViewModels
             get => _isNotBusy;
             set
             {
-                if (Set(ref _isNotBusy, value))
+                if (SetProperty(ref _isNotBusy, value))
+                {
                     IsBusy = !_isNotBusy;
+                }
             }
         }
+        private bool _isNotBusy = true;
 
-        private bool _canLoadMore = true;
         /// <summary>
         /// Gets or sets a value indicating whether this instance can load more.
         /// </summary>
         /// <value><c>true</c> if this instance can load more; otherwise, <c>false</c>.</value>
-        public bool CanLoadMore
-        {
-            get => _canLoadMore;
-            set => Set(ref _canLoadMore, value);
-        }
+        [ObservableProperty]
+        private bool _canLoadMore = true;
 
-        private string _header = string.Empty;
         /// <summary>
         /// Gets or sets the header.
         /// </summary>
         /// <value>The header.</value>
-        public string Header
-        {
-            get => _header;
-            set => Set(ref _header, value);
-        }
+        [ObservableProperty]
+        private string _header = string.Empty;
 
-        private string _footer = string.Empty;
         /// <summary>
         /// Gets or sets the footer.
         /// </summary>
         /// <value>The footer.</value>
-        public string Footer
-        {
-            get => _footer;
-            set => Set(ref _footer, value);
-        }
+        [ObservableProperty]
+        private string _footer = string.Empty;
 
         #region Constructor
 
@@ -585,11 +560,7 @@ namespace zoft.MauiExtensions.Core.ViewModels
         /// <summary>
         /// Message to be shown in the busy indicator
         /// </summary>
-        public string BusyMessage
-        {
-            get => _busyMessage;
-            set => Set(ref _busyMessage, value);
-        }
+        [ObservableProperty]
         private string _busyMessage;
 
         /// <summary>

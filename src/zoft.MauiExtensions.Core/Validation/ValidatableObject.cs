@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using zoft.MauiExtensions.Core.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace zoft.MauiExtensions.Core.Validation
 {
@@ -8,23 +6,19 @@ namespace zoft.MauiExtensions.Core.Validation
     /// Base class for objects that support validation via <see cref="IValidatable"/> interface
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ValidatableObject<T> : ObservableObject, IValidatable<T>
+    public partial class ValidatableObject<T> : ObservableObject, IValidatable<T>
     {
         /// <summary>
         /// List of valiations associated with this object
         /// </summary>
         public List<IValidationRule<T>> Validations { get; } = new List<IValidationRule<T>>();
 
-        private List<string> _errors = new List<string>();
         /// <summary>
         /// List of the current active errors
         /// </summary>
-        public List<string> Errors
-        {
-            get => _errors;
-            set => Set(ref _errors, value);
-        }
-
+        [ObservableProperty]
+        private List<string> _errors = new();
+        
         /// <summary>
         /// If True, cleans the validation errors when the value of the object changes
         /// </summary>
@@ -39,22 +33,18 @@ namespace zoft.MauiExtensions.Core.Validation
             get => _value;
             set
             {
-                if (Set(ref _value, value) && CleanOnChange)
+                if (SetProperty(ref _value, value) && CleanOnChange)
                 {
                     IsValid = true;
                 }
             }
         }
 
-        private bool _isValid = true;
         /// <summary>
         /// Current validity state of the object
         /// </summary>
-        public bool IsValid
-        {
-            get => _isValid;
-            set => Set(ref _isValid, value);
-        }
+        [ObservableProperty]
+        private bool _isValid = true;
 
         /// <summary>
         /// base constructor of a validatable object
