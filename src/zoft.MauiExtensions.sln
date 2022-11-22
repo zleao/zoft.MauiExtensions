@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31410.223
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33103.201
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{098F9012-79B5-4664-BE27-4F4CD3A69B65}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		..\Directory.build.props = ..\Directory.build.props
+		Directory.build.props = Directory.build.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zoft.MauiExtensions.Core", "zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj", "{BA457B83-B34C-49C1-ABEF-3256C88F2F8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zoft.MauiExtensions.Core", "zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj", "{BA457B83-B34C-49C1-ABEF-3256C88F2F8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{157B8F14-565D-48E3-82E4-8C9FC96A2E5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

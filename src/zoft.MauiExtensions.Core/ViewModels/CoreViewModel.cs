@@ -427,15 +427,10 @@ namespace zoft.MauiExtensions.Core.ViewModels
                 {
                     foreach (var property in properties)
                     {
-                        if (typeof(Microsoft.Maui.Controls.Command).IsAssignableFrom(property.Info.PropertyType))
+                        if (typeof(Command).IsAssignableFrom(property.Info.PropertyType))
                         {
-                            var mauiCommand = property.Info.GetValue(this, null) as Microsoft.Maui.Controls.Command;
+                            var mauiCommand = property.Info.GetValue(this, null) as Command;
                             mauiCommand?.ChangeCanExecute();
-                        }
-                        else if (typeof(Commands.Command).IsAssignableFrom(property.Info.PropertyType))
-                        {
-                            var mvvmHelpersCommand = property.Info.GetValue(this, null) as Commands.Command;
-                            mvvmHelpersCommand?.RaiseCanExecuteChanged();
                         }
                         else if (typeof(Commands.AsyncCommand).IsAssignableFrom(property.Info.PropertyType))
                         {
