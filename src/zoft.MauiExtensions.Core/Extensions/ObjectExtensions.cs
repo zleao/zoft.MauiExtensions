@@ -9,6 +9,18 @@ namespace zoft.MauiExtensions.Core.Extensions
     public static class ObjectExtensions
     {
         /// <summary>
+        /// Gets the property as value as a <see cref="string"/>
+        /// </summary>
+        /// <param name="source">The source instance.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="fallbackValue">Fallback value in case of null</param>
+        /// <returns></returns>
+        public static string GetPropertyValueAsString(this object source, string propertyName, string fallbackValue = "")
+        {
+            return source?.GetPropertyValue(propertyName)?.ToString() ?? fallbackValue;
+        }
+
+        /// <summary>
         /// Gets the property value.
         /// Deals with null object
         /// </summary>

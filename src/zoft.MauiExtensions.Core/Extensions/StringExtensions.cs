@@ -162,12 +162,12 @@ namespace zoft.MauiExtensions.Core.Extensions
         /// <returns></returns>
         public static string Truncate(this string source, int length)
         {
-            if (source.IsNullOrEmpty())
+            if (source.IsNullOrWhiteSpace())
             {
                 return string.Empty;
             }
 
-            return source.Length > length ? source.Substring(0, length) : source;
+            return (length >= 0 && source.Length > length) ? source[..length] : source;
         }
 
         /// <summary>
