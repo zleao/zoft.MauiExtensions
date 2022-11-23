@@ -118,6 +118,7 @@ namespace zoft.MauiExtensions.Core.ViewModels
         /// </summary>
         /// <param name="mainThreadService">Instance of the <see cref="IMainThreadService"/></param>
         protected CoreViewModel(IMainThreadService mainThreadService)
+            : this()
         {
             MainThreadService = mainThreadService;
         }
@@ -398,7 +399,7 @@ namespace zoft.MauiExtensions.Core.ViewModels
             // Ensure this method runs in the main thread
             if (MainThreadService != null)
             {
-                if(MainThreadService.IsMainThread)
+                if(!MainThreadService.IsMainThread)
                 {
                     MainThreadService.BeginInvokeOnMainThread(() => RaiseDependenciesPropertyChanged(dependencyName));
                     return;

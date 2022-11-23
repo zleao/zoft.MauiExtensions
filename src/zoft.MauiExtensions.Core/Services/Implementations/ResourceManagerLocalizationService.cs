@@ -6,13 +6,13 @@ using System.Resources;
 using zoft.MauiExtensions.Core.Exceptions;
 using zoft.MauiExtensions.Core.Extensions;
 
-namespace zoft.MauiExtensions.Core.Localization
+namespace zoft.MauiExtensions.Core.Services
 {
     /// <summary>
     /// Localization service that uses <see cref="ResourceManager"/> as the source for the text
     /// </summary>
-    /// <seealso cref="zoft.MauiExtensions.Core.Localization.ILocalizationService" />
-    public class ResourceManagerLocalizationService : ILocalizationService
+    /// <seealso cref="ILocalizationService" />
+    public sealed class ResourceManagerLocalizationService : ILocalizationService
     {
         /// <summary>
         /// Occurs when a property value changes.
@@ -158,10 +158,10 @@ namespace zoft.MauiExtensions.Core.Localization
         }
 
         /// <summary>
-        /// Gets the <see cref="System.String"/> with the specified key.
+        /// Gets the <see cref="string"/> with the specified key.
         /// </summary>
         /// <value>
-        /// The <see cref="System.String"/>.
+        /// The <see cref="string"/>.
         /// </value>
         /// <param name="key">The key.</param>
         /// <returns></returns>

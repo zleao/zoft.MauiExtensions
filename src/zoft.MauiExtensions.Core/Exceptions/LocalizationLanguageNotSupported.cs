@@ -1,5 +1,5 @@
 ﻿using System;
-using zoft.MauiExtensions.Core.Localization;
+using zoft.MauiExtensions.Core.Services;
 
 namespace zoft.MauiExtensions.Core.Exceptions
 {

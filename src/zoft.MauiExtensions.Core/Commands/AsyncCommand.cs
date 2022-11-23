@@ -3,7 +3,6 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using zoft.MauiExtensions.Core.Extensions;
-using zoft.MauiExtensions.Core.Interfaces;
 
 namespace zoft.MauiExtensions.Core.Commands
 {

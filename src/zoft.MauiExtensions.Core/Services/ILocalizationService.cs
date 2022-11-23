@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 
-namespace zoft.MauiExtensions.Core.Localization
+namespace zoft.MauiExtensions.Core.Services
 {
     /// <summary>
     /// Generic interface for a service that allows localization of an app
     /// </summary>
-    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
+    /// <seealso cref="INotifyPropertyChanged" />
     public interface ILocalizationService : INotifyPropertyChanged
     {
         /// <summary>
@@ -39,10 +39,10 @@ namespace zoft.MauiExtensions.Core.Localization
         string GetTextForKey(string key);
 
         /// <summary>
-        /// Gets the <see cref="System.String"/> with the specified key.
+        /// Gets the <see cref="string"/> with the specified key.
         /// </summary>
         /// <value>
-        /// The <see cref="System.String"/>.
+        /// The <see cref="string"/>.
         /// </value>
         /// <param name="key">The key.</param>
         /// <returns></returns>
