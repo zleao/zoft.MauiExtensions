@@ -23,9 +23,17 @@ stages:
             inputs:
               packageType: 'sdk'
               version: '$(DotNetVersion)'
+          - task: NuGetToolInstaller@1
+            inputs:
+              versionSpec: 
+              checkLatest: true
+          - task: NuGetCommand@2
+            inputs:
+              command: 'restore'
+              restoreSolution: 'src/zoft.MauiExtensions.sln'
+              feedsToUse: 'select'
           - task: VSBuild@1
             inputs:
               solution: 'src\zoft.MauiExtensions.sln'
               configuration: 'release'
               clean: true
-              restoreNugetPackages: true
