@@ -3,12 +3,18 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace zoft.MauiExtensions.Core.Services
 {
+    /// <inheritdoc/>
     public abstract class MainThreadService : IMainThreadService
     {
+        /// <summary>
+        /// MainThread Dispatcher
+        /// </summary>
         protected abstract DispatcherQueue MainThreadDispatcher { get; }
 
+        /// <inheritdoc/>
         public bool IsMainThread => MainThread.IsMainThread;
 
+        /// <inheritdoc/>
         public void BeginInvokeOnMainThread(Action action)
         {
             if (IsMainThread)
@@ -21,6 +27,7 @@ namespace zoft.MauiExtensions.Core.Services
             }
         }
 
+        /// <inheritdoc/>
         public Task InvokeOnMainThreadAsync(Action action)
         {
             if (IsMainThread)
@@ -47,6 +54,7 @@ namespace zoft.MauiExtensions.Core.Services
             return tcs.Task;
         }
 
+        /// <inheritdoc/>
         public Task<T> InvokeOnMainThreadAsync<T>(Func<T> func)
         {
             if (IsMainThread)
@@ -72,6 +80,7 @@ namespace zoft.MauiExtensions.Core.Services
             return tcs.Task;
         }
 
+        /// <inheritdoc/>
         public Task InvokeOnMainThreadAsync(Func<Task> funcTask)
         {
             if (IsMainThread)
@@ -98,6 +107,7 @@ namespace zoft.MauiExtensions.Core.Services
             return tcs.Task;
         }
 
+        /// <inheritdoc/>
         public Task<T> InvokeOnMainThreadAsync<T>(Func<Task<T>> funcTask)
         {
             if (IsMainThread)
@@ -124,6 +134,7 @@ namespace zoft.MauiExtensions.Core.Services
             return tcs.Task;
         }
 
+        /// <inheritdoc/>
         public async Task<SynchronizationContext> GetMainThreadSynchronizationContextAsync()
         {
             SynchronizationContext ret = null;
