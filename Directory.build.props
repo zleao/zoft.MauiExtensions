@@ -10,8 +10,8 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.3</Version>
-    <PackageReleaseNotes>Add support to class libraries targeting .net6.0</PackageReleaseNotes>
+    <Version>1.0.4</Version>
+    <PackageReleaseNotes>Improve package documentation</PackageReleaseNotes>
     
     <LangVersion>latest</LangVersion>
     <Platform>AnyCPU</Platform>
