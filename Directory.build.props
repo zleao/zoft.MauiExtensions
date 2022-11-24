@@ -14,7 +14,6 @@
     <PackageReleaseNotes>Add support to class libraries targeting .net6.0</PackageReleaseNotes>
     
     <LangVersion>latest</LangVersion>
-    <PackageOutputPath>$(SolutionDir)nugets</PackageOutputPath>
     <Platform>AnyCPU</Platform>
     <DebugType>full</DebugType>
 
