@@ -1,0 +1,48 @@
+trigger:
+- main
+
+variables:
+  BuildConfiguration: Release
+  DotNetVersion: 6.0.403
+  VSVERSION: 17.4.0
+
+pool:
+  vmImage: 'windows-2022'
+  demands:
+  - MSBuild
+
+stages:
+  - stage: Build
+    displayName: 'Build Stage'
+    jobs:
+      - job: BuildMauiProject
+        displayName: 'Build zoft.MauiExtensions.Core'
+        steps:
+          - task: UseDotNet@2
+            displayName: .NET Version
+            inputs:
+              packageType: 'sdk'
+              version: '$(DotNetVersion)'
+          - task: CmdLine@2
+            inputs:
+              script: 'dotnet workload restore src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj'
+          - task: NuGetToolInstaller@1
+            inputs:
+              versionSpec: 
+              checkLatest: true
+          - task: CmdLine@2
+            inputs:
+              script: 'dotnet restore src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj'
+          - task: DotNetCoreCLI@2
+            displayName: 'Build zoft.MauiExtensions.Core project'
+            inputs:
+              command: 'build'
+              projects: |
+                src/zoft.MauiExtensions.Core/zoft.MauiExtensions.Core.csproj
+              arguments: --output $(Build.ArtifactStagingDirectory)/publish --configuration Release --no-restore
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish build output'
+            inputs:
+              PathtoPublish: $(Build.ArtifactStagingDirectory)/publish
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
