@@ -38,3 +38,8 @@ stages:
               script: |
                 cd src/zoft.MauiExtensions.Core/
                 dotnet restore zoft.MauiExtensions.Core.csproj
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: 'build'
+              projects: 'src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj'
+              arguments: '--output $(Build.ArtifactStagingDirectory)/publish --configuration Release --no-restore'
