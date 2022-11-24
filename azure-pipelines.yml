@@ -14,6 +14,7 @@ pool:
 stages:
   - stage: Build
     displayName: 'Build Stage'
+    condition: ne(variables['Build.Reason'], 'PullRequest')
     jobs:
       - job: BuildMauiProject
         displayName: 'Build zoft.MauiExtensions.Core'
@@ -46,3 +47,24 @@ stages:
               PathtoPublish: $(Build.ArtifactStagingDirectory)/publish
               ArtifactName: 'drop'
               publishLocation: 'Container'
+  - stage: 'publish'
+    displayName: 'Publish to feed'
+    condition: ne(variables['Build.Reason'], 'PullRequest')
+    dependsOn: Build
+    jobs:
+      - job: 'publish'
+        displayName: 'Publish NuGet package'
+        steps:
+            - task: DownloadBuildArtifacts@0
+              displayName: 'Download the published artifact'
+              inputs:
+                buildType: 'current'
+                downloadType: 'specific'
+                downloadPath: '$(System.ArtifactsDirectory)'
+            - task: DotNetCoreCLI@2
+              displayName: 'Push the artifact to NuGet feed'
+              inputs:
+                command: 'push'
+                packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+                nuGetFeedType: 'external'
+                publishFeedCredentials: 'NuGet'
