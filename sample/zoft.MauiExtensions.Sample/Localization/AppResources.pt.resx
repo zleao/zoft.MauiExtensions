@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="LocalizationPage_ChooseLanguageLabel" xml:space="preserve">
+    <value>Linguagem</value>
+  </data>
+  <data name="LocalizationPage_Label1" xml:space="preserve">
+    <value>O que é o Lorem Ipsum?</value>
+  </data>
+  <data name="LocalizationPage_Label2" xml:space="preserve">
+    <value>O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500, quando uma misturou os caracteres de um texto para criar um espécime de livro. Este texto não só sobreviveu 5 séculos, mas também o salto para a tipografia electrónica, mantendo-se essencialmente inalterada. Foi popularizada nos anos 60 com a disponibilização das folhas de Letraset, que continham passagens com Lorem Ipsum, e mais recentemente com os programas de publicação como o Aldus PageMaker que incluem versões do Lorem Ipsum.</value>
+  </data>
+  <data name="LocalizationPage_Label3" xml:space="preserve">
+    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eget dolor pellentesque, iaculis nulla in, fringilla erat. Praesent porttitor dictum ante, ut pulvinar orci. Nulla facilisi. Vestibulum tempus, metus a posuere faucibus, sem nunc tempus libero, eu ultricies ex sapien ac augue. Ut tincidunt velit augue, in rutrum lacus placerat in. Proin dignissim elementum varius. Donec auctor, justo posuere fermentum rhoncus, diam felis rhoncus enim, at faucibus diam elit id nulla.
+
+Aliquam at lacus ac urna semper fringilla. Nulla nec euismod nisi. Curabitur nec condimentum mi. Integer sit amet dolor ac metus finibus egestas. Phasellus et pharetra est. Phasellus ut odio et metus pulvinar faucibus non vel risus. Aliquam augue nunc, volutpat in dapibus sit amet, rhoncus laoreet arcu. Sed ex neque, suscipit sed accumsan eu, finibus a turpis. Donec nec risus dui. Pellentesque sit amet congue ligula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce erat dui, egestas sit amet ultricies eu, auctor quis lacus.
+
+Mauris vehicula nunc ullamcorper magna venenatis, mollis venenatis ipsum luctus. Cras sed tempor turpis, id malesuada quam. Suspendisse lectus ipsum, vulputate a sapien a, varius tempor sem. Quisque et erat magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum lorem purus, venenatis vel convallis ut, tempus et eros. Duis vitae felis sagittis, aliquam eros quis, interdum urna. Suspendisse ultricies cursus felis, et pretium leo rhoncus id. Maecenas consequat justo sed nunc feugiat fringilla. Donec rhoncus urna ut enim ornare malesuada. In quis metus consequat, mattis nulla id, cursus nulla. Morbi mattis urna magna, id maximus dui venenatis quis.
+
+Phasellus augue mi, malesuada ut dictum ut, convallis in tortor. Nullam convallis pharetra nulla, quis varius eros ullamcorper non. In tempor vestibulum mauris, eget blandit sapien. Vestibulum consectetur tincidunt lorem, sed commodo nisl mattis vel. Donec sed dui in purus euismod bibendum. Sed in tristique risus. Sed gravida libero sed posuere tempus. Sed hendrerit efficitur luctus.
+
+Duis ante massa, tincidunt in vehicula vitae, congue at ipsum. Suspendisse sed est placerat, laoreet lorem vitae, iaculis orci. Vivamus pretium libero id lorem egestas, a venenatis ex imperdiet. Morbi posuere purus at odio commodo vehicula. Maecenas pulvinar porttitor pretium. Nam ultricies ac ipsum nec viverra. Nullam vel ligula arcu.</value>
+  </data>
+  <data name="LocalizationPage_Title" xml:space="preserve">
+    <value>Localização</value>
+  </data>
+  <data name="MainThreadPage_Title" xml:space="preserve">
+    <value>Main Thread</value>
+  </data>
+  <data name="MainThreadPage_BusyMessage" xml:space="preserve">
+    <value>Execução na background thread</value>
+  </data>
+  <data name="DependsOnPage_Title" xml:space="preserve">
+    <value>DependsOn</value>
+  </data>
+  <data name="DependsOnPage_MainLabel" xml:space="preserve">
+    <value>Escrever na entrada TriggerText acionará uma atualização do TargetText e do TargeDate</value>
+  </data>
+  <data name="ValidationPage_Tile" xml:space="preserve">
+    <value>Validação</value>
+  </data>
+  <data name="ValidationPage_ComingSoon" xml:space="preserve">
+    <value>Em Breve...</value>
+  </data>
+  <data name="MenuItem_DependsOnLabel" xml:space="preserve">
+    <value>Exemplo DependsOn</value>
+  </data>
+  <data name="MenuItem_LocalizationLabel" xml:space="preserve">
+    <value>Exemplo Localização</value>
+  </data>
+  <data name="MenuItem_MainThreadLabel" xml:space="preserve">
+    <value>Exemplo MainThread</value>
+  </data>
+  <data name="MenuItem_ValidationLabel" xml:space="preserve">
+    <value>Exemplo Validação</value>
+  </data>
+  <data name="MainThreadPage_Message" xml:space="preserve">
+    <value>Mensagem vinda da thread de segundo plano e mostrada com MainThreadService</value>
+  </data>
+  <data name="MainThreadPage_ExecuteButtonLabel" xml:space="preserve">
+    <value>Executar</value>
+  </data>
+</root>

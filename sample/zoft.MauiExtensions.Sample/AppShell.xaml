@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="zoft.MauiExtensions.Sample.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:zoft="http://zoft.maui.extensions"
+       xmlns:local="clr-namespace:zoft.MauiExtensions.Sample.Views"
+       FlyoutBehavior="Flyout">
+
+    <ShellContent
+        Title="{zoft:Translate MenuItem_DependsOnLabel}"
+        ContentTemplate="{DataTemplate local:DependsOnView}"
+        Route="DependsOn" />
+
+    <ShellContent
+        Title="{zoft:Translate MenuItem_LocalizationLabel}"
+        ContentTemplate="{DataTemplate local:LocalizationView}"
+        Route="Localization" />
+    
+    <ShellContent
+        Title="{zoft:Translate MenuItem_MainThreadLabel}"
+        ContentTemplate="{DataTemplate local:MainThreadView}"
+        Route="MainThread" />
+
+    <ShellContent
+        Title="{zoft:Translate MenuItem_ValidationLabel}"
+        ContentTemplate="{DataTemplate local:ValidationView}"
+        Route="Validation" />
+
+</Shell>

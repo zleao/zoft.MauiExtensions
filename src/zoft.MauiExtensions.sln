@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zoft.MauiExtensions.Core", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{157B8F14-565D-48E3-82E4-8C9FC96A2E5B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zoft.MauiExtensions.Sample", "..\sample\zoft.MauiExtensions.Sample\zoft.MauiExtensions.Sample.csproj", "{77A8A3CD-0CEF-4D4A-8E17-BDDB9ED08C11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,9 +25,16 @@ Global
 		{BA457B83-B34C-49C1-ABEF-3256C88F2F8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA457B83-B34C-49C1-ABEF-3256C88F2F8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA457B83-B34C-49C1-ABEF-3256C88F2F8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77A8A3CD-0CEF-4D4A-8E17-BDDB9ED08C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77A8A3CD-0CEF-4D4A-8E17-BDDB9ED08C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77A8A3CD-0CEF-4D4A-8E17-BDDB9ED08C11}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{77A8A3CD-0CEF-4D4A-8E17-BDDB9ED08C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{77A8A3CD-0CEF-4D4A-8E17-BDDB9ED08C11} = {157B8F14-565D-48E3-82E4-8C9FC96A2E5B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {387D3792-CE7B-4D66-AE33-1F75654603B0}

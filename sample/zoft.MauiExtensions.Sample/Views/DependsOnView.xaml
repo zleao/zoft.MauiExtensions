@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zoft="http://zoft.maui.extensions"
+             x:Class="zoft.MauiExtensions.Sample.Views.DependsOnView"
+             Title="{zoft:Translate DependsOnPage_Title}">
+
+    <ScrollView Margin="20">
+        <VerticalStackLayout Spacing="20">
+            <Label Text="{zoft:Translate DependsOnPage_MainLabel}" FontAttributes="Bold"/>
+
+            <VerticalStackLayout>
+                <Label Text="TriggerText" FontAttributes="Bold"/>
+                <Entry Text="{Binding TriggerText}"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="TargetText" FontAttributes="Bold"/>
+                <Label Text="{Binding TargetText}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="TargetDate" FontAttributes="Bold"/>
+                <DatePicker Date="{Binding TargetDate}" />
+            </VerticalStackLayout>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
