@@ -1,0 +1,40 @@
+trigger:
+- main
+
+variables:
+  BuildConfiguration: Release
+  DotNetVersion: 6.0.403
+  VSVERSION: 17.4.0
+
+pool:
+  vmImage: 'windows-latest'
+  demands:
+  - MSBuild
+
+stages:
+  - stage: Build
+    displayName: 'Build Stage'
+    jobs:
+      - job: BuildMauiProject
+        displayName: 'Build zoft.MauiExtensions.Core'
+        steps:
+          - task: UseDotNet@2
+            displayName: .NET Version
+            inputs:
+              packageType: 'sdk'
+              version: '$(DotNetVersion)'
+          - task: Bash@3
+            displayName: Install MAUI
+            inputs:
+              targetType: 'inline'
+              script: |
+                dotnet nuget locals all --clear 
+                dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
+                dotnet workload install android ios maccatalyst tvos macos maui wasm-tools --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
+          - task: Bash@3
+            displayName: Restore nuget
+            inputs:
+              targetType: 'inline'
+              script: |
+                cd src/zoft.MauiExtensions.Core/
+                dotnet restore zoft.MauiExtensions.Core.csproj
