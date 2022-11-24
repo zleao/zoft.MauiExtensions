@@ -7,7 +7,7 @@ variables:
   VSVERSION: 17.4.0
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'windows-2022'
   demands:
   - MSBuild
 
@@ -23,23 +23,9 @@ stages:
             inputs:
               packageType: 'sdk'
               version: '$(DotNetVersion)'
-          - task: Bash@3
-            displayName: Install MAUI
+          - task: VSBuild@1
             inputs:
-              targetType: 'inline'
-              script: |
-                dotnet nuget locals all --clear 
-                dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
-                dotnet workload install android ios maccatalyst tvos macos maui wasm-tools --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
-          - task: Bash@3
-            displayName: Restore nuget
-            inputs:
-              targetType: 'inline'
-              script: |
-                cd src/zoft.MauiExtensions.Core/
-                dotnet restore zoft.MauiExtensions.Core.csproj
-          - task: DotNetCoreCLI@2
-            inputs:
-              command: 'build'
-              projects: 'src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj'
-              arguments: '--output $(Build.ArtifactStagingDirectory)/publish --configuration Release --no-restore'
+              solution: 'src\zoft.MauiExtensions.sln'
+              configuration: 'release'
+              clean: true
+              restoreNugetPackages: true
