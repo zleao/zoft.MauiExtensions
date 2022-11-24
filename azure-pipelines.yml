@@ -23,6 +23,9 @@ stages:
             inputs:
               packageType: 'sdk'
               version: '$(DotNetVersion)'
+          - task: CmdLine@2
+            inputs:
+              script: 'dotnet workload restore src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj'
           - task: NuGetToolInstaller@1
             inputs:
               versionSpec: 
