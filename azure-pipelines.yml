@@ -30,13 +30,19 @@ stages:
             inputs:
               versionSpec: 
               checkLatest: true
-          - task: NuGetCommand@2
+          - task: CmdLine@2
             inputs:
-              command: 'restore'
-              restoreSolution: 'src/zoft.MauiExtensions.sln'
-              feedsToUse: 'select'
-          - task: VSBuild@1
+              script: 'dotnet restore src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj'
+          - task: DotNetCoreCLI@2
+            displayName: 'Build zoft.MauiExtensions.Core project'
             inputs:
-              solution: 'src\zoft.MauiExtensions.sln'
-              configuration: 'release'
-              clean: true
+              command: 'build'
+              projects: |
+                src/zoft.MauiExtensions.Core/zoft.MauiExtensions.Core.csproj
+              arguments: --output $(Build.ArtifactStagingDirectory)/publish --configuration Release --no-restore
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish build output'
+            inputs:
+              PathtoPublish: $(Build.ArtifactStagingDirectory)/publish
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
