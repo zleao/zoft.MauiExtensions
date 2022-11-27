@@ -4,25 +4,31 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>zleao</Authors>
     <Owners>zleao</Owners>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/zleao/zoft.MauiExtensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/zleao/zoft.MauiExtensions</PackageProjectUrl>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <NeutralLanguage>en</NeutralLanguage>
     <Version>1.0.4</Version>
+    <Description>
+      Extension library built on top of MAUI.
+      Provides extra functionalities for ViewModels and Services, including:
+      - Dependency notification propagation via attributes
+      - WeakSubscriptions
+      - Command and AsyncCommand
+    </Description>
+    <PackageTags>net6 mvvm mvvmhelper maui zoft</PackageTags>
     <PackageReleaseNotes>Improve package documentation</PackageReleaseNotes>
     
     <LangVersion>latest</LangVersion>
     <Platform>AnyCPU</Platform>
     <DebugType>full</DebugType>
-
     <LangVersion>10.0</LangVersion>
-
-    <IsLibraryProject>$(MSBuildProjectName.Contains('zoft'))</IsLibraryProject>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' AND '$(IsLibraryProject)' == 'true' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -32,9 +38,4 @@
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-
-  <ItemGroup Condition="'$(IsLibraryProject)' == 'true'">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
-  </ItemGroup>
-
 </Project>
