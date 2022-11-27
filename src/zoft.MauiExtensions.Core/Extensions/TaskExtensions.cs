@@ -1,9 +1,6 @@
 ﻿// Full credits to James Montemagno (Refactored.MvvmHelpers)
 // https://github.com/jamesmontemagno/mvvm-helpers/blob/master/MvvmHelpers/Utils.cs
 
-using System;
-using System.Threading.Tasks;
-
 namespace zoft.MauiExtensions.Core.Extensions
 {
     /// <summary>

@@ -1,7 +1,4 @@
-﻿using Microsoft.Maui;
-using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using zoft.MauiExtensions.Core.Extensions;
 
 namespace zoft.MauiExtensions.Core.Commands

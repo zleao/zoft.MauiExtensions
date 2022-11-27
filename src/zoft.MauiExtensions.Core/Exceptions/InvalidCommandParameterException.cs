@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace zoft.MauiExtensions.Core.Exceptions
+﻿namespace zoft.MauiExtensions.Core.Exceptions
 {
     /// <summary>
     /// Represents errors that occur during IAsyncCommand execution.
