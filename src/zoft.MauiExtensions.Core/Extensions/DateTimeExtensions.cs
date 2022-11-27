@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace zoft.MauiExtensions.Core.Extensions
+﻿namespace zoft.MauiExtensions.Core.Extensions
 {
     /// <summary>
     /// Extensions for DateTime type

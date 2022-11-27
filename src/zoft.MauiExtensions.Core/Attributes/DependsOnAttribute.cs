@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace zoft.MauiExtensions.Core.Attributes
+﻿namespace zoft.MauiExtensions.Core.Attributes
 {
     /// <summary>
     /// Used to bind the current property/method to the PropertyChanged event of another property

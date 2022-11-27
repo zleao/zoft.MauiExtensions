@@ -1,10 +1,9 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using zoft.MauiExtensions.Core.Exceptions;
 
 namespace zoft.MauiExtensions.Core.Commands
 {
-	internal static class CommandUtils
+    internal static class CommandUtils
 	{
 		internal static bool IsValidCommandParameter<T>(object o)
 		{

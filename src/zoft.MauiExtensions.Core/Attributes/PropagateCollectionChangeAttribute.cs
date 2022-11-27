@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace zoft.MauiExtensions.Core.Attributes
+﻿namespace zoft.MauiExtensions.Core.Attributes
 {
     /// <summary>
     /// Indicates that the items of the associated collection property, should raise PropertyChanged event

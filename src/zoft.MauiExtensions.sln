@@ -5,8 +5,9 @@ VisualStudioVersion = 17.5.33103.201
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{098F9012-79B5-4664-BE27-4F4CD3A69B65}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
+		..\.editorconfig = ..\.editorconfig
 		Directory.build.props = Directory.build.props
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zoft.MauiExtensions.Core", "zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj", "{BA457B83-B34C-49C1-ABEF-3256C88F2F8A}"

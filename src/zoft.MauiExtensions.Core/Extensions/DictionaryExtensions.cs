@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace zoft.MauiExtensions.Core.Extensions
+﻿namespace zoft.MauiExtensions.Core.Extensions
 {
     /// <summary>
     /// Extensions for IDictionary type

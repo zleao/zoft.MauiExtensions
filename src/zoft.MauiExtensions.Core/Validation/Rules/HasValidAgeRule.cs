@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace zoft.MauiExtensions.Core.Validation.Rules
+﻿namespace zoft.MauiExtensions.Core.Validation.Rules
 {
     /// <summary>
     /// Validation rule for age

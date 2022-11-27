@@ -1,5 +1,4 @@
 ﻿using Microsoft.UI.Dispatching;
-using Microsoft.UI.Xaml.Controls;
 
 namespace zoft.MauiExtensions.Core.Services
 {

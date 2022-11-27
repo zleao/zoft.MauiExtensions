@@ -1,5 +1,4 @@
-﻿using System;
-using zoft.MauiExtensions.Core.Services;
+﻿using zoft.MauiExtensions.Core.Services;
 
 namespace zoft.MauiExtensions.Core.Exceptions
 {

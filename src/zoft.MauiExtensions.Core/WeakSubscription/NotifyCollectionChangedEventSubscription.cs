@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Reflection;
 
 namespace zoft.MauiExtensions.Core.WeakSubscription
