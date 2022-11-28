@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/zleao/zoft.MauiExtensions</PackageProjectUrl>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <Description>
       Extension library built on top of MAUI.
       Provides extra functionalities for ViewModels and Services, including:
@@ -20,7 +20,7 @@
       - Command and AsyncCommand
     </Description>
     <PackageTags>net6 mvvm mvvmhelper maui zoft</PackageTags>
-    <PackageReleaseNotes>Improve package documentation</PackageReleaseNotes>
+    <PackageReleaseNotes>Set Windows min and target version to 17763</PackageReleaseNotes>
     
     <LangVersion>latest</LangVersion>
     <Platform>AnyCPU</Platform>
