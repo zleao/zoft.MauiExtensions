@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{098F9012-79B5-4664-BE27-4F4CD3A69B65}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
 		Directory.build.props = Directory.build.props
 		..\README.md = ..\README.md
 	EndProjectSection
