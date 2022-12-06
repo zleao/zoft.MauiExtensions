@@ -54,7 +54,7 @@ jobs:
 
   - job: 'publish_nuget_package'
     displayName: 'Publish NuGet Package'
-    condition: false || ne(variables['Build.Reason'], 'PullRequest')
+    condition: false
     dependsOn: build_library
     steps:
       - task: NuGetToolInstaller@1
