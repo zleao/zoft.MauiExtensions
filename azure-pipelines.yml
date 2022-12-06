@@ -1,6 +1,6 @@
 variables:
   
-  TOOLKIT_NET_VERSION: '6.0.x'
+  TOOLKIT_NET_VERSION: '7.0.x'
   PathToMauiExtensionsCoreCsproj: 'src/zoft.MauiExtensions.Core/zoft.MauiExtensions.Core.csproj'
 
 trigger:
@@ -12,8 +12,8 @@ jobs:
     condition: ne(variables['Build.Reason'], 'PullRequest')
     strategy:
       matrix:
-        'macOS':
-          image: 'macos-12'
+        'Windows':
+          image: 'windows-latest'
     pool:
       vmImage: $(image)
     steps:
@@ -34,11 +34,6 @@ jobs:
         inputs:
           versionSpec: 
           checkLatest: true
-          
-      - task: CmdLine@2
-        displayName: 'Nuget restore $(PathToMauiExtensionsCoreCsproj)'
-        inputs:
-          script: 'dotnet restore $(PathToMauiExtensionsCoreCsproj)'
               
       - task: CmdLine@2
         displayName: 'Build $(PathToMauiExtensionsCoreCsproj)'
