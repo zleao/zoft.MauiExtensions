@@ -10,14 +10,10 @@ jobs:
   - job: build_library
     displayName: Build Library
     condition: ne(variables['Build.Reason'], 'PullRequest')
-    strategy:
-      matrix:
-        'Windows':
-          image: 'windows-latest'
     pool:
-      vmImage: $(image)
+      vmImage: windows-latest
     steps:
-     
+
       - task: UseDotNet@2
         displayName: Install .NET $(TOOLKIT_NET_VERSION)
         inputs:
@@ -49,20 +45,17 @@ jobs:
 
   - job: 'publish_nuget_package'
     displayName: 'Publish NuGet Package'
-    condition: false
+    condition: ne(variables['Build.Reason'], 'PullRequest')
     dependsOn: build_library
     steps:
-      - task: NuGetToolInstaller@1
-        displayName: 'Install Latest Nuget Package Manager'
-        inputs:
-          versionSpec: 
-          checkLatest: true
+
       - task: DownloadBuildArtifacts@0
         displayName: 'Download the published artifact'
         inputs:
           buildType: 'current'
           downloadType: 'specific'
           downloadPath: '$(System.ArtifactsDirectory)'
+
       - task: NuGetCommand@2
         displayName: 'Push the artifact to NuGet feed'
         inputs:
