@@ -53,7 +53,6 @@ jobs:
           PathtoPublish: $(Build.ArtifactStagingDirectory)/publish
           ArtifactName: 'drop'
           publishLocation: 'Container'
-          publishLocation: 'Container'
 
   - job: 'publish_nuget_package'
     displayName: 'Publish NuGet Package'
