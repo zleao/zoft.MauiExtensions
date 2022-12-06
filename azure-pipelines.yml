@@ -1,7 +1,7 @@
 variables:
   
   TOOLKIT_NET_VERSION: '6.0.x'
-  PathToMauiExtensionsCoreCsproj: 'src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj'
+  PathToMauiExtensionsCoreCsproj: 'src/zoft.MauiExtensions.Core/zoft.MauiExtensions.Core.csproj'
 
 trigger:
 - main
@@ -12,8 +12,6 @@ jobs:
     condition: ne(variables['Build.Reason'], 'PullRequest')
     strategy:
       matrix:
-        'Windows':
-          image: 'windows-latest'
         'macOS':
           image: 'macos-12'
     pool:
@@ -56,7 +54,7 @@ jobs:
 
   - job: 'publish_nuget_package'
     displayName: 'Publish NuGet Package'
-    condition: ne(variables['Build.Reason'], 'PullRequest')
+    condition: false || ne(variables['Build.Reason'], 'PullRequest')
     dependsOn: build_library
     steps:
       - task: NuGetToolInstaller@1
