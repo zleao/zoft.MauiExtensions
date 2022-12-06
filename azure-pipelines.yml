@@ -1,74 +1,80 @@
+variables:
+  
+  TOOLKIT_NET_VERSION: '6.0.x'
+  PathToMauiExtensionsCoreCsproj: 'src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj'
+
 trigger:
 - main
 
-variables:
-  BuildConfiguration: Release
-  DotNetVersion: 6.0.403
-  VSVERSION: 17.4.0
-
-pool:
-  vmImage: 'windows-2019'
-  demands:
-  - MSBuild
-
-stages:
-  - stage: Build
-    displayName: 'Build Stage'
+jobs:
+  - job: build_library
+    displayName: Build Library
     condition: ne(variables['Build.Reason'], 'PullRequest')
-    jobs:
-      - job: BuildMauiProject
-        displayName: 'Build zoft.MauiExtensions.Core'
-        steps:
-          - task: UseDotNet@2
-            displayName: .NET Version
-            inputs:
-              packageType: 'sdk'
-              version: '$(DotNetVersion)'
-          - task: CmdLine@2
-            inputs:
-              script: 'dotnet workload restore src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj'
-          - task: NuGetToolInstaller@1
-            inputs:
-              versionSpec: 
-              checkLatest: true
-          - task: CmdLine@2
-            inputs:
-              script: 'dotnet restore src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj'
-          - task: DotNetCoreCLI@2
-            displayName: 'Build zoft.MauiExtensions.Core project'
-            inputs:
-              command: 'build'
-              projects: |
-                src/zoft.MauiExtensions.Core/zoft.MauiExtensions.Core.csproj
-              arguments: --output $(Build.ArtifactStagingDirectory)/publish --configuration Release --no-restore
-          - task: PublishBuildArtifacts@1
-            displayName: 'Publish build output'
-            inputs:
-              PathtoPublish: $(Build.ArtifactStagingDirectory)/publish
-              ArtifactName: 'drop'
-              publishLocation: 'Container'
-  - stage: 'publish'
-    displayName: 'Publish to feed'
+    strategy:
+      matrix:
+        'Windows':
+          image: 'windows-latest'
+        'macOS':
+          image: 'macos-12'
+    pool:
+      vmImage: $(image)
+    steps:
+     
+      - task: UseDotNet@2
+        displayName: Install .NET $(TOOLKIT_NET_VERSION)
+        inputs:
+          packageType: 'sdk'
+          version: '$(TOOLKIT_NET_VERSION)'
+
+      - task: CmdLine@2
+        displayName: 'Install .NET MAUI Workload $(TOOLKIT_NET_VERSION)'
+        inputs:
+          script: dotnet workload install maui
+
+      - task: NuGetToolInstaller@1
+        displayName: 'Install Latest Nuget Package Manager'
+        inputs:
+          versionSpec: 
+          checkLatest: true
+          
+      - task: CmdLine@2
+        displayName: 'Nuget restore $(PathToMauiExtensionsCoreCsproj)'
+        inputs:
+          script: 'dotnet restore $(PathToMauiExtensionsCoreCsproj)'
+              
+      - task: CmdLine@2
+        displayName: 'Build $(PathToMauiExtensionsCoreCsproj)'
+        inputs:
+          script: 'dotnet build -c Release -o $(Build.ArtifactStagingDirectory)/publish $(PathToMauiExtensionsCoreCsproj)'
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish build output'
+        inputs:
+          PathtoPublish: $(Build.ArtifactStagingDirectory)/publish
+          ArtifactName: 'drop'
+          publishLocation: 'Container'
+          publishLocation: 'Container'
+
+  - job: 'publish_nuget_package'
+    displayName: 'Publish NuGet Package'
     condition: ne(variables['Build.Reason'], 'PullRequest')
-    dependsOn: Build
-    jobs:
-      - job: 'publish'
-        displayName: 'Publish NuGet package'
-        steps:
-          - task: NuGetToolInstaller@1
-            inputs:
-              versionSpec: 
-              checkLatest: true
-          - task: DownloadBuildArtifacts@0
-            displayName: 'Download the published artifact'
-            inputs:
-              buildType: 'current'
-              downloadType: 'specific'
-              downloadPath: '$(System.ArtifactsDirectory)'
-          - task: NuGetCommand@2
-            displayName: 'Push the artifact to NuGet feed'
-            inputs:
-              command: 'push'
-              packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-              nuGetFeedType: 'external'
-              publishFeedCredentials: 'NuGet'
+    dependsOn: build_library
+    steps:
+      - task: NuGetToolInstaller@1
+        displayName: 'Install Latest Nuget Package Manager'
+        inputs:
+          versionSpec: 
+          checkLatest: true
+      - task: DownloadBuildArtifacts@0
+        displayName: 'Download the published artifact'
+        inputs:
+          buildType: 'current'
+          downloadType: 'specific'
+          downloadPath: '$(System.ArtifactsDirectory)'
+      - task: NuGetCommand@2
+        displayName: 'Push the artifact to NuGet feed'
+        inputs:
+          command: 'push'
+          packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+          nuGetFeedType: 'external'
+          publishFeedCredentials: 'NuGet'
