@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/zleao/zoft.MauiExtensions</PackageProjectUrl>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.8</Version>
+    <Version>1.1.0-pre001</Version>
     <Description>
       Extension library built on top of MAUI.
       Provides extra functionalities for ViewModels and Services, including:
