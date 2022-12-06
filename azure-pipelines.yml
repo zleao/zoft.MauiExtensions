@@ -23,14 +23,14 @@ jobs:
       - task: CmdLine@2
         displayName: 'Install .NET MAUI Workload $(TOOLKIT_NET_VERSION)'
         inputs:
-          script: dotnet workload install maui
+          script: dotnet workload restore $(PathToMauiExtensionsCoreCsproj)
 
       - task: NuGetToolInstaller@1
         displayName: 'Install Latest Nuget Package Manager'
         inputs:
           versionSpec: 
           checkLatest: true
-              
+
       - task: CmdLine@2
         displayName: 'Build $(PathToMauiExtensionsCoreCsproj)'
         inputs:
