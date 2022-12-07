@@ -34,7 +34,13 @@ jobs:
       - task: CmdLine@2
         displayName: 'Build $(PathToMauiExtensionsCoreCsproj)'
         inputs:
-          script: 'dotnet build -c Release -o $(Build.ArtifactStagingDirectory)/publish $(PathToMauiExtensionsCoreCsproj)'
+          script: 'dotnet build -c Release $(PathToMauiExtensionsCoreCsproj)'
+
+      - task: CopyFiles@2
+        displayName: 'Copy nuget packages to staging directoy'
+        inputs:
+          Contents: 'src/zoft.MauiExtensions.Core/bin/Release/*.nupkg'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/publish'
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish build output'
