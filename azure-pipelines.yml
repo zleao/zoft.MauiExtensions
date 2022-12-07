@@ -9,7 +9,6 @@ trigger:
 jobs:
   - job: build_library
     displayName: Build Library
-    condition: ne(variables['Build.Reason'], 'PullRequest')
     pool:
       vmImage: windows-latest
     steps:
@@ -60,7 +59,7 @@ jobs:
         inputs:
           buildType: 'current'
           downloadType: 'specific'
-          downloadPath: '$(System.ArtifactsDirectory)'
+          downloadPath: '$(Build.ArtifactsDirectory)'
 
       - task: NuGetCommand@2
         displayName: 'Push the artifact to NuGet feed'
