@@ -9,7 +9,6 @@ trigger:
 jobs:
   - job: build_library
     displayName: Build Library
-    condition: ne(variables['Build.Reason'], 'PullRequest')
     pool:
       vmImage: windows-latest
     steps:
@@ -40,12 +39,12 @@ jobs:
         displayName: 'Copy nuget packages to staging directoy'
         inputs:
           Contents: 'src/zoft.MauiExtensions.Core/bin/Release/*.*nupkg'
-          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/nugets'
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish build output'
         inputs:
-          PathtoPublish: $(Build.ArtifactStagingDirectory)
+          PathtoPublish: $(Build.ArtifactStagingDirectory)/nugets
           ArtifactName: 'drop'
           publishLocation: 'Container'
 
@@ -60,12 +59,12 @@ jobs:
         inputs:
           buildType: 'current'
           downloadType: 'specific'
-          downloadPath: '$(System.ArtifactsDirectory)'
+          downloadPath:  '$(Build.ArtifactStagingDirectory)/nugets'
 
       - task: NuGetCommand@2
         displayName: 'Push the artifact to NuGet feed'
         inputs:
           command: 'push'
-          packagesToPush: '$(Build.ArtifactStagingDirectory)/*.*nupkg'
+          packagesToPush: '$(Build.ArtifactStagingDirectory)/nugets/**/*.nupkg;$(Build.ArtifactStagingDirectory)/nugets/**/*.snupkg'
           nuGetFeedType: 'external'
           publishFeedCredentials: 'NuGet'
