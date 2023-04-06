@@ -1,7 +1,9 @@
 variables:
   
   TOOLKIT_NET_VERSION: '7.0.x'
-  PathToMauiExtensionsCoreCsproj: 'src/zoft.MauiExtensions.Core/zoft.MauiExtensions.Core.csproj'
+  PathToProjectFolder: 'src\zoft.MauiExtensions.Core'
+  PathToProjectFile: '$(PathToProjectFolder)\zoft.MauiExtensions.Core.csproj'
+  BuildConfiguration: Release
 
 trigger:
 - main
@@ -22,7 +24,7 @@ jobs:
       - task: CmdLine@2
         displayName: 'Install .NET MAUI Workload $(TOOLKIT_NET_VERSION)'
         inputs:
-          script: dotnet workload restore $(PathToMauiExtensionsCoreCsproj)
+          script: dotnet workload restore $(PathToProjectFile)
 
       - task: NuGetToolInstaller@1
         displayName: 'Install Latest Nuget Package Manager'
@@ -31,14 +33,14 @@ jobs:
           checkLatest: true
 
       - task: CmdLine@2
-        displayName: 'Build $(PathToMauiExtensionsCoreCsproj)'
+        displayName: 'Build $(PathToProjectFile)'
         inputs:
-          script: 'dotnet build -c Release $(PathToMauiExtensionsCoreCsproj)'
+          script: 'dotnet build -c $(BuildConfiguration) $(PathToProjectFile)'
 
       - task: CopyFiles@2
         displayName: 'Copy nuget packages to staging directoy'
         inputs:
-          Contents: 'src/zoft.MauiExtensions.Core/bin/Release/*.*nupkg'
+          Contents: '$(PathToProjectFolder)/bin/$(BuildConfiguration)/*.*nupkg'
           TargetFolder: '$(Build.ArtifactStagingDirectory)/nugets'
 
       - task: PublishBuildArtifacts@1
