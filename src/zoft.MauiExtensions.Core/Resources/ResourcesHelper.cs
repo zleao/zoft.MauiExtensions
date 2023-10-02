@@ -6,7 +6,7 @@
     public static class ResourcesHelper
     {
         /// <summary>
-        /// Get a typed resource from the application resources. </br>
+        /// Get a typed resource from the application resources. <br/>
         /// If not found or type is wrong, it reverts to the fallback value
         /// </summary>
         /// <typeparam name="T">Type fo the resource to find</typeparam>
