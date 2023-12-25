@@ -12,7 +12,7 @@ using zoft.MauiExtensions.Core.WeakSubscription;
 namespace zoft.MauiExtensions.Core.ViewModels
 {
     /// <summary>
-    /// Core viewmodel"/>
+    /// Core view model"/>
     /// </summary>
     public abstract partial class CoreViewModel : ObservableObject, IDisposable
     {
@@ -133,7 +133,7 @@ namespace zoft.MauiExtensions.Core.ViewModels
         private readonly Dictionary<string, int> _dependsOnConditionalCount = new();
 
         /// <summary>
-        /// PropertyChanged subscriptipn of this instance
+        /// PropertyChanged subscription of this instance
         /// </summary>
         private NotifyPropertyChangedEventSubscription _propertyChangedSubscription;
 
@@ -148,10 +148,10 @@ namespace zoft.MauiExtensions.Core.ViewModels
         private readonly Dictionary<string, CollectionSubscriptionInfo> _notifiableCollectionsPropertyDependencies = new();
 
         /// <summary>
-        /// List of the found dependencies (and respective PropertyCahngeEventSubscription) that correspond to an IValidatable object.
+        /// List of the found dependencies (and respective PropertyChangeEventSubscription) that correspond to an IValidatable object.
         /// Each subscription will trigger a PropertyChanged of the respective PropertyName
         /// </summary>
-        private readonly Dictionary<string, ValidatableCollectionInfo> _validatabalePropertyDependencies = new();
+        private readonly Dictionary<string, ValidatableCollectionInfo> _validatablePropertyDependencies = new();
 
         /// <summary>
         /// List of all the methods that have DependsOn attribute configured
@@ -189,18 +189,18 @@ namespace zoft.MauiExtensions.Core.ViewModels
                             _propertyDependencies[attribute.Name].Add(new DependencyInfo(property, attribute.IsConditional));
 
                             // If the property dependency corresponds to a validatable object, 
-                            // we need to update the list of _validatabalePropertyDependencies
+                            // we need to update the list of _validatablePropertyDependencies
                             // We only need to add one entry per property name
-                            if(!_validatabalePropertyDependencies.ContainsKey(attribute.Name))
+                            if(!_validatablePropertyDependencies.ContainsKey(attribute.Name))
                             {
                                 // Check if the property dependency is a validatable object
                                 var dependencyProperty = type.GetProperty(attribute.Name);
                                 if (dependencyProperty != null && typeof(IValidatable).IsAssignableFrom(dependencyProperty.PropertyType))
                                 {
-                                    // At this point we knwo the dependecy property is a IValidatableObject 
-                                    // and it was not added the list of _validatabalePropertyDependencies
+                                    // At this point we know the dependency property is a IValidatableObject 
+                                    // and it was not added the list of _validatablePropertyDependencies
                                     var validatableObject = dependencyProperty.GetValue(this, null) as IValidatable;
-                                    _validatabalePropertyDependencies.Add(attribute.Name, new ValidatableCollectionInfo { ValidatableObject = validatableObject });
+                                    _validatablePropertyDependencies.Add(attribute.Name, new ValidatableCollectionInfo { ValidatableObject = validatableObject });
                                 }
                             }
                         }
@@ -281,7 +281,7 @@ namespace zoft.MauiExtensions.Core.ViewModels
                     }
                 }
 
-                foreach (var item in _validatabalePropertyDependencies)
+                foreach (var item in _validatablePropertyDependencies)
                 {
                     if(item.Value.ValidatableObject != null)
                     {
@@ -305,13 +305,13 @@ namespace zoft.MauiExtensions.Core.ViewModels
         }
 
         /// <summary>
-        /// Handles the property changed events for the alidatable objects referenced as dependency properties
+        /// Handles the property changed events for the validatable objects referenced as dependency properties
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
         private void OnValidatableObjectChanged(object sender, PropertyChangedEventArgs e)
         {
-            var propertyDependency = _validatabalePropertyDependencies.FirstOrDefault(nc => ReferenceEquals(sender, nc.Value.ValidatableObject));
+            var propertyDependency = _validatablePropertyDependencies.FirstOrDefault(nc => ReferenceEquals(sender, nc.Value.ValidatableObject));
             RaiseDependenciesPropertyChanged(propertyDependency.Key);
         }
 
@@ -363,7 +363,7 @@ namespace zoft.MauiExtensions.Core.ViewModels
         /// <param name="propertyName">Name of the property.</param>
         private void UpdateValidatableObjectPropertyValue(string propertyName)
         {
-            if(_validatabalePropertyDependencies.TryGetValue(propertyName, out var validatableSubscriptionInfo))
+            if(_validatablePropertyDependencies.TryGetValue(propertyName, out var validatableSubscriptionInfo))
             {
                 var senderValidatable = this.GetPropertyValue(propertyName) as IValidatable;
                 if (!ReferenceEquals(validatableSubscriptionInfo.ValidatableObject, senderValidatable))
@@ -390,7 +390,7 @@ namespace zoft.MauiExtensions.Core.ViewModels
         /// <param name="dependencyName">Name of the dependency.</param>
         public void RaiseDependenciesPropertyChanged(string dependencyName)
         {
-            //Extra protecton for null/empty values
+            //Extra protection for null/empty values
             if (dependencyName.IsNullOrWhiteSpace())
             {
                 return;
@@ -440,8 +440,8 @@ namespace zoft.MauiExtensions.Core.ViewModels
                         }
                         else if (typeof(IValidatable).IsAssignableFrom(property.Info.PropertyType))
                         {
-                            var validatabale = property.Info.GetValue(this, null) as IValidatable;
-                            validatabale.RaisePropertyChanged();
+                            var validatable = property.Info.GetValue(this, null) as IValidatable;
+                            validatable.RaisePropertyChanged();
                         }
                         else
                         {
