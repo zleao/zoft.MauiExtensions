@@ -5,6 +5,7 @@ namespace zoft.MauiExtensions.Core.Commands
     /// <summary>
     /// Interface for Async Command
     /// </summary>
+    [Obsolete("AsyncCommand is deprecated and will be removed in future versions. Use the RelayCommand from the CommunityToolkit.Mvvm nuget package", true)]
     public interface IAsyncCommand : ICommand
     {
         /// <summary>

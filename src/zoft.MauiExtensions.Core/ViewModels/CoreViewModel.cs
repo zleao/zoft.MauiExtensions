@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Reflection;
@@ -433,11 +434,12 @@ namespace zoft.MauiExtensions.Core.ViewModels
                             var mauiCommand = property.Info.GetValue(this, null) as Command;
                             mauiCommand?.ChangeCanExecute();
                         }
-                        else if (typeof(Commands.AsyncCommand).IsAssignableFrom(property.Info.PropertyType))
+                        else if (typeof(IRelayCommand).IsAssignableFrom(property.Info.PropertyType))
                         {
-                            var asyncCommand = property.Info.GetValue(this, null) as Commands.AsyncCommand;
-                            asyncCommand?.RaiseCanExecuteChanged();
+                            var asyncCommand = property.Info.GetValue(this, null) as IRelayCommand;
+                            asyncCommand?.NotifyCanExecuteChanged();
                         }
+
                         else if (typeof(IValidatable).IsAssignableFrom(property.Info.PropertyType))
                         {
                             var validatable = property.Info.GetValue(this, null) as IValidatable;

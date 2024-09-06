@@ -6,13 +6,14 @@ namespace zoft.MauiExtensions.Core.Commands
     /// <summary>
     /// Implementation of an Async Command
     /// </summary>
+    [Obsolete("AsyncCommand is deprecated and will be removed in future versions. Use the RelayCommand from the CommunityToolkit.Mvvm nuget package", true)]
     public class AsyncCommand : IAsyncCommand
     {
         readonly Func<Task> execute;
         readonly Func<object, bool> canExecute;
         readonly Action<Exception> onException;
         readonly bool continueOnCapturedContext;
-        readonly WeakEventManager weakEventManager = new WeakEventManager();
+        readonly WeakEventManager weakEventManager = new();
 
         /// <summary>
         /// Create a new AsyncCommand
