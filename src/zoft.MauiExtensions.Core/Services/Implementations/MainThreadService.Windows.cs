@@ -1,6 +1,8 @@
 ﻿using Microsoft.UI.Dispatching;
 
+#pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace zoft.MauiExtensions.Core.Services
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 {
     /// <inheritdoc/>
     public abstract class MainThreadService : IMainThreadService

@@ -1,39 +1,39 @@
 ﻿using System.Windows.Input;
 
-namespace zoft.MauiExtensions.Core.Commands
+namespace zoft.MauiExtensions.Core.Commands;
+
+/// <summary>
+/// Interface for Async Command
+/// </summary>
+[Obsolete("AsyncCommand is deprecated and will be removed in future versions. Use the RelayCommand from the CommunityToolkit.Mvvm nuget package", true)]
+public interface IAsyncCommand : ICommand
 {
     /// <summary>
-    /// Interface for Async Command
+    /// Execute the command async.
     /// </summary>
-    public interface IAsyncCommand : ICommand
-    {
-        /// <summary>
-        /// Execute the command async.
-        /// </summary>
-        /// <returns>Task to be awaited on.</returns>
-        Task ExecuteAsync();
-
-        /// <summary>
-        /// Raise a CanExecute change event.
-        /// </summary>
-        void RaiseCanExecuteChanged();
-    }
+    /// <returns>Task to be awaited on.</returns>
+    Task ExecuteAsync();
 
     /// <summary>
-    /// Interface for Async Command with parameter
+    /// Raise a CanExecute change event.
     /// </summary>
-    public interface IAsyncCommand<T> : ICommand
-    {
-        /// <summary>
-        /// Execute the command async.
-        /// </summary>
-        /// <param name="parameter">Parameter to pass to command</param>
-        /// <returns>Task to be awaited on.</returns>
-        Task ExecuteAsync(T parameter);
+    void RaiseCanExecuteChanged();
+}
 
-        /// <summary>
-        /// Raise a CanExecute change event.
-        /// </summary>
-        void RaiseCanExecuteChanged();
-    }
+/// <summary>
+/// Interface for Async Command with parameter
+/// </summary>
+public interface IAsyncCommand<T> : ICommand
+{
+    /// <summary>
+    /// Execute the command async.
+    /// </summary>
+    /// <param name="parameter">Parameter to pass to command</param>
+    /// <returns>Task to be awaited on.</returns>
+    Task ExecuteAsync(T parameter);
+
+    /// <summary>
+    /// Raise a CanExecute change event.
+    /// </summary>
+    void RaiseCanExecuteChanged();
 }

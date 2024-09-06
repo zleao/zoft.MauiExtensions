@@ -1,4 +1,4 @@
-﻿using zoft.MauiExtensions.Core.Commands;
+﻿using CommunityToolkit.Mvvm.Input;
 using zoft.MauiExtensions.Core.Services;
 using zoft.MauiExtensions.Core.ViewModels;
 using zoft.MauiExtensions.Sample.Localization;
@@ -6,23 +6,16 @@ using zoft.NotificationService;
 
 namespace zoft.MauiExtensions.Sample.ViewModels
 {
-    public partial class MainThreadViewModel : CoreViewModel
+    public partial class MainThreadViewModel(IMainThreadService mainThreadService,
+                                             ILocalizationService localizationService,
+                                             INotificationService notificationService) 
+        : CoreViewModel(mainThreadService)
     {
-        public ILocalizationService LocalizationService { get; }
-        public INotificationService NotificationService { get; }
+        public ILocalizationService LocalizationService { get; } = localizationService;
+        public INotificationService NotificationService { get; } = notificationService;
 
-        public AsyncCommand ExecuteCommand { get; }
-
-        public MainThreadViewModel(IMainThreadService mainThreadService, ILocalizationService localizationService, INotificationService notificationService) 
-            : base(mainThreadService)
-        {
-            LocalizationService = localizationService;
-            NotificationService = notificationService;
-
-            ExecuteCommand = new AsyncCommand(OnExecuteAsync);
-        }
-
-        private async Task OnExecuteAsync()
+        [RelayCommand]
+        private async Task Execute()
         {
             await DoWorkAsync(async () => {
                 await Task.Delay(2000).ConfigureAwait(false);

@@ -1,43 +1,42 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
 
-namespace zoft.MauiExtensions.Core.WeakSubscription
+namespace zoft.MauiExtensions.Core.WeakSubscription;
+
+/// <summary>
+/// Weak subscrition for PropertyChanged events
+/// </summary>
+public class NotifyPropertyChangedEventSubscription
+    : WeakEventSubscription<INotifyPropertyChanged, PropertyChangedEventArgs>
 {
+    private static readonly EventInfo PropertyChangedEventInfo = typeof(INotifyPropertyChanged).GetEvent("PropertyChanged");
+
     /// <summary>
-    /// Weak subscrition for PropertyChanged events
+    /// This code ensures the PropertyChanged event is not stripped by Xamarin linker
     /// </summary>
-    public class NotifyPropertyChangedEventSubscription
-        : WeakEventSubscription<INotifyPropertyChanged, PropertyChangedEventArgs>
+    /// <param name="iNotifyPropertyChanged">The i notify property changed.</param>
+    public static void LinkerPleaseInclude(INotifyPropertyChanged iNotifyPropertyChanged)
     {
-        private static readonly EventInfo PropertyChangedEventInfo = typeof(INotifyPropertyChanged).GetEvent("PropertyChanged");
+        iNotifyPropertyChanged.PropertyChanged += (sender, e) => { };
+    }
 
-        /// <summary>
-        /// This code ensures the PropertyChanged event is not stripped by Xamarin linker
-        /// </summary>
-        /// <param name="iNotifyPropertyChanged">The i notify property changed.</param>
-        public static void LinkerPleaseInclude(INotifyPropertyChanged iNotifyPropertyChanged)
-        {
-            iNotifyPropertyChanged.PropertyChanged += (sender, e) => { };
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NotifyPropertyChangedEventSubscription"/> class.
+    /// </summary>
+    /// <param name="source">The source.</param>
+    /// <param name="targetEventHandler">The target event handler.</param>
+    public NotifyPropertyChangedEventSubscription(INotifyPropertyChanged source,
+                                                  EventHandler<PropertyChangedEventArgs> targetEventHandler)
+        : base(source, PropertyChangedEventInfo, targetEventHandler)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NotifyPropertyChangedEventSubscription"/> class.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="targetEventHandler">The target event handler.</param>
-        public NotifyPropertyChangedEventSubscription(INotifyPropertyChanged source,
-                                                      EventHandler<PropertyChangedEventArgs> targetEventHandler)
-            : base(source, PropertyChangedEventInfo, targetEventHandler)
-        {
-        }
-
-        /// <summary>
-        /// Creates the event handler.
-        /// </summary>
-        /// <returns></returns>
-        protected override Delegate CreateEventHandler()
-        {
-            return new PropertyChangedEventHandler(OnSourceEvent);
-        }
+    /// <summary>
+    /// Creates the event handler.
+    /// </summary>
+    /// <returns></returns>
+    protected override Delegate CreateEventHandler()
+    {
+        return new PropertyChangedEventHandler(OnSourceEvent);
     }
 }
