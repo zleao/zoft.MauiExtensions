@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/zleao/zoft.MauiExtensions</PackageProjectUrl>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>3.0.0</Version>
+    <Version>3.1.0</Version>
     <Description>
       Extension library built on top of MAUI.
       Provides extra functionalities for ViewModels and Services, including:
@@ -20,7 +20,7 @@
       - Command and AsyncCommand
     </Description>
     <PackageTags>net6 net7 net8 mvvm mvvmhelper maui zoft</PackageTags>
-    <PackageReleaseNotes>Added ResourcesHelper class to provide a method to search for a resource key in the application resources dictionary</PackageReleaseNotes>
+    <PackageReleaseNotes>Deprecated AsyncCommand</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     
     <LangVersion>latest</LangVersion>
