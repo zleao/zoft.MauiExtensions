@@ -1,28 +1,27 @@
 ﻿using System.Text;
 
-namespace zoft.MauiExtensions.Core.Extensions
+namespace zoft.MauiExtensions.Core.Extensions;
+
+/// <summary>
+/// Extensions for Exception type
+/// </summary>
+public static class ExceptionExtensions
 {
     /// <summary>
-    /// Extensions for Exception type
+    /// Gets the full description of the exception.
     /// </summary>
-    public static class ExceptionExtensions
+    /// <param name="ex">The ex.</param>
+    /// <returns></returns>
+    public static string GetFullDescription(this Exception ex)
     {
-        /// <summary>
-        /// Gets the full description of the exception.
-        /// </summary>
-        /// <param name="ex">The ex.</param>
-        /// <returns></returns>
-        public static string GetFullDescription(this Exception ex)
+        StringBuilder desc = new(ex.Message);
+
+        if (ex.InnerException != null)
         {
-            StringBuilder desc = new StringBuilder(ex.Message);
-
-            if (ex.InnerException != null)
-            {
-                desc.Append(" + ");
-                desc.Append(GetFullDescription(ex.InnerException));
-            }
-
-            return desc.ToString();
+            desc.Append(" + ");
+            desc.Append(GetFullDescription(ex.InnerException));
         }
+
+        return desc.ToString();
     }
 }
