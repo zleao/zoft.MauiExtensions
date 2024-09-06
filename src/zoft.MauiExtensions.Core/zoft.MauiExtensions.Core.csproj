@@ -21,8 +21,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.82" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.82" />
   </ItemGroup>
   <!--Platform Specific Files-->
   <ItemGroup Condition="$(TargetFramework.Contains('-windows')) == true">
