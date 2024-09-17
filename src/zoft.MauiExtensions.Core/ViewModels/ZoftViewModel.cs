@@ -42,7 +42,7 @@ public abstract partial class ZoftViewModel : ObservableRecipient, IDisposable
     private bool _isNotBusy = true;
     partial void OnIsNotBusyChanged(bool value)
     {
-        IsNotBusy = !value;
+        IsBusy = !value;
     }
 
     #region Constructor
