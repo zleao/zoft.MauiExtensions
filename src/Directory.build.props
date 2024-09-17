@@ -11,16 +11,23 @@
     <PackageProjectUrl>https://github.com/zleao/zoft.MauiExtensions</PackageProjectUrl>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>3.1.0</Version>
+    <Version>4.0.0</Version>
     <Description>
-      Extension library built on top of MAUI.
+      Extension library for .NET8 MAUI. Built on top of CommunityToolkit.MVVM
       Provides extra functionalities for ViewModels and Services, including:
-      - Dependency notification propagation via attributes
+      - Translation markup extension
+	  - Localization Service
+	  - MainThread Service interface and implementation implementation
+	  - Base ViewModel (ZoftViewModel) with support for 'ObservableRecipient'
       - WeakSubscriptions
-      - Command and AsyncCommand
     </Description>
-    <PackageTags>net6 net7 net8 mvvm mvvmhelper maui zoft</PackageTags>
-    <PackageReleaseNotes>Deprecated AsyncCommand</PackageReleaseNotes>
+    <PackageTags>net8 mvvm mvvmhelper maui zoft</PackageTags>
+    <PackageReleaseNotes>
+		Deprecated DependsOn and ValidationObject.
+		Futher usage of the CommunityToolkit.MVVM base classes.
+		Renamed CoreViewModel to ZoftViewModel.
+		Added support for ObservableRecipient.
+	</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     
     <LangVersion>latest</LangVersion>
