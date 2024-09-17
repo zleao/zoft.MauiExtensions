@@ -1,25 +1,19 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Reflection;
 using zoft.MauiExtensions.Core.Extensions;
-using zoft.MauiExtensions.Core.Models;
 using zoft.MauiExtensions.Core.Services;
-using zoft.MauiExtensions.Core.Validation;
-using zoft.MauiExtensions.Core.WeakSubscription;
 
 namespace zoft.MauiExtensions.Core.ViewModels;
 
 /// <summary>
-/// Core view model"/>
+/// Base ViewModel that inherits from <see cref="ObservableRecipient"/> and implements <see cref="IDisposable"/>. <br/>
+/// Also provides a set of properties and methods to handle busy notifications.
 /// </summary>
-public abstract partial class CoreViewModel : ObservableRecipient, IDisposable
+public abstract partial class ZoftViewModel : ObservableRecipient, IDisposable
 {
     /// <summary>
     /// Get the instance of the MainThreadService. <br/>
     /// </summary>
-    /// <remarks>This instance can be null, depending on how the <see cref="CoreViewModel"/> was instantiated</remarks>
+    /// <remarks>This instance can be null, depending on how the <see cref="ZoftViewModel"/> was instantiated</remarks>
     public IMainThreadService MainThreadService { get; }
 
     /// <summary>
@@ -33,43 +27,31 @@ public abstract partial class CoreViewModel : ObservableRecipient, IDisposable
     /// Gets or sets a value indicating whether this instance is busy.
     /// </summary>
     /// <value><c>true</c> if this instance is busy; otherwise, <c>false</c>.</value>
-    public bool IsBusy
-    {
-        get => _isBusy;
-        set
-        {
-            if (SetProperty(ref _isBusy, value))
-            {
-                IsNotBusy = !_isBusy;
-            }
-        }
-    }
+    [ObservableProperty]
     private bool _isBusy;
+    partial void OnIsBusyChanged(bool value)
+    {
+        IsNotBusy = !value;
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is not busy.
     /// </summary>
     /// <value><c>true</c> if this instance is not busy; otherwise, <c>false</c>.</value>
-    public bool IsNotBusy
-    {
-        get => _isNotBusy;
-        set
-        {
-            if (SetProperty(ref _isNotBusy, value))
-            {
-                IsBusy = !_isNotBusy;
-            }
-        }
-    }
+    [ObservableProperty]
     private bool _isNotBusy = true;
+    partial void OnIsNotBusyChanged(bool value)
+    {
+        IsNotBusy = !value;
+    }
 
     #region Constructor
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CoreViewModel" /> class.
+    /// Initializes a new instance of the <see cref="ZoftViewModel" /> class.
     /// </summary>
     /// <param name="mainThreadService">Instance of the <see cref="IMainThreadService"/></param>
-    protected CoreViewModel(IMainThreadService mainThreadService)
+    protected ZoftViewModel(IMainThreadService mainThreadService)
         : base()
     {
         MainThreadService = mainThreadService;
