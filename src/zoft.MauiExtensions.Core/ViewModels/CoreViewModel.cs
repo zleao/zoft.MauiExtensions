@@ -14,7 +14,7 @@ namespace zoft.MauiExtensions.Core.ViewModels;
 /// <summary>
 /// Core view model"/>
 /// </summary>
-public abstract partial class CoreViewModel : ObservableObject, IDisposable
+public abstract partial class CoreViewModel : ObservableRecipient, IDisposable
 {
     /// <summary>
     /// Get the instance of the MainThreadService. <br/>
@@ -28,20 +28,6 @@ public abstract partial class CoreViewModel : ObservableObject, IDisposable
     /// <value>The title.</value>
     [ObservableProperty]
     private string _title = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the subtitle.
-    /// </summary>
-    /// <value>The subtitle.</value>
-    [ObservableProperty]
-    private string _subtitle = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the icon.
-    /// </summary>
-    /// <value>The icon.</value>
-    [ObservableProperty]
-    private string _icon = string.Empty;
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is busy.
@@ -76,27 +62,6 @@ public abstract partial class CoreViewModel : ObservableObject, IDisposable
         }
     }
     private bool _isNotBusy = true;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this instance can load more.
-    /// </summary>
-    /// <value><c>true</c> if this instance can load more; otherwise, <c>false</c>.</value>
-    [ObservableProperty]
-    private bool _canLoadMore = true;
-
-    /// <summary>
-    /// Gets or sets the header.
-    /// </summary>
-    /// <value>The header.</value>
-    [ObservableProperty]
-    private string _header = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the footer.
-    /// </summary>
-    /// <value>The footer.</value>
-    [ObservableProperty]
-    private string _footer = string.Empty;
 
     #region Constructor
 
