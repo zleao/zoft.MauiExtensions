@@ -1,10 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net8.0;net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<UseMaui>true</UseMaui>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
+		<WindowsSdkPackageVersion>10.0.19041.41</WindowsSdkPackageVersion>
 	</PropertyGroup>
 	<PropertyGroup>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
@@ -15,7 +16,7 @@
 	</PropertyGroup>
 	<!-- Referenced Nuget Packages -->
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.1" />
 		<PackageReference Include="MemoryAnalyzers" Version="0.1.0-beta.5">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
