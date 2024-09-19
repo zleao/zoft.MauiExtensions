@@ -22,6 +22,11 @@
         Route="MainThread" />
 
     <ShellContent
+        Title="{zoft:Translate MenuItem_MessengerLabel}"
+        ContentTemplate="{DataTemplate local:MessengerView}"
+        Route="Messenger" />
+
+    <ShellContent
         Title="{zoft:Translate MenuItem_ValidationLabel}"
         ContentTemplate="{DataTemplate local:ValidationView}"
         Route="Validation" />

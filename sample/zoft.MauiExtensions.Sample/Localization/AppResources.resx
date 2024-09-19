@@ -155,8 +155,8 @@ Integer pretium augue nec arcu laoreet consectetur. In mattis, dolor a condiment
   <data name="ValidationPage_Tile" xml:space="preserve">
     <value>Validation</value>
   </data>
-  <data name="ValidationPage_ComingSoon" xml:space="preserve">
-    <value>Coming Soon...</value>
+  <data name="ValidationPage_FirstNameLabel" xml:space="preserve">
+    <value>First Name</value>
   </data>
   <data name="MenuItem_DependsOnLabel" xml:space="preserve">
     <value>DependsOn Sample</value>
@@ -175,5 +175,26 @@ Integer pretium augue nec arcu laoreet consectetur. In mattis, dolor a condiment
   </data>
   <data name="MainThreadPage_ExecuteButtonLabel" xml:space="preserve">
     <value>Execute</value>
+  </data>
+  <data name="ValidationPage_LastNameLabel" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="ValidationPage_EmailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ValidationPage_PhoneLabel" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="ValidationPage_ValidateButtonLabel" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="ValidationPage_ClearValidationButtonLabel" xml:space="preserve">
+    <value>Clear Validation</value>
+  </data>
+  <data name="MenuItem_MessengerLabel" xml:space="preserve">
+    <value>Messenger Sample</value>
+  </data>
+  <data name="MessengerPage_Title" xml:space="preserve">
+    <value>Messenger</value>
   </data>
 </root>

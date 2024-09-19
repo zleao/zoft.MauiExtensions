@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MainThreadPage_Title" xml:space="preserve">
+    <value>Main Thread</value>
+  </data>
   <data name="LocalizationPage_ChooseLanguageLabel" xml:space="preserve">
     <value>Sprache</value>
   </data>
@@ -140,9 +143,6 @@ Nullam aliquet ullamcorper mi, et elementum justo dapibus at. In hac habitasse p
   <data name="LocalizationPage_Title" xml:space="preserve">
     <value>Lokalisierung</value>
   </data>
-  <data name="MainThreadPage_Title" xml:space="preserve">
-    <value>Main Thread</value>
-  </data>
   <data name="MainThreadPage_BusyMessage" xml:space="preserve">
     <value>Arbeite im Hintergrundthread</value>
   </data>
@@ -155,8 +155,8 @@ Nullam aliquet ullamcorper mi, et elementum justo dapibus at. In hac habitasse p
   <data name="ValidationPage_Tile" xml:space="preserve">
     <value>Validierung</value>
   </data>
-  <data name="ValidationPage_ComingSoon" xml:space="preserve">
-    <value>Demnächst...</value>
+  <data name="ValidationPage_FirstNameLabel" xml:space="preserve">
+    <value>Vorname</value>
   </data>
   <data name="MenuItem_DependsOnLabel" xml:space="preserve">
     <value>DependsOn Beispiel</value>
@@ -175,5 +175,26 @@ Nullam aliquet ullamcorper mi, et elementum justo dapibus at. In hac habitasse p
   </data>
   <data name="MainThreadPage_ExecuteButtonLabel" xml:space="preserve">
     <value>Ausführen</value>
+  </data>
+  <data name="ValidationPage_LastNameLabel" xml:space="preserve">
+    <value>Familienname</value>
+  </data>
+  <data name="ValidationPage_EmailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ValidationPage_PhoneLabel" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="ValidationPage_ValidateButtonLabel" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="ValidationPage_ClearValidationButtonLabel" xml:space="preserve">
+    <value>Clear Validation</value>
+  </data>
+  <data name="MenuItem_MessengerLabel" xml:space="preserve">
+    <value>Messenger Beispiel</value>
+  </data>
+  <data name="MessengerPage_Title" xml:space="preserve">
+    <value>Messenger</value>
   </data>
 </root>

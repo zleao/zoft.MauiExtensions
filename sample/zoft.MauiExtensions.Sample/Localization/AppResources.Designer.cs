@@ -22,7 +22,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppResources {
+    public class AppResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("zoft.MauiExtensions.Sample.Localization.AppResources", typeof(AppResources).Assembly);
@@ -51,7 +51,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Writting on the TriggerText entry, will trigger an update the TargetText and the TargeDate.
         /// </summary>
-        internal static string DependsOnPage_MainLabel {
+        public static string DependsOnPage_MainLabel {
             get {
                 return ResourceManager.GetString("DependsOnPage_MainLabel", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to DependsOn.
         /// </summary>
-        internal static string DependsOnPage_Title {
+        public static string DependsOnPage_Title {
             get {
                 return ResourceManager.GetString("DependsOnPage_Title", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
-        internal static string LocalizationPage_ChooseLanguageLabel {
+        public static string LocalizationPage_ChooseLanguageLabel {
             get {
                 return ResourceManager.GetString("LocalizationPage_ChooseLanguageLabel", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to What is Lorem Ipsum?.
         /// </summary>
-        internal static string LocalizationPage_Label1 {
+        public static string LocalizationPage_Label1 {
             get {
                 return ResourceManager.GetString("LocalizationPage_Label1", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing so [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string LocalizationPage_Label2 {
+        public static string LocalizationPage_Label2 {
             get {
                 return ResourceManager.GetString("LocalizationPage_Label2", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu odio feugiat, vehicula est sed, tincidunt ante. Nulla eu elementum nulla, sit amet molestie mauris. Vestibulum eu metus leo. Nam volutpat condimentum ipsum, in viverra nisl pulvinar eget. Nullam et feugiat elit. Sed id laoreet tortor. Sed viverra, felis et faucibus pharetra, enim magna bibendum libero, in fermentum arcu erat sed neque. Aenean hendrerit euismod augue vitae pretium. Aenean vulputate dolor eu magna tempor malesuada. Pellentesqu [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string LocalizationPage_Label3 {
+        public static string LocalizationPage_Label3 {
             get {
                 return ResourceManager.GetString("LocalizationPage_Label3", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Localization.
         /// </summary>
-        internal static string LocalizationPage_Title {
+        public static string LocalizationPage_Title {
             get {
                 return ResourceManager.GetString("LocalizationPage_Title", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Doing work in background thread.
         /// </summary>
-        internal static string MainThreadPage_BusyMessage {
+        public static string MainThreadPage_BusyMessage {
             get {
                 return ResourceManager.GetString("MainThreadPage_BusyMessage", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Execute.
         /// </summary>
-        internal static string MainThreadPage_ExecuteButtonLabel {
+        public static string MainThreadPage_ExecuteButtonLabel {
             get {
                 return ResourceManager.GetString("MainThreadPage_ExecuteButtonLabel", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Message coming from background thread and shown with MainThreadService.
         /// </summary>
-        internal static string MainThreadPage_Message {
+        public static string MainThreadPage_Message {
             get {
                 return ResourceManager.GetString("MainThreadPage_Message", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Main Thread.
         /// </summary>
-        internal static string MainThreadPage_Title {
+        public static string MainThreadPage_Title {
             get {
                 return ResourceManager.GetString("MainThreadPage_Title", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to DependsOn Sample.
         /// </summary>
-        internal static string MenuItem_DependsOnLabel {
+        public static string MenuItem_DependsOnLabel {
             get {
                 return ResourceManager.GetString("MenuItem_DependsOnLabel", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Localization Sample.
         /// </summary>
-        internal static string MenuItem_LocalizationLabel {
+        public static string MenuItem_LocalizationLabel {
             get {
                 return ResourceManager.GetString("MenuItem_LocalizationLabel", resourceCulture);
             }
@@ -180,36 +180,99 @@ namespace zoft.MauiExtensions.Sample.Localization {
         /// <summary>
         ///   Looks up a localized string similar to MainThread Sample.
         /// </summary>
-        internal static string MenuItem_MainThreadLabel {
+        public static string MenuItem_MainThreadLabel {
             get {
                 return ResourceManager.GetString("MenuItem_MainThreadLabel", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Messenger Sample.
+        /// </summary>
+        public static string MenuItem_MessengerLabel {
+            get {
+                return ResourceManager.GetString("MenuItem_MessengerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validation Sample.
         /// </summary>
-        internal static string MenuItem_ValidationLabel {
+        public static string MenuItem_ValidationLabel {
             get {
                 return ResourceManager.GetString("MenuItem_ValidationLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coming Soon....
+        ///   Looks up a localized string similar to Messenger.
         /// </summary>
-        internal static string ValidationPage_ComingSoon {
+        public static string MessengerPage_Title {
             get {
-                return ResourceManager.GetString("ValidationPage_ComingSoon", resourceCulture);
+                return ResourceManager.GetString("MessengerPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear Validation.
+        /// </summary>
+        public static string ValidationPage_ClearValidationButtonLabel {
+            get {
+                return ResourceManager.GetString("ValidationPage_ClearValidationButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string ValidationPage_EmailLabel {
+            get {
+                return ResourceManager.GetString("ValidationPage_EmailLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Name.
+        /// </summary>
+        public static string ValidationPage_FirstNameLabel {
+            get {
+                return ResourceManager.GetString("ValidationPage_FirstNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string ValidationPage_LastNameLabel {
+            get {
+                return ResourceManager.GetString("ValidationPage_LastNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string ValidationPage_PhoneLabel {
+            get {
+                return ResourceManager.GetString("ValidationPage_PhoneLabel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Validation.
         /// </summary>
-        internal static string ValidationPage_Tile {
+        public static string ValidationPage_Tile {
             get {
                 return ResourceManager.GetString("ValidationPage_Tile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validate.
+        /// </summary>
+        public static string ValidationPage_ValidateButtonLabel {
+            get {
+                return ResourceManager.GetString("ValidationPage_ValidateButtonLabel", resourceCulture);
             }
         }
     }

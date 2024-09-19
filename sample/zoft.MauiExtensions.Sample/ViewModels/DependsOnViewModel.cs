@@ -1,25 +1,34 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using zoft.MauiExtensions.Core.Attributes;
-using zoft.MauiExtensions.Core.ViewModels;
+using CommunityToolkit.Mvvm.Input;
+using zoft.MauiExtensions.Core.Models;
+using zoft.MauiExtensions.Core.Services;
 
 namespace zoft.MauiExtensions.Sample.ViewModels
 {
-    public partial class DependsOnViewModel : CoreViewModel
+    public partial class DependsOnViewModel : ZoftObservableObject
     {
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(TargetText))]
         private string _triggerText;
+        partial void OnTriggerTextChanged(string value)
+        {
+            TargetDate = TargetDate.AddDays(1);
+        }
 
-        [DependsOn(nameof(TriggerText))]
         public string TargetText => $"TargetText triggered '{TriggerText}'";
 
         [ObservableProperty]
         private DateTime _targetDate = DateTime.Now;
 
-        [DependsOn(nameof(TriggerText))]
-        protected void OnTriggerTextChanged()
+        public DependsOnViewModel(IMainThreadService mainThreadService)
+            : base(mainThreadService)
         {
-            TargetDate = TargetDate.AddDays(1);
         }
 
+        [RelayCommand]
+        private async Task OpenLink(string url)
+        {
+            await Browser.Default.OpenAsync(url);
+        }
     }
 }

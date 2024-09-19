@@ -45,6 +45,7 @@ namespace zoft.MauiExtensions.Sample
             builder.Services.AddSingleton<DependsOnViewModel>();
             builder.Services.AddSingleton<LocalizationViewModel>();
             builder.Services.AddSingleton<MainThreadViewModel>();
+            builder.Services.AddSingleton<MessengerViewModel>();
             builder.Services.AddSingleton<ValidationViewModel>();
 
             return builder;
@@ -55,6 +56,7 @@ namespace zoft.MauiExtensions.Sample
             builder.Services.AddSingleton<DependsOnView>();
             builder.Services.AddSingleton<LocalizationView>();
             builder.Services.AddSingleton<MainThreadView>();
+            builder.Services.AddSingleton<MessengerView>();
             builder.Services.AddSingleton<ValidationView>();
 
             return builder;
