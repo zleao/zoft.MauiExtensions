@@ -2,26 +2,19 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using zoft.MauiExtensions.Core.Extensions;
 using zoft.MauiExtensions.Core.Services;
 
-namespace zoft.MauiExtensions.Core.ViewModels;
+namespace zoft.MauiExtensions.Core.Models;
 
 /// <summary>
-/// Base ViewModel that inherits from <see cref="ObservableRecipient"/> and implements <see cref="IDisposable"/>. <br/>
+/// Base class that inherits from <see cref="ObservableRecipient"/> and implements <see cref="IDisposable"/>. <br/>
 /// Also provides a set of properties and methods to handle busy notifications.
 /// </summary>
-public abstract partial class ZoftViewModel : ObservableRecipient, IDisposable
+public abstract partial class ZoftObservableRecipient : ObservableRecipient, IDisposable
 {
     /// <summary>
     /// Get the instance of the MainThreadService. <br/>
     /// </summary>
     /// <remarks>This instance can be null, depending on how the <see cref="ZoftViewModel"/> was instantiated</remarks>
     public IMainThreadService MainThreadService { get; }
-
-    /// <summary>
-    /// Gets or sets the title.
-    /// </summary>
-    /// <value>The title.</value>
-    [ObservableProperty]
-    private string _title = string.Empty;
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is busy.
@@ -48,10 +41,10 @@ public abstract partial class ZoftViewModel : ObservableRecipient, IDisposable
     #region Constructor
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ZoftViewModel" /> class.
+    /// Initializes a new instance of the <see cref="ZoftObservableRecipient" /> class.
     /// </summary>
     /// <param name="mainThreadService">Instance of the <see cref="IMainThreadService"/></param>
-    protected ZoftViewModel(IMainThreadService mainThreadService)
+    protected ZoftObservableRecipient(IMainThreadService mainThreadService)
         : base()
     {
         MainThreadService = mainThreadService;
