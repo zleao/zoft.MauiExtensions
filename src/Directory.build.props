@@ -1,61 +1,63 @@
 <Project>
-  <PropertyGroup>
-    <Copyright>Copyright (c) zleao</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Authors>zleao</Authors>
-    <Owners>zleao</Owners>
-    <RepositoryUrl>https://github.com/zleao/zoft.MauiExtensions</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageProjectUrl>https://github.com/zleao/zoft.MauiExtensions</PackageProjectUrl>
-    <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Version>4.0.0</Version>
-    <Description>
-      Extension library for .NET8 MAUI. Built on top of CommunityToolkit.MVVM
-      Provides extra functionalities for ViewModels and Services, including:
-      - Translation markup extension
-	  - Localization Service
-	  - MainThread Service interface and implementation implementation
-	  - Base ViewModel (ZoftViewModel) with support for 'ObservableRecipient'
-      - WeakSubscriptions
-    </Description>
-    <PackageTags>net8 mvvm mvvmhelper maui zoft</PackageTags>
-    <PackageReleaseNotes>
-		Deprecated DependsOn and ValidationObject.
-		Futher usage of the CommunityToolkit.MVVM base classes.
-		Renamed CoreViewModel to ZoftViewModel.
-		Added support for ObservableRecipient.
-	</PackageReleaseNotes>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    
-    <LangVersion>latest</LangVersion>
-    <Platform>AnyCPU</Platform>
-    <DebugType>full</DebugType>
-    <LangVersion>10.0</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Copyright>Copyright (c) zleao</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Authors>zleao</Authors>
+		<Owners>zleao</Owners>
+		<RepositoryUrl>https://github.com/zleao/zoft.MauiExtensions</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageProjectUrl>https://github.com/zleao/zoft.MauiExtensions</PackageProjectUrl>
+		<Product>$(AssemblyName) ($(TargetFramework))</Product>
+		<NeutralLanguage>en</NeutralLanguage>
+		<Version>4.0.0</Version>
+		<Description>
+			Extension library for .NET8 MAUI. Built on top of CommunityToolkit.MVVM
+			Provides extra functionalities for ViewModels and Services, including:
+			- Translation markup extension
+			- Localization Service
+			- MainThread Service interface and implementation implementation
+			- Base Model (ZoftObservableObject) with support for 'ObservableObject'
+			- Base Model (ZoftObservableRecipient) with support for 'ObservableRecipient'
+			- Base Model (ZoftObservableValidator) with support for 'ObservableValidator'
+			- WeakSubscriptions
+		</Description>
+		<PackageTags>net8 mvvm mvvmhelper maui zoft</PackageTags>
+		<PackageReleaseNotes>
+			Deprecated DependsOn and ValidationObject.
+			Futher usage of the CommunityToolkit.MVVM base classes.
+			Added 3 wrappers for the Observable models of CommunityToolkit.MVVM.
+			Removed the CoreViewModel
+		</PackageReleaseNotes>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <IncludeSymbols>true</IncludeSymbols>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <DebugType>portable</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<Platform>AnyCPU</Platform>
+		<DebugType>full</DebugType>
+		<LangVersion>10.0</LangVersion>
+	</PropertyGroup>
 
-  <!-- Nuget package included files -->
-  <ItemGroup>
-    <None Include="..\..\LICENSE.md">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<IncludeSymbols>true</IncludeSymbols>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
+
+	<!-- Nuget package included files -->
+	<ItemGroup>
+		<None Include="..\..\LICENSE.md">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 </Project>
