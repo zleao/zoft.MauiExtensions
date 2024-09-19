@@ -9,10 +9,43 @@ Nuget Package | Current Version
 
 ## Getting Started
 
-Install nuget package: [zoft.MauiExtensions.Core](https://www.nuget.org/packages/zoft.MauiExtensions.Core/)
+### Install nuget package: [zoft.MauiExtensions.Core](https://www.nuget.org/packages/zoft.MauiExtensions.Core/)
  
 ```
 Install-Package zoft.MauiExtensions.Core
+```
+
+### Create Windows `MainThreadService`
+
+```csharp
+using Microsoft.UI.Dispatching;
+using zoft.MauiExtensions.Core.Services;
+
+namespace <your.app.base.namespace>.Platforms.Windows.Services
+{
+    public sealed class WindowsMainThreadService : MainThreadService
+    {
+        protected override DispatcherQueue MainThreadDispatcher => WinUI.App.Dispatcher;
+    }
+}
+```
+
+### Register `MainThreadService` depending on platform
+
+```csharp
+return builder
+    .UseMauiApp<App>()
+    .ConfigureFonts(fonts =>
+    {
+        fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+        fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+    })
+#if WINDOWS
+    .Services.AddSingleton<IMainThreadService, Platforms.Windows.Services.WindowsMainThreadService>();
+#else
+    .Services.AddSingleton<IMainThreadService, MainThreadService>();
+#endif
+    .Build();
 ```
 
 ## How To Use
@@ -55,49 +88,27 @@ builder.Services.AddSingleton<ILocalizationService>(new ResourceManagerLocalizat
 At current time, the MAUI essentials implementation of `MainThread` is not working for Windows. This package provides a wrapper interface `IMainThreadService` and an implementation for all platforms, including Windows.
 To use, you just need to register the correct service depending of the platform:
 ```csharp
-private static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
+public sealed class WindowsMainThreadService : MainThreadService
 {
-    #if WINDOWS
-    builder.Services.AddSingleton<IMainThreadService, Platforms.Windows.Services.WindowsMainThreadService>();
-    #else
-    builder.Services.AddSingleton<IMainThreadService, MainThreadService>();
-    #endif
-
-    return builder;
+    protected override DispatcherQueue MainThreadDispatcher => WinUI.App.Dispatcher;
 }
 ```
 
 </br>
 
-### CoreViewModel
-The `CoreViewModel` provides a set of base implementations to use in ViewModels. This implementation is built on top of [CommunityToolikt.Mvvm.ObservableObject](https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/observableobject).
-It also uses other CommunityToolkit capabilities, like the `ObservableProperty`.
+### Base Models
 
-#### Dependency Management
-Allows the configuration of properties and/or methods to react on `PropertyChangeEvent` of a specific property
-```csharp
-public partial class DependsOnViewModel : CoreViewModel
-{
-    [ObservableProperty]
-    private string _triggerText;
+Based on the Component Models of the [CommunityToolkit.MVVM](), the package provides a set of base models that can be used to create Models, ViewModels and Services in your app.
 
-    [DependsOn(nameof(TriggerText))]
-    public string TargetText => $"TargetText triggered '{TriggerText}'";
+- **ZoftObservableObject**: Based on the `ObservableObject` class, provides a base implementation of the `INotifyPropertyChanged` interface
+- **ZoftObservableRecipient**: Based on the `ObservableRecipient` class, provides a base implementation of the `ObservableRecipient` class
+- **ZoftObservableValidator**: Based on the `ObservableValidator` class, provides a base implementation of the `ObservableValidator` class
+    - Override `OnErrorsChanged` to handle logic when the validation results change
 
-    [ObservableProperty]
-    private DateTime _targetDate = DateTime.Now;
+</br>
 
-    [DependsOn(nameof(TriggerText))]
-    protected void OnTriggerTextChanged()
-    {
-        TargetDate = TargetDate.AddDays(1);
-    }
-
-}
-```
-
-#### Busy Notification Management
-Base methods to execute code in a background thread, while providing with updated on `IsBusy` and `BusyMessage` properties that can be bound to an UI element (i.e. `ActivityIndicator`)
+### Busy Notification Management
+Base models provide methods to execute code in a background thread, while providing with updated on `IsBusy` and `BusyMessage` properties that can be bound to an UI element (i.e. `ActivityIndicator`)
 ```csharp
 await DoWorkAsync(() => ..., "Busy Message");
 
@@ -106,5 +117,6 @@ var result = await DoWorkAsync(() => return some_object, "BusyMessage");
 
 </br>
 
-### Validation Models
-tbd...
+### Weak Subscription
+
+The package provides a set of extension methods to subscribe to events using weak references, avoiding memory leaks when the subscriber is not disposed.
