@@ -13,7 +13,6 @@ public abstract partial class ZoftObservableObject : ObservableObject, IDisposab
     /// <summary>
     /// Get the instance of the MainThreadService. <br/>
     /// </summary>
-    /// <remarks>This instance can be null, depending on how the <see cref="ZoftViewModel"/> was instantiated</remarks>
     public IMainThreadService MainThreadService { get; }
 
     /// <summary>

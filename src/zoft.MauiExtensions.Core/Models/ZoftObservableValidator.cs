@@ -1,6 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using System.ComponentModel;
 using zoft.MauiExtensions.Core.Extensions;
 using zoft.MauiExtensions.Core.Services;
+using zoft.MauiExtensions.Core.WeakSubscription;
 
 namespace zoft.MauiExtensions.Core.Models;
 
@@ -10,10 +12,11 @@ namespace zoft.MauiExtensions.Core.Models;
 /// </summary>
 public abstract partial class ZoftObservableValidator : ObservableValidator, IDisposable
 {
+    private WeakEventSubscription<INotifyDataErrorInfo, DataErrorsChangedEventArgs> _errorsChangedWeakEventSubscription;
+
     /// <summary>
     /// Get the instance of the MainThreadService. <br/>
     /// </summary>
-    /// <remarks>This instance can be null, depending on how the <see cref="ZoftViewModel"/> was instantiated</remarks>
     public IMainThreadService MainThreadService { get; }
 
     /// <summary>
@@ -48,9 +51,14 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
         : base()
     {
         MainThreadService = mainThreadService;
+
+        // Subscribe to the ErrorsChanged event to update the ErrorMessage property
+        _errorsChangedWeakEventSubscription = new WeakEventSubscription<INotifyDataErrorInfo, DataErrorsChangedEventArgs>(this, nameof(ErrorsChanged), OnErrorsChanged);
     }
 
     #endregion
+
+    protected virtual void OnErrorsChanged(object sender, DataErrorsChangedEventArgs e) { }
 
     #region Busy Notification Management
 
@@ -216,7 +224,10 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
     /// <summary>
     /// Disposes the managed resources.
     /// </summary>
-    protected virtual void DisposeManagedResources() { }
+    protected virtual void DisposeManagedResources()
+    {
+        _errorsChangedWeakEventSubscription?.Dispose();
+    }
 
     /// <summary>
     /// Disposes the unmanaged resources.
