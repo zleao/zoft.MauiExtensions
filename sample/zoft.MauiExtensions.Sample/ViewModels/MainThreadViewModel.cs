@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using zoft.MauiExtensions.Core.Models;
 using zoft.MauiExtensions.Core.Services;
-using zoft.MauiExtensions.Core.ViewModels;
 using zoft.MauiExtensions.Sample.Localization;
 using zoft.NotificationService;
 
@@ -9,7 +9,7 @@ namespace zoft.MauiExtensions.Sample.ViewModels
     public partial class MainThreadViewModel(IMainThreadService mainThreadService,
                                              ILocalizationService localizationService,
                                              INotificationService notificationService) 
-        : CoreViewModel(mainThreadService)
+        : ZoftObservableObject(mainThreadService)
     {
         public ILocalizationService LocalizationService { get; } = localizationService;
         public INotificationService NotificationService { get; } = notificationService;

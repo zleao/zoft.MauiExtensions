@@ -2,15 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:zoft="http://zoft.maui.extensions"
+             xmlns:vm="clr-namespace:zoft.MauiExtensions.Sample.ViewModels"
              x:Class="zoft.MauiExtensions.Sample.Views.MainThreadView"
+             x:DataType="vm:MainThreadViewModel"
              Title="{zoft:Translate MainThreadPage_Title}">
 
     <Grid Margin="20">
-        <Button Text="{zoft:Translate MainThreadPage_ExecuteButtonLabel}" Command="{Binding ExecuteCommand}" HorizontalOptions="Center" VerticalOptions="Start"/>
-        <VerticalStackLayout IsVisible="{Binding IsBusy}" Spacing="10" VerticalOptions="Center">
+        
+        <Button Text="{zoft:Translate MainThreadPage_ExecuteButtonLabel}" 
+                Command="{Binding ExecuteCommand}" 
+                HorizontalOptions="Center" 
+                VerticalOptions="Start"/>
+        
+        <VerticalStackLayout IsVisible="{Binding IsBusy}" 
+                             Spacing="10"
+                             VerticalOptions="Center">
             <ActivityIndicator IsRunning="{Binding IsBusy}" />
             <Label Text="{Binding BusyMessage}" HorizontalOptions="Center"/>
         </VerticalStackLayout>
+        
     </Grid>
 
 </ContentPage>

@@ -2,14 +2,65 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:zoft="http://zoft.maui.extensions"
+             xmlns:vm="clr-namespace:zoft.MauiExtensions.Sample.ViewModels"
              x:Class="zoft.MauiExtensions.Sample.Views.ValidationView"
+             x:DataType="vm:ValidationViewModel"
              Title="{zoft:Translate ValidationPage_Title}">
 
-    <Label Text="{zoft:Translate ValidationPage_ComingSoon}" 
-           HorizontalOptions="Center" 
-           VerticalOptions="Center" 
-           FontAttributes="Bold" 
-           TextColor="Red" 
-           FontSize="16" />
+    <ScrollView>
+        <VerticalStackLayout Spacing="20">
+
+            <Label TextColor="Red">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Based on the "/>
+                        <Span Text="ObservableValidator" FontAttributes="Bold" TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/observablevalidator"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                        <Span Text=" logic, provided by the "/>
+                        <Span Text="CommunityToolkit.MVVM" FontAttributes="Bold" TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <VerticalStackLayout>
+                <Label Text="{zoft:Translate ValidationPage_FirstNameLabel}" FontAttributes="Bold"/>
+                <Entry Text="{Binding FirstName}" Keyboard="Text"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="{zoft:Translate ValidationPage_LastNameLabel}" FontAttributes="Bold"/>
+                <Entry Text="{Binding LastName}" Keyboard="Text"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="{zoft:Translate ValidationPage_EmailLabel}" FontAttributes="Bold"/>
+                <Entry Text="{Binding Email}" Keyboard="Email"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="{zoft:Translate ValidationPage_PhoneLabel}" FontAttributes="Bold"/>
+                <Entry Text="{Binding PhoneNumber}" Keyboard="Telephone"/>
+            </VerticalStackLayout>
+
+            <HorizontalStackLayout>
+                <Button Text="{zoft:Translate ValidationPage_ValidateButtonLabel}" Command="{Binding ValidateCommand}" />
+                <Button Text="{zoft:Translate ValidationPage_ClearValidationButtonLabel}" Command="{Binding ClearValidationCommand}" />
+            </HorizontalStackLayout>
+
+            <Label Text="{Binding ErrorMessage}" FontAttributes="Bold" TextColor="Red"/>
+            
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>
