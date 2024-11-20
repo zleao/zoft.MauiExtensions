@@ -1,6 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using zoft.MauiExtensions.Core.Extensions;
-using zoft.MauiExtensions.Core.Services;
 
 namespace zoft.MauiExtensions.Core.Models;
 
@@ -10,11 +9,6 @@ namespace zoft.MauiExtensions.Core.Models;
 /// </summary>
 public abstract partial class ZoftObservableRecipient : ObservableRecipient, IDisposable
 {
-    /// <summary>
-    /// Get the instance of the MainThreadService. <br/>
-    /// </summary>
-    public IMainThreadService MainThreadService { get; }
-
     /// <summary>
     /// Gets or sets a value indicating whether this instance is busy.
     /// </summary>
@@ -36,20 +30,6 @@ public abstract partial class ZoftObservableRecipient : ObservableRecipient, IDi
     {
         IsBusy = !value;
     }
-
-    #region Constructor
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ZoftObservableRecipient" /> class.
-    /// </summary>
-    /// <param name="mainThreadService">Instance of the <see cref="IMainThreadService"/></param>
-    protected ZoftObservableRecipient(IMainThreadService mainThreadService)
-        : base()
-    {
-        MainThreadService = mainThreadService;
-    }
-
-    #endregion
 
     #region Busy Notification Management
 
