@@ -12,7 +12,7 @@ namespace zoft.MauiExtensions.Sample.ViewModels
         [ObservableProperty]
         private string _text = "";
 
-        public MessengerViewModel(IMainThreadService mainThreadService) : base(mainThreadService)
+        public MessengerViewModel() : base()
         {
             IsActive = true;
         }

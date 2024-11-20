@@ -32,11 +32,6 @@ namespace zoft.MauiExtensions.Sample
             builder.Services.AddSingleton<ILocalizationService>(new ResourceManagerLocalizationService(AppResources.ResourceManager, SupportedLanguages.DefaultLanguage));
             builder.Services.AddSingleton<INotificationService, NotificationManager>();
 
-#if WINDOWS
-            builder.Services.AddSingleton<IMainThreadService, Platforms.Windows.Services.WindowsMainThreadService>();
-#else
-            builder.Services.AddSingleton<IMainThreadService, MainThreadService>();
-#endif
             return builder;
         }
 

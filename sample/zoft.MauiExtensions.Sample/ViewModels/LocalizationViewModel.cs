@@ -19,8 +19,8 @@ namespace zoft.MauiExtensions.Sample.ViewModels
             LocalizationService.SetLanguage(value);
         }
 
-        public LocalizationViewModel(IMainThreadService mainThreadService, ILocalizationService localizationService)
-            : base(mainThreadService)
+        public LocalizationViewModel(ILocalizationService localizationService)
+            : base()
         {
             LocalizationService = localizationService;
 

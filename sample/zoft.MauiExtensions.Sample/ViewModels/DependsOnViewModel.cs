@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using zoft.MauiExtensions.Core.Models;
-using zoft.MauiExtensions.Core.Services;
 
 namespace zoft.MauiExtensions.Sample.ViewModels
 {
@@ -20,8 +19,8 @@ namespace zoft.MauiExtensions.Sample.ViewModels
         [ObservableProperty]
         private DateTime _targetDate = DateTime.Now;
 
-        public DependsOnViewModel(IMainThreadService mainThreadService)
-            : base(mainThreadService)
+        public DependsOnViewModel()
+            : base()
         {
         }
 
