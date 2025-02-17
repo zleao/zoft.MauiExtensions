@@ -34,11 +34,6 @@ namespace zoft.MauiExtensions.Sample.ViewModels
         [ObservableProperty]
         private string _errorMessage;
 
-        public ValidationViewModel(IMainThreadService mainThreadService) : base(mainThreadService)
-        {
-
-        }
-
         protected override void OnErrorsChanged(object sender, DataErrorsChangedEventArgs e)
         {
             base.OnErrorsChanged(sender, e);

@@ -5,6 +5,7 @@ namespace zoft.MauiExtensions.Core.Markup;
 /// <summary>
 /// Extensions Markup that provides a transaltion service, bsed on the <see cref="ILocalizationService"/>
 /// </summary>
+[RequireService([typeof(ILocalizationService)])]
 [ContentProperty(nameof(Name))]
 public sealed class Translate : IMarkupExtension<BindingBase>
 {

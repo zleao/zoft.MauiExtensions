@@ -1,11 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net9.0;net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 		<UseMaui>true</UseMaui>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
-		<WindowsSdkPackageVersion>10.0.19041.41</WindowsSdkPackageVersion>
 	</PropertyGroup>
 	<PropertyGroup>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
@@ -14,22 +13,15 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
+	
 	<!-- Referenced Nuget Packages -->
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="MemoryAnalyzers" Version="0.1.0-beta.5">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
-	</ItemGroup>
-	<!--Platform Specific Files-->
-	<ItemGroup Condition="$(TargetFramework.Contains('-windows')) == true">
-		<Compile Remove="Services\Implementations\MainThreadService.cs" />
-		<None Include="Services\Implementations\MainThreadService.cs" />
-	</ItemGroup>
-	<ItemGroup Condition="$(TargetFramework.Contains('-windows')) != true">
-		<Compile Remove="Services\Implementations\MainThreadService.Windows.cs" />
-		<None Include="Services\Implementations\MainThreadService.Windows.cs" />
+		<PackageReference Update="Microsoft.Maui.Controls" Version="9.0.40" />
 	</ItemGroup>
 </Project>

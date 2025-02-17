@@ -1,7 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel;
 using zoft.MauiExtensions.Core.Extensions;
-using zoft.MauiExtensions.Core.Services;
 using zoft.MauiExtensions.Core.WeakSubscription;
 
 namespace zoft.MauiExtensions.Core.Models;
@@ -13,11 +12,6 @@ namespace zoft.MauiExtensions.Core.Models;
 public abstract partial class ZoftObservableValidator : ObservableValidator, IDisposable
 {
     private WeakEventSubscription<INotifyDataErrorInfo, DataErrorsChangedEventArgs> _errorsChangedWeakEventSubscription;
-
-    /// <summary>
-    /// Get the instance of the MainThreadService. <br/>
-    /// </summary>
-    public IMainThreadService MainThreadService { get; }
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is busy.
@@ -46,12 +40,9 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
     /// <summary>
     /// Initializes a new instance of the <see cref="ZoftObservableValidator" /> class.
     /// </summary>
-    /// <param name="mainThreadService">Instance of the <see cref="IMainThreadService"/></param>
-    protected ZoftObservableValidator(IMainThreadService mainThreadService)
+    protected ZoftObservableValidator()
         : base()
     {
-        MainThreadService = mainThreadService;
-
         // Subscribe to the ErrorsChanged event to update the ErrorMessage property
         _errorsChangedWeakEventSubscription = new WeakEventSubscription<INotifyDataErrorInfo, DataErrorsChangedEventArgs>(this, nameof(ErrorsChanged), OnErrorsChanged);
     }

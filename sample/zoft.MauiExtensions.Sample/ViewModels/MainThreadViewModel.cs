@@ -6,10 +6,9 @@ using zoft.NotificationService;
 
 namespace zoft.MauiExtensions.Sample.ViewModels
 {
-    public partial class MainThreadViewModel(IMainThreadService mainThreadService,
-                                             ILocalizationService localizationService,
+    public partial class MainThreadViewModel(ILocalizationService localizationService,
                                              INotificationService notificationService) 
-        : ZoftObservableObject(mainThreadService)
+        : ZoftObservableObject()
     {
         public ILocalizationService LocalizationService { get; } = localizationService;
         public INotificationService NotificationService { get; } = notificationService;
@@ -20,7 +19,7 @@ namespace zoft.MauiExtensions.Sample.ViewModels
             await DoWorkAsync(async () => {
                 await Task.Delay(2000).ConfigureAwait(false);
 
-                await MainThreadService.InvokeOnMainThreadAsync(async () => 
+                await MainThread.InvokeOnMainThreadAsync(async () => 
                 {
                     await NotificationService.PublishInfoNotificationAsync(LocalizationService[nameof(AppResources.MainThreadPage_Message)]);
                 });
