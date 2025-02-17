@@ -22,7 +22,7 @@
 			- Base Model (ZoftObservableValidator) with support for 'ObservableValidator'
 			- WeakSubscriptions
 		</Description>
-		<PackageTags>net8 net9 mvvm mvvmhelper maui zoft</PackageTags>
+		<PackageTags>net9 mvvm mvvmhelper maui zoft</PackageTags>
 		<PackageReleaseNotes>
 			Updated to .NET9.
 			Removed IMainThreadService and related implementations.
