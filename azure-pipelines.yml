@@ -5,8 +5,9 @@ variables:
   PathToProjectFile: '$(PathToProjectFolder)\zoft.MauiExtensions.Core.csproj'
   BuildConfiguration: Release
 
-trigger:
-- main
+# Commented automatic build trigger for main branch
+# trigger:
+# - main
 
 jobs:
   - job: build_library
