@@ -17,10 +17,19 @@ public static class TaskExtensions
     /// <typeparam name="T">The 1st type parameter.</typeparam>
     public async static Task<T> WithTimeout<T>(this Task<T> task, int timeoutInMilliseconds)
     {
-        var retTask = await Task.WhenAny(task, Task.Delay(timeoutInMilliseconds))
+        using var timeoutCts = new CancellationTokenSource();
+        var timeoutTask = Task.Delay(timeoutInMilliseconds, timeoutCts.Token);
+        
+        var completedTask = await Task.WhenAny(task, timeoutTask)
             .ConfigureAwait(false);
 
-        return retTask is Task<T> ? task.Result : default;
+        if (completedTask == task)
+        {
+            timeoutCts.Cancel(); // Cancel timeout task to free resources
+            return await task.ConfigureAwait(false);
+        }
+        
+        throw new TimeoutException($"Task timed out after {timeoutInMilliseconds} milliseconds");
     }
 
     /// <summary>
@@ -39,7 +48,7 @@ public static class TaskExtensions
     /// <param name="task">Task to execute</param>
     /// <param name="onException">What to do when method has an exception</param>
     /// <param name="continueOnCapturedContext">If the context should be captured.</param>
-    public static async void SafeFireAndForget(this Task task, Action<Exception> onException = null, bool continueOnCapturedContext = false)
+    public static async void SafeFireAndForget(this Task task, Action<Exception>? onException = null, bool continueOnCapturedContext = false)
     {
         try
         {
@@ -47,7 +56,7 @@ public static class TaskExtensions
         }
         catch (Exception ex) when (onException != null)
         {
-            onException.Invoke(ex);
+            onException(ex);
         }
     }
 }

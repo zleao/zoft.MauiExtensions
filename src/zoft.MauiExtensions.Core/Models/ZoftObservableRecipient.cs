@@ -40,6 +40,10 @@ public abstract partial class ZoftObservableRecipient : ObservableRecipient, IDi
     /// </summary>
     [ObservableProperty]
     private string _busyMessage;
+    partial void OnBusyMessageChanged(string value)
+    {
+        // Optional: Add custom logic when busy message changes
+    }
 
     /// <summary>
     /// Executes work asynchronously.

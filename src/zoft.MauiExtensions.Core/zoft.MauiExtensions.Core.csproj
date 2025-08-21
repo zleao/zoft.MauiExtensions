@@ -21,7 +21,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
-		<PackageReference Update="Microsoft.Maui.Controls" Version="9.0.40" />
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+		<PackageReference Update="Microsoft.Maui.Controls" Version="8.0.91" />
 	</ItemGroup>
 </Project>

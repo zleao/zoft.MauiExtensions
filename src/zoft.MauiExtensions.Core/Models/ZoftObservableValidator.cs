@@ -60,6 +60,14 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
     /// </summary>
     [ObservableProperty]
     private string _busyMessage;
+    partial void OnBusyMessageChanged(string value)
+    {
+        // Optional: Add custom logic when busy message changes
+    }
+    partial void OnBusyMessageChanged(string value)
+    {
+        // Optional: Add custom logic when busy message changes
+    }
 
     /// <summary>
     /// Executes work asynchronously.
