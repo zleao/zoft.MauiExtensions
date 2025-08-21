@@ -1,12 +1,16 @@
 variables:
   
-  DotNetVersion: '9.0.200'
+  DotNetVersion: '9.0.300'
   PathToProjectFolder: 'src\zoft.MauiExtensions.Core'
   PathToProjectFile: '$(PathToProjectFolder)\zoft.MauiExtensions.Core.csproj'
   BuildConfiguration: Release
 
-trigger:
-- main
+# Disable generic automatic trigger for now. To publish a new nuget manage, a manual build must be triggered
+trigger: none
+# - main
+
+# Use the pipeline to validate the build for any PR made to main branch
+pr: [main]
 
 jobs:
   - job: build_library
@@ -52,6 +56,8 @@ jobs:
 
   - job: 'publish_nuget_package'
     displayName: 'Publish NuGet Package'
+    pool:
+      vmImage: windows-latest
     condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
     dependsOn: build_library
     steps:
