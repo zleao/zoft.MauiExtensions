@@ -1,6 +1,6 @@
 variables:
   
-  DotNetVersion: '9.0.200'
+  DotNetVersion: '9.0.300'
   PathToProjectFolder: 'src\zoft.MauiExtensions.Core'
   PathToProjectFile: '$(PathToProjectFolder)\zoft.MauiExtensions.Core.csproj'
   BuildConfiguration: Release
