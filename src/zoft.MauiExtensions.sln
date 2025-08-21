@@ -7,7 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
 		..\azure-pipelines.yml = ..\azure-pipelines.yml
+		..\DEPLOYMENT_SUMMARY.md = ..\DEPLOYMENT_SUMMARY.md
 		Directory.build.props = Directory.build.props
+		..\LICENSE.md = ..\LICENSE.md
+		..\validate-deployment.sh = ..\validate-deployment.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zoft.MauiExtensions.Core", "zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj", "{BA457B83-B34C-49C1-ABEF-3256C88F2F8A}"
@@ -15,6 +18,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{157B8F14-565D-48E3-82E4-8C9FC96A2E5B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zoft.MauiExtensions.Sample", "..\sample\zoft.MauiExtensions.Sample\zoft.MauiExtensions.Sample.csproj", "{77A8A3CD-0CEF-4D4A-8E17-BDDB9ED08C11}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github-workflow", "github-workflow", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\android-deploy.yml = ..\.github\workflows\android-deploy.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +44,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{77A8A3CD-0CEF-4D4A-8E17-BDDB9ED08C11} = {157B8F14-565D-48E3-82E4-8C9FC96A2E5B}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {098F9012-79B5-4664-BE27-4F4CD3A69B65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {387D3792-CE7B-4D66-AE33-1F75654603B0}
