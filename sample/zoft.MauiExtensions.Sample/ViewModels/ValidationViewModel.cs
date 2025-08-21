@@ -13,26 +13,26 @@ namespace zoft.MauiExtensions.Sample.ViewModels
         [Required]
         [MinLength(2)]
         [MaxLength(100)]
-        private string _firstName;
+        public partial string FirstName { get; set; }
 
         [ObservableProperty]
         [Required]
         [MinLength(2)]
         [MaxLength(100)]
-        private string _lastName;
+        public partial string LastName { get; set; }
 
         [ObservableProperty]
         [Required]
         [EmailAddress]
-        private string _email;
+        public partial string Email { get; set; }
 
         [ObservableProperty]
         [Required]
         [Phone]
-        private string _phoneNumber;
+        public partial string PhoneNumber { get; set; }
 
         [ObservableProperty]
-        private string _errorMessage;
+        public partial string ErrorMessage { get; set; }
 
         protected override void OnErrorsChanged(object sender, DataErrorsChangedEventArgs e)
         {

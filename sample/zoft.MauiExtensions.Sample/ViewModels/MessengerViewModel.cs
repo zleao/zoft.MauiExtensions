@@ -10,7 +10,7 @@ namespace zoft.MauiExtensions.Sample.ViewModels
     public partial class MessengerViewModel : ZoftObservableRecipient, IRecipient<PropertyChangedMessage<string>>, IRecipient<ClearTextMessage>
     {
         [ObservableProperty]
-        private string _text = "";
+        public partial string Text { get; set; } = string.Empty;
         partial void OnTextChanged(string value)
         {
             // Optional: Custom logic when text changes

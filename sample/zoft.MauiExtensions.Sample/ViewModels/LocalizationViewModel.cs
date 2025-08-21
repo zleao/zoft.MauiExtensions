@@ -13,7 +13,7 @@ namespace zoft.MauiExtensions.Sample.ViewModels
         public List<CultureInfo> Languages => SupportedLanguages.List;
 
         [ObservableProperty]
-        private CultureInfo _selectedLanguage;
+        public partial CultureInfo SelectedLanguage { get; set; }
         partial void OnSelectedLanguageChanged(CultureInfo value)
         {
             LocalizationService.SetLanguage(value);
