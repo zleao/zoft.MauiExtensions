@@ -48,4 +48,4 @@
 ## Contact Information
 - **Developer**: zoft
 - **Website**: https://github.com/zleao/zoft.MauiExtensions
-- **Support Email**: [To be configured]
+- **Support Email**: zleaopereira@gmail.com

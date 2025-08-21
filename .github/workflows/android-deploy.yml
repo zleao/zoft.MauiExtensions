@@ -13,7 +13,7 @@ on:
 
 env:
   PROJECT_PATH: 'sample/zoft.MauiExtensions.Sample/zoft.MauiExtensions.Sample.csproj'
-  DOTNET_VERSION: '8.0.x'
+  DOTNET_VERSION: '9.0.x'
 
 jobs:
   build-android:
@@ -36,13 +36,13 @@ jobs:
       run: dotnet restore ${{ env.PROJECT_PATH }}
       
     - name: Build Android APK
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Release -f net8.0-android
+      run: dotnet build ${{ env.PROJECT_PATH }} -c Release -f net9.0-android
       
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
         name: android-apk
-        path: sample/zoft.MauiExtensions.Sample/bin/Release/net8.0-android/*-Signed.apk
+        path: sample/zoft.MauiExtensions.Sample/bin/Release/net9.0-android/*-Signed.apk
         retention-days: 30
 
   # Future: Deploy to Play Store (requires store credentials)
