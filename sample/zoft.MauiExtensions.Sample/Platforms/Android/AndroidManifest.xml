@@ -1,6 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-	<application android:allowBackup="true" android:icon="@mipmap/appicon" android:roundIcon="@mipmap/appicon_round" android:supportsRtl="true"></application>
+	<application 
+		android:allowBackup="true" 
+		android:icon="@mipmap/appicon" 
+		android:roundIcon="@mipmap/appicon_round" 
+		android:supportsRtl="true"
+		android:label="MAUI Extensions Demo"
+		android:theme="@style/Maui.SplashTheme">
+	</application>
+	
+	<!-- Required permissions -->
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
+	
+	<!-- Feature declarations for Play Store -->
+	<uses-feature 
+		android:name="android.hardware.camera" 
+		android:required="false" />
+	<uses-feature 
+		android:name="android.hardware.camera.autofocus" 
+		android:required="false" />
+	<uses-feature 
+		android:name="android.hardware.telephony" 
+		android:required="false" />
+	
+	<!-- Target API level -->
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="34" />
 </manifest>

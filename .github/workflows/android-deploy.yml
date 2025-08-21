@@ -1,0 +1,67 @@
+name: Build and Deploy Android APK
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'sample/**'
+  pull_request:
+    branches: [ main ]
+    paths: 
+      - 'sample/**'
+  workflow_dispatch:
+
+env:
+  PROJECT_PATH: 'sample/zoft.MauiExtensions.Sample/zoft.MauiExtensions.Sample.csproj'
+  DOTNET_VERSION: '8.0.x'
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    name: Android Build
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Install MAUI Workloads
+      run: dotnet workload install maui --ignore-failed-sources
+      
+    - name: Restore Dependencies
+      run: dotnet restore ${{ env.PROJECT_PATH }}
+      
+    - name: Build Android APK
+      run: dotnet build ${{ env.PROJECT_PATH }} -c Release -f net8.0-android
+      
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-apk
+        path: sample/zoft.MauiExtensions.Sample/bin/Release/net8.0-android/*-Signed.apk
+        retention-days: 30
+
+  # Future: Deploy to Play Store (requires store credentials)
+  deploy-playstore:
+    runs-on: ubuntu-latest
+    name: Deploy to Play Store
+    needs: build-android
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+    
+    steps:
+    - name: Download APK artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: android-apk
+        
+    - name: Deploy to Play Store (Placeholder)
+      run: |
+        echo "This step would deploy to Google Play Store"
+        echo "Requires: Play Console API credentials, app signing key, etc."
+        echo "APK files available for deployment:"
+        ls -la *.apk || echo "No APK files found"
