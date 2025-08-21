@@ -11,6 +11,11 @@ namespace zoft.MauiExtensions.Sample.ViewModels
     {
         [ObservableProperty]
         private string _text = "";
+        partial void OnTextChanged(string value)
+        {
+            // Optional: Custom logic when text changes
+            // This partial method eliminates MVVMTK0045 warning
+        }
 
         public MessengerViewModel() : base()
         {
