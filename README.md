@@ -15,39 +15,6 @@ Nuget Package | Current Version
 Install-Package zoft.MauiExtensions.Core
 ```
 
-### Create Windows `MainThreadService`
-
-```csharp
-using Microsoft.UI.Dispatching;
-using zoft.MauiExtensions.Core.Services;
-
-namespace <your.app.base.namespace>.Platforms.Windows.Services
-{
-    public sealed class WindowsMainThreadService : MainThreadService
-    {
-        protected override DispatcherQueue MainThreadDispatcher => WinUI.App.Dispatcher;
-    }
-}
-```
-
-### Register `MainThreadService` depending on platform
-
-```csharp
-return builder
-    .UseMauiApp<App>()
-    .ConfigureFonts(fonts =>
-    {
-        fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-        fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-    })
-#if WINDOWS
-    .Services.AddSingleton<IMainThreadService, Platforms.Windows.Services.WindowsMainThreadService>();
-#else
-    .Services.AddSingleton<IMainThreadService, MainThreadService>();
-#endif
-    .Build();
-```
-
 ## How To Use
 Refer to the sample to have a better understanding of package capabilities. Bellow you can find the most common features and how to use them
 
@@ -83,18 +50,7 @@ builder.Services.AddSingleton<ILocalizationService>(new ResourceManagerLocalizat
 
 </br>
 
-### MainThread Service
 
-At current time, the MAUI essentials implementation of `MainThread` is not working for Windows. This package provides a wrapper interface `IMainThreadService` and an implementation for all platforms, including Windows.
-To use, you just need to register the correct service depending of the platform:
-```csharp
-public sealed class WindowsMainThreadService : MainThreadService
-{
-    protected override DispatcherQueue MainThreadDispatcher => WinUI.App.Dispatcher;
-}
-```
-
-</br>
 
 ### Base Models
 
