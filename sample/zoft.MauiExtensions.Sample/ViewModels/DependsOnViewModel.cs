@@ -8,7 +8,7 @@ namespace zoft.MauiExtensions.Sample.ViewModels
     {
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(TargetText))]
-        private string _triggerText;
+        public partial string TriggerText { get; set; } = string.Empty;
         partial void OnTriggerTextChanged(string value)
         {
             TargetDate = TargetDate.AddDays(1);
@@ -17,7 +17,7 @@ namespace zoft.MauiExtensions.Sample.ViewModels
         public string TargetText => $"TargetText triggered '{TriggerText}'";
 
         [ObservableProperty]
-        private DateTime _targetDate = DateTime.Now;
+        public partial DateTime TargetDate { get; set; } = DateTime.Now;
 
         public DependsOnViewModel()
             : base()

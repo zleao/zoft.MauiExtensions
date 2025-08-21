@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:zoft="http://zoft.maui.extensions"
-             xmlns:ctm="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:vm="clr-namespace:zoft.MauiExtensions.Sample.ViewModels"
-             x:Class="zoft.MauiExtensions.Sample.Views.LocalizationView"
-             x:DataType="vm:LocalizationViewModel"
-             Title="{zoft:Translate LocalizationPage_Title}">
+<ContentPage
+    x:Class="zoft.MauiExtensions.Sample.Views.LocalizationView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ctm="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:glob="clr-namespace:System.Globalization;assembly=System.Globalization"
+    xmlns:vm="clr-namespace:zoft.MauiExtensions.Sample.ViewModels"
+    xmlns:zoft="http://zoft.maui.extensions"
+    Title="{zoft:Translate LocalizationPage_Title}"
+    x:DataType="vm:LocalizationViewModel">
 
     <ContentPage.Resources>
-        <ctm:TextCaseConverter x:Key="TextCamelCaseConverter" Type="FirstUpperRestLower"/>
+        <ctm:TextCaseConverter x:Key="TextCamelCaseConverter" Type="FirstUpperRestLower" />
     </ContentPage.Resources>
-    
+
     <VerticalStackLayout Margin="20">
-        <Picker ItemsSource="{Binding Languages}"
-                SelectedItem="{Binding SelectedLanguage}"
-                ItemDisplayBinding="{Binding NativeName, Converter={StaticResource TextCamelCaseConverter}}"
-                Title="{zoft:Translate LocalizationPage_ChooseLanguageLabel}"
-                HorizontalOptions="Center"/>
-        
+        <Picker
+            Title="{zoft:Translate LocalizationPage_ChooseLanguageLabel}"
+            HorizontalOptions="Center"
+            ItemDisplayBinding="{Binding NativeName, Converter={StaticResource TextCamelCaseConverter}, x:DataType=glob:CultureInfo}"
+            ItemsSource="{Binding Languages}"
+            SelectedItem="{Binding SelectedLanguage}" />
+
         <ScrollView>
             <VerticalStackLayout Spacing="10">
-                <Label Text="{zoft:Translate LocalizationPage_Label1}" FontSize="16" FontAttributes="Bold"/>
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Text="{zoft:Translate LocalizationPage_Label1}" />
                 <Label Text="{zoft:Translate LocalizationPage_Label2}" />
-                <Label Text="{zoft:Translate LocalizationPage_Label3}" FontAttributes="Italic" BackgroundColor="LightGray"/>
+                <Label
+                    BackgroundColor="LightGray"
+                    FontAttributes="Italic"
+                    Text="{zoft:Translate LocalizationPage_Label3}" />
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>

@@ -18,7 +18,7 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
     /// </summary>
     /// <value><c>true</c> if this instance is busy; otherwise, <c>false</c>.</value>
     [ObservableProperty]
-    private bool _isBusy;
+    public partial bool IsBusy { get; set; } = false;
     partial void OnIsBusyChanged(bool value)
     {
         IsNotBusy = !value;
@@ -29,7 +29,7 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
     /// </summary>
     /// <value><c>true</c> if this instance is not busy; otherwise, <c>false</c>.</value>
     [ObservableProperty]
-    private bool _isNotBusy = true;
+    public partial bool IsNotBusy { get; set; } = true;
     partial void OnIsNotBusyChanged(bool value)
     {
         IsBusy = !value;
@@ -59,7 +59,8 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
     /// Message to be shown in the busy indicator
     /// </summary>
     [ObservableProperty]
-    private string _busyMessage;
+    public partial string BusyMessage { get; set; }
+   
 
     /// <summary>
     /// Executes work asynchronously.

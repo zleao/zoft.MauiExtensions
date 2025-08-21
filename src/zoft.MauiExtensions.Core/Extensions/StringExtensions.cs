@@ -184,8 +184,8 @@ public static class StringExtensions
 
         return HexRegex.IsMatch(source.Trim().ToLower());
     }
-    private static readonly Regex HexRegex = new("^[0-9a-f]+$");
-
+    private static readonly Regex HexRegex = new("^[0-9a-f]+$", RegexOptions.Compiled);
+    
     /// <summary>
     /// Determines whether the specified source is numeric.
     /// Deals with null strings
@@ -199,8 +199,8 @@ public static class StringExtensions
 
         return NumericRegEx.IsMatch(source);
     }
-    private static readonly Regex NumericRegEx = new("^\\d+(\\.\\d+)?$");
-
+    private static readonly Regex NumericRegEx = new("^\\d+(\\.\\d+)?$", RegexOptions.Compiled);
+    
     /// <summary>
     /// Determines whether the specified source is integer.
     /// Deals with null strings
@@ -214,7 +214,7 @@ public static class StringExtensions
 
         return IntRegEx.IsMatch(source);
     }
-    private static readonly Regex IntRegEx = new("^\\d+$");
+    private static readonly Regex IntRegEx = new("^\\d+$", RegexOptions.Compiled);
 
     /// <summary>
     /// Gets the binary from hex.

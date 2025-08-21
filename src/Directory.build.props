@@ -11,7 +11,7 @@
 		<PackageProjectUrl>https://github.com/zleao/zoft.MauiExtensions</PackageProjectUrl>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<NeutralLanguage>en</NeutralLanguage>
-		<Version>5.0.0</Version>
+		<Version>5.0.1</Version>
 		<Description>
 			Extension library for .NET9 MAUI. Built on top of CommunityToolkit.MVVM
 			Provides extra functionalities for ViewModels and Services, including:
@@ -24,15 +24,14 @@
 		</Description>
 		<PackageTags>net9 mvvm mvvmhelper maui zoft</PackageTags>
 		<PackageReleaseNotes>
-			Updated to .NET9.
-			Removed IMainThreadService and related implementations.
+			Fixed MVVMTK0045 warnings by adding missing partial methods.
+			Updated NuGet package references.
 		</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 
-		<LangVersion>latest</LangVersion>
 		<Platform>AnyCPU</Platform>
 		<DebugType>full</DebugType>
-		<LangVersion>13.0</LangVersion>
+		<LangVersion>preview</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

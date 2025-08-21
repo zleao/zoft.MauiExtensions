@@ -98,12 +98,12 @@ public partial class ValidationViewModel : ZoftObservableValidator
     [Required]
     [MinLength(2)]
     [MaxLength(100)]
-    private string _firstName;
+    public partial string FirstName { get; set; }
 
     [ObservableProperty]
     [Required]
     [EmailAddress]
-    private string _email;
+    public partial string Email { get; set; }
 
     protected override void OnErrorsChanged(object sender, DataErrorsChangedEventArgs e)
     {
