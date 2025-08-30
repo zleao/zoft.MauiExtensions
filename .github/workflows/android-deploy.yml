@@ -64,7 +64,7 @@ jobs:
           -p:AndroidSigningStorePass="$env:KEYSTORE_PASSWORD" `
           -p:AndroidSigningKeyAlias="$env:KEY_ALIAS" `
           -p:AndroidSigningKeyPass="$env:KEY_PASSWORD" `
-          -p:PackageFormat=aab,apk
+          -p:AndroidPackageFormats=aab;apk
 
     - name: Upload APK/AAB artifact
       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
