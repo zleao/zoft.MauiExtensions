@@ -32,7 +32,7 @@ jobs:
         shell: pwsh
 
       - name: Install MAUI workload
-        run: dotnet workload install maui
+        run: dotnet workload install maui-android
         shell: pwsh
 
       - name: Restore
@@ -40,5 +40,5 @@ jobs:
         shell: pwsh
 
       - name: Build
-        run: dotnet build "${{ env.PATH_TO_PROJECT_FILE }}" -c $env:BUILD_CONFIGURATION --no-restore
+        run: dotnet build "${{ env.PATH_TO_PROJECT_FILE }}" -c $env:BUILD_CONFIGURATION -f net9.0-android --no-restore
         shell: pwsh
