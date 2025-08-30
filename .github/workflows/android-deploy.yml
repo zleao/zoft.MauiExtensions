@@ -1,0 +1,96 @@
+name: Build and Deploy Android APK/AAB
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths: 
+      - 'sample/**'
+  workflow_dispatch:
+
+env:
+  PROJECT_PATH: 'sample/zoft.MauiExtensions.Sample/zoft.MauiExtensions.Sample.csproj'
+  DOTNET_VERSION: '9.0.x'
+
+jobs:
+  build-android:
+    runs-on: windows-latest
+    name: Android Build
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    # Install/restore Android workload for MAUI (idempotent; safe if already present)
+    - name: Install MAUI Workloads
+      run: dotnet workload install maui-android --ignore-failed-sources
+      
+    - name: Restore Dependencies
+      run: dotnet restore ${{ env.PROJECT_PATH }}
+    
+    # Recreate keystore file from base64 secret
+    - name: Restore keystore from secret
+      shell: pwsh
+      env:
+        ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      run: |
+        $bytes = [Convert]::FromBase64String($env:ANDROID_KEYSTORE_BASE64)
+        $keystorePath = "$env:RUNNER_TEMP\maui-release.keystore"
+        [IO.File]::WriteAllBytes($keystorePath, $bytes)
+        echo "KEYSTORE_PATH=$keystorePath" >> $env:GITHUB_ENV
+
+
+    # ---- Build signed APK ----
+      # Adjust the path to your .csproj if not at repo root
+    - name: Publish Signed APK
+      shell: pwsh
+      env:
+        KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+      run: |
+        $proj = Get-ChildItem -Recurse -Filter *.csproj | Where-Object { $_.FullName -match '(\.Android|\.Maui)' } | Select-Object -First 1
+        if (-not $proj) { throw "Could not find a MAUI/Android .csproj. Set the path explicitly." }
+
+        dotnet publish ${{ env.PROJECT_PATH }} `
+          -c Release `
+          -f net9.0-android `
+          -p:AndroidKeyStore=true `
+          -p:AndroidSigningKeyStore="${{ env:KEYSTORE_PATH }}" `
+          -p:AndroidSigningStorePass="${{ env:KEYSTORE_PASSWORD }}" `
+          -p:AndroidSigningKeyAlias="${{ env:KEY_ALIAS }}" `
+          -p:AndroidSigningKeyPass="${{ env:KEY_PASSWORD }}" `
+          -p:PackageFormat=aab,apk
+
+    - name: Upload APK/AAB artifact
+      if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      uses: actions/upload-artifact@v4
+      with:
+        name: maui-android-aab
+        path: sample/zoft.MauiExtensions.Sample/bin/Release/net9.0-android/*-Signed.aab
+        retention-days: 30
+
+  # Future: Deploy to Play Store (requires store credentials)
+  deploy-playstore:
+    runs-on: ubuntu-latest
+    name: Deploy to Play Store
+    needs: build-android
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    environment: production
+    
+    steps:
+    - name: Download APK artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: maui-android-aab
+        
+    - name: Deploy to Play Store (Placeholder)
+      run: |
+        echo "This step would deploy to Google Play Store"
+        echo "Requires: Play Console API credentials, app signing key, etc."
+        echo "APK files available for deployment:"
+        ls -la *.apk || echo "No APK files found"
