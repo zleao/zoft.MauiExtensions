@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github-workflow", "github-w
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\android-deploy.yml = ..\.github\workflows\android-deploy.yml
 		..\.github\workflows\dotnet-maui-nuget.yml = ..\.github\workflows\dotnet-maui-nuget.yml
+		..\.github\workflows\dotnet-maui-sample.yml = ..\.github\workflows\dotnet-maui-sample.yml
 	EndProjectSection
 EndProject
 Global

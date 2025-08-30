@@ -1,10 +1,6 @@
 name: Build and Deploy Android APK/AAB
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths: 
-      - 'sample/**'
   workflow_dispatch:
 
 env:
@@ -66,7 +62,6 @@ jobs:
           -p:AndroidSigningKeyPass="$env:KEY_PASSWORD"
 
     - name: Upload APK/AAB artifact
-      if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
       uses: actions/upload-artifact@v4
       with:
         name: maui-android-aab
@@ -78,7 +73,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy to Play Store
     needs: build-android
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     environment: production
     
     steps:

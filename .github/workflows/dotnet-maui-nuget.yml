@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  DOTNET_VERSION: '9.0.300'
+  DOTNET_VERSION: '9.0.X'
   BUILD_CONFIGURATION: Release
   PATH_TO_PROJECT_FOLDER: 'src\\zoft.MauiExtensions.Core'
   PATH_TO_PROJECT_FILE: 'src\\zoft.MauiExtensions.Core\\zoft.MauiExtensions.Core.csproj'

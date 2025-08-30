@@ -1,0 +1,44 @@
+name: .NET MAUI • MauiExtensions Sample App build test
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths: 
+      - 'sample/**'
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '9.0.X'
+  BUILD_CONFIGURATION: Release
+  PATH_TO_PROJECT_FOLDER: 'sample\\zoft.MauiExtensions.Sample'
+  PATH_TO_PROJECT_FILE: 'sample\\zoft.MauiExtensions.Sample\\zoft.MauiExtensions.Sample.csproj'
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Print .NET Info
+        run: dotnet --info
+        shell: pwsh
+
+      - name: Install MAUI workload
+        run: dotnet workload install maui
+        shell: pwsh
+
+      - name: Restore
+        run: dotnet restore "${{ env.PATH_TO_PROJECT_FILE }}"
+        shell: pwsh
+
+      - name: Build
+        run: dotnet build "${{ env.PATH_TO_PROJECT_FILE }}" -c $env:BUILD_CONFIGURATION --no-restore
+        shell: pwsh
