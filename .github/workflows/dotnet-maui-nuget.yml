@@ -1,0 +1,130 @@
+name: .NET MAUI • CI & NuGet Publish
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths: 
+      - 'src/**'
+      - '.gitignore'
+  workflow_dispatch:
+    inputs:
+      versionSuffix:
+        description: 'Optional version suffix (e.g. preview.1). Leave empty for none.'
+        required: false
+        default: ''
+
+env:
+  DOTNET_VERSION: '9.0.300'
+  BUILD_CONFIGURATION: Release
+  PATH_TO_PROJECT_FOLDER: 'src\\zoft.MauiExtensions.Core'
+  PATH_TO_PROJECT_FILE: 'src\\zoft.MauiExtensions.Core\\zoft.MauiExtensions.Core.csproj'
+
+jobs:
+  build:
+    name: PR Build & Test
+    if: github.event_name == 'pull_request'
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Print .NET Info
+        run: dotnet --info
+        shell: pwsh
+
+      - name: Install MAUI workload
+        run: dotnet workload install maui
+        shell: pwsh
+
+      - name: Restore
+        run: dotnet restore "${{ env.PATH_TO_PROJECT_FILE }}"
+        shell: pwsh
+
+      - name: Build
+        run: dotnet build "${{ env.PATH_TO_PROJECT_FILE }}" -c $env:BUILD_CONFIGURATION --no-restore
+        shell: pwsh
+
+      - name: Test (solution)
+        # If you have tests, point to the solution or test projects; this step is safe to keep
+        run: |
+          if (Test-Path "./*.sln") {
+            dotnet test ./*.sln -c $env:BUILD_CONFIGURATION --no-build --logger "trx;LogFileName=test_results.trx"
+          } else {
+            echo "No solution file found at repo root. Skipping dotnet test."
+          }
+        shell: pwsh
+
+      - name: Pack
+        run: |
+          $suffix = "${{ github.event.inputs.versionSuffix }}"
+          $suffixArg = ""
+          if ($suffix -ne "") { $suffixArg = "/p:VersionSuffix=$suffix" }
+          dotnet pack "${{ env.PATH_TO_PROJECT_FILE }}" -c $env:BUILD_CONFIGURATION --no-build -o "$env:RUNNER_TEMP/nugets" /p:ContinuousIntegrationBuild=true $suffixArg
+        shell: pwsh
+
+      - name: Upload artifact (nupkg)
+        uses: actions/upload-artifact@v4
+        with:
+          name: nugets
+          path: ${{ runner.temp }}/nugets/**/*.nupkg
+          if-no-files-found: error
+
+  publish:
+    name: Manual Publish to NuGet.org
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: windows-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install MAUI workload
+        run: dotnet workload install maui
+        shell: pwsh
+
+      - name: Restore
+        run: dotnet restore "${{ env.PATH_TO_PROJECT_FILE }}"
+        shell: pwsh
+
+      - name: Build
+        run: dotnet build "${{ env.PATH_TO_PROJECT_FILE }}" -c $env:BUILD_CONFIGURATION --no-restore
+        shell: pwsh
+
+      - name: Pack
+        run: |
+          $suffix = "${{ github.event.inputs.versionSuffix }}"
+          $suffixArg = ""
+          if ($suffix -ne "") { $suffixArg = "/p:VersionSuffix=$suffix" }
+          dotnet pack "${{ env.PATH_TO_PROJECT_FILE }}" -c $env:BUILD_CONFIGURATION --no-build -o "$env:GITHUB_WORKSPACE/nugets" /p:ContinuousIntegrationBuild=true $suffixArg
+        shell: pwsh
+
+      - name: Publish to NuGet.org
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          if (-not $env:NUGET_API_KEY) {
+            echo "NUGET_API_KEY secret is missing"; exit 1
+          }
+          dotnet nuget push "$env:GITHUB_WORKSPACE/nugets/**/*.nupkg" --api-key "$env:NUGET_API_KEY" --source "https://api.nuget.org/v3/index.json" --skip-duplicate
+        shell: pwsh
+
+      - name: Upload artifact (published nupkg)
+        uses: actions/upload-artifact@v4
+        with:
+          name: published-nugets
+          path: nugets/**/*.nupkg
+          if-no-files-found: warn

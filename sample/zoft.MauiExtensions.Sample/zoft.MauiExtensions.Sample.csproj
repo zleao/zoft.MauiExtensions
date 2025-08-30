@@ -27,11 +27,6 @@
 		<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
 		
 		<!-- Release configuration for store -->
-		<AndroidKeyStore Condition="'$(Configuration)' == 'Release'">true</AndroidKeyStore>
-		<AndroidSigningKeyStore Condition="'$(Configuration)' == 'Release'">demo.keystore</AndroidSigningKeyStore>
-		<AndroidSigningKeyAlias Condition="'$(Configuration)' == 'Release'">demo</AndroidSigningKeyAlias>
-		<AndroidSigningKeyPass Condition="'$(Configuration)' == 'Release'"></AndroidSigningKeyPass>
-		<AndroidSigningStorePass Condition="'$(Configuration)' == 'Release'"></AndroidSigningStorePass>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
