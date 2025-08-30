@@ -56,14 +56,14 @@ jobs:
         $proj = Get-ChildItem -Recurse -Filter *.csproj | Where-Object { $_.FullName -match '(\.Android|\.Maui)' } | Select-Object -First 1
         if (-not $proj) { throw "Could not find a MAUI/Android .csproj. Set the path explicitly." }
 
-        dotnet publish $env.PROJECT_PATH `
+        dotnet publish ${{ env.PROJECT_PATH }} `
           -c Release `
           -f net9.0-android `
           -p:AndroidKeyStore=true `
-          -p:AndroidSigningKeyStore="$env:KEYSTORE_PATH" `
-          -p:AndroidSigningStorePass="$env:KEYSTORE_PASSWORD" `
-          -p:AndroidSigningKeyAlias="$env:KEY_ALIAS" `
-          -p:AndroidSigningKeyPass="$env:KEY_PASSWORD" `
+          -p:AndroidSigningKeyStore="${{ env:KEYSTORE_PATH }}" `
+          -p:AndroidSigningStorePass="${{ env:KEYSTORE_PASSWORD }}" `
+          -p:AndroidSigningKeyAlias="${{ env:KEY_ALIAS }}" `
+          -p:AndroidSigningKeyPass="${{ env:KEY_PASSWORD }}" `
           -p:PackageFormat=aab,apk
 
     - name: Upload APK/AAB artifact
