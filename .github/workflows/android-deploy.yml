@@ -60,10 +60,10 @@ jobs:
           -c Release `
           -f net9.0-android `
           -p:AndroidKeyStore=true `
-          -p:AndroidSigningKeyStore="${{ env:KEYSTORE_PATH }}" `
-          -p:AndroidSigningStorePass="${{ env:KEYSTORE_PASSWORD }}" `
-          -p:AndroidSigningKeyAlias="${{ env:KEY_ALIAS }}" `
-          -p:AndroidSigningKeyPass="${{ env:KEY_PASSWORD }}" `
+          -p:AndroidSigningKeyStore="$env:KEYSTORE_PATH" `
+          -p:AndroidSigningStorePass="$env:KEYSTORE_PASSWORD" `
+          -p:AndroidSigningKeyAlias="$env:KEY_ALIAS" `
+          -p:AndroidSigningKeyPass="$env:KEY_PASSWORD" `
           -p:PackageFormat=aab,apk
 
     - name: Upload APK/AAB artifact
