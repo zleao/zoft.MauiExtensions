@@ -7,11 +7,6 @@ on:
       - 'src/**'
       - '.gitignore'
   workflow_dispatch:
-    inputs:
-      versionSuffix:
-        description: 'Optional version suffix (e.g. preview.1). Leave empty for none.'
-        required: false
-        default: ''
 
 env:
   DOTNET_VERSION: '9.0.300'
