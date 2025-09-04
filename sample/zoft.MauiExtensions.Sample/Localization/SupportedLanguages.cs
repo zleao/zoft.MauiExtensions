@@ -1,16 +1,17 @@
 ﻿using System.Globalization;
+using System.Xml.Linq;
 
 namespace zoft.MauiExtensions.Sample.Localization
 {
     internal static class SupportedLanguages
     {
-        public static List<CultureInfo> List { get; } = new List<CultureInfo>
+        public static List<(string Name, CultureInfo Info)> List { get; } = new List<(string Name, CultureInfo Info)>
         {
-            new CultureInfo("en"), //default
-            new CultureInfo("pt"),
-            new CultureInfo("de"),
+            ("English", new CultureInfo("en")), //default
+            ("Português", new CultureInfo("pt")),
+            ("Deutsch", new CultureInfo("de")),
         };
 
-        public static CultureInfo DefaultLanguage => List[0];
+        public static (string Name, CultureInfo Info) DefaultLanguage => List[0];
     }
 }
