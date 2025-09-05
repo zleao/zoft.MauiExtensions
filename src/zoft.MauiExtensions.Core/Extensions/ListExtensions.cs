@@ -37,7 +37,7 @@ public static class ListExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="source">The source.</param>
     /// <param name="action">The action.</param>
-    public static IList<T> ForEach<T>(this IList<T> source, Action<T> action)
+    public static IList<T>? ForEach<T>(this IList<T>? source, Action<T> action)
     {
         if (source?.Count > 0)
         {

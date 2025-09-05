@@ -15,7 +15,7 @@ public static class StringExtensions
     /// <returns>
     ///   <c>true</c> if the specified source string is null or empty; otherwise, <c>false</c>.
     /// </returns>
-    public static bool IsNullOrEmpty(this string source)
+    public static bool IsNullOrEmpty(this string? source)
     {
         return string.IsNullOrEmpty(source);
     }
@@ -27,7 +27,7 @@ public static class StringExtensions
     /// <returns>
     ///   <c>true</c> if he specified source string is null or white space; otherwise, <c>false</c>.
     /// </returns>
-    public static bool IsNullOrWhiteSpace(this string source)
+    public static bool IsNullOrWhiteSpace(this string? source)
     {
         return string.IsNullOrWhiteSpace(source);
     }
@@ -39,7 +39,7 @@ public static class StringExtensions
     /// <param name="sourceTemplate">The source template.</param>
     /// <param name="args">The args.</param>
     /// <returns></returns>
-    public static string FormatTemplate(this string sourceTemplate, params object[] args)
+    public static string FormatTemplate(this string? sourceTemplate, params object[] args)
     {
         if (string.IsNullOrEmpty(sourceTemplate))
             return sourceTemplate ?? string.Empty;
@@ -66,7 +66,7 @@ public static class StringExtensions
     /// <param name="defaultValue">The value if null.</param>
     /// <param name="throwException">if set to <c>true</c> throw exception.</param>
     /// <returns></returns>
-    public static decimal Parse2Decimal(this string source, decimal defaultValue = 0M, bool throwException = false)
+    public static decimal Parse2Decimal(this string? source, decimal defaultValue = 0M, bool throwException = false)
     {
         decimal d = defaultValue;
 
@@ -74,7 +74,7 @@ public static class StringExtensions
         {
             try
             {
-                d = decimal.Parse(source.Replace(',', '.').Trim(), NumberStyles.Any, new CultureInfo("en-US"));
+                d = decimal.Parse(source!.Replace(',', '.').Trim(), NumberStyles.Any, new CultureInfo("en-US"));
             }
             catch (Exception ex) when (!throwException)
             {
@@ -91,14 +91,14 @@ public static class StringExtensions
     /// <param name="source">The source value.</param>
     /// <param name="defaultValue">The default value. Aplicable to null or empty string</param>
     /// <returns></returns>
-    public static bool Parse2Boolean(this string source, bool defaultValue = false)
+    public static bool Parse2Boolean(this string? source, bool defaultValue = false)
     {
         if (source.IsNullOrEmpty())
             return defaultValue;
 
         #region Test for true/false string
 
-        if (source.Equals(bool.FalseString))
+        if (source!.Equals(bool.FalseString))
         {
             return false;
         }

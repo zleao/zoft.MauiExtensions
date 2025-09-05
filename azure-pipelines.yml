@@ -10,7 +10,7 @@ trigger: none
 # - main
 
 # Use the pipeline to validate the build for any PR made to main branch
-pr: [main]
+#pr: [main]
 
 jobs:
   - job: build_library

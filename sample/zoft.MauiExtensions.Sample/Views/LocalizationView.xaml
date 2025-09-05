@@ -10,15 +10,11 @@
     Title="{zoft:Translate LocalizationPage_Title}"
     x:DataType="vm:LocalizationViewModel">
 
-    <ContentPage.Resources>
-        <ctm:TextCaseConverter x:Key="TextCamelCaseConverter" Type="FirstUpperRestLower" />
-    </ContentPage.Resources>
-
-    <VerticalStackLayout Margin="20">
+    <VerticalStackLayout Margin="20" Padding="10">
         <Picker
             Title="{zoft:Translate LocalizationPage_ChooseLanguageLabel}"
             HorizontalOptions="Center"
-            ItemDisplayBinding="{Binding NativeName, Converter={StaticResource TextCamelCaseConverter}, x:DataType=glob:CultureInfo}"
+            ItemDisplayBinding="{Binding ., x:DataType=x:String}"
             ItemsSource="{Binding Languages}"
             SelectedItem="{Binding SelectedLanguage}" />
 

@@ -29,7 +29,7 @@ namespace zoft.MauiExtensions.Sample
 
         private static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
         {
-            builder.Services.AddSingleton<ILocalizationService>(new ResourceManagerLocalizationService(AppResources.ResourceManager, SupportedLanguages.DefaultLanguage));
+            builder.Services.AddSingleton<ILocalizationService>(new ResourceManagerLocalizationService(AppResources.ResourceManager, SupportedLanguages.DefaultLanguage.Info));
             builder.Services.AddSingleton<INotificationService, NotificationManager>();
 
             return builder;

@@ -1,10 +1,6 @@
 name: Build and Deploy Android APK/AAB
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths: 
-      - 'sample/**'
   workflow_dispatch:
 
 env:
@@ -43,6 +39,14 @@ jobs:
         [IO.File]::WriteAllBytes($keystorePath, $bytes)
         echo "KEYSTORE_PATH=$keystorePath" >> $env:GITHUB_ENV
 
+    # ===== Versioning: year + run number =====
+    - name: Compute build number (year + run count)
+      shell: pwsh
+      run: |
+        $year = (Get-Date -Format "yyyy")
+        $runPart = "${{ github.run_number }}"
+        $buildNumber = [int]"$year$runPart"                 # e.g., 2025 + 42 => 2025042
+        echo "BUILD_NUMBER=$buildNumber" >> $env:GITHUB_ENV
 
     # ---- Build signed APK ----
       # Adjust the path to your .csproj if not at repo root
@@ -53,21 +57,17 @@ jobs:
         KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
       run: |
-        $proj = Get-ChildItem -Recurse -Filter *.csproj | Where-Object { $_.FullName -match '(\.Android|\.Maui)' } | Select-Object -First 1
-        if (-not $proj) { throw "Could not find a MAUI/Android .csproj. Set the path explicitly." }
-
         dotnet publish ${{ env.PROJECT_PATH }} `
           -c Release `
           -f net9.0-android `
           -p:AndroidKeyStore=true `
-          -p:AndroidSigningKeyStore="${{ env:KEYSTORE_PATH }}" `
-          -p:AndroidSigningStorePass="${{ env:KEYSTORE_PASSWORD }}" `
-          -p:AndroidSigningKeyAlias="${{ env:KEY_ALIAS }}" `
-          -p:AndroidSigningKeyPass="${{ env:KEY_PASSWORD }}" `
-          -p:PackageFormat=aab,apk
+          -p:AndroidSigningKeyStore="$env:KEYSTORE_PATH" `
+          -p:AndroidSigningStorePass="$env:KEYSTORE_PASSWORD" `
+          -p:AndroidSigningKeyAlias="$env:KEY_ALIAS" `
+          -p:AndroidSigningKeyPass="$env:KEY_PASSWORD" `
+          -p:ApplicationVersion=$env:BUILD_NUMBER
 
     - name: Upload APK/AAB artifact
-      if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
       uses: actions/upload-artifact@v4
       with:
         name: maui-android-aab
@@ -79,11 +79,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy to Play Store
     needs: build-android
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     environment: production
     
     steps:
-    - name: Download APK artifact
+    - name: Download AAB artifact
       uses: actions/download-artifact@v4
       with:
         name: maui-android-aab
@@ -92,5 +91,5 @@ jobs:
       run: |
         echo "This step would deploy to Google Play Store"
         echo "Requires: Play Console API credentials, app signing key, etc."
-        echo "APK files available for deployment:"
-        ls -la *.apk || echo "No APK files found"
+        echo "AAB files available for deployment:"
+        ls -la *.aab || echo "No AAB files found"
