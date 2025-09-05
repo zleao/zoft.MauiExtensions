@@ -39,6 +39,14 @@ jobs:
         [IO.File]::WriteAllBytes($keystorePath, $bytes)
         echo "KEYSTORE_PATH=$keystorePath" >> $env:GITHUB_ENV
 
+    # ===== Versioning: year + run number =====
+    - name: Compute build number (year + run count)
+      shell: pwsh
+      run: |
+        $year = (Get-Date -Format "yyyy")
+        $runPart = "${{ github.run_number }}"
+        $buildNumber = [int]"$year$runPart"                 # e.g., 2025 + 42 => 2025042
+        echo "BUILD_NUMBER=$buildNumber" >> $env:GITHUB_ENV
 
     # ---- Build signed APK ----
       # Adjust the path to your .csproj if not at repo root
@@ -56,7 +64,8 @@ jobs:
           -p:AndroidSigningKeyStore="$env:KEYSTORE_PATH" `
           -p:AndroidSigningStorePass="$env:KEYSTORE_PASSWORD" `
           -p:AndroidSigningKeyAlias="$env:KEY_ALIAS" `
-          -p:AndroidSigningKeyPass="$env:KEY_PASSWORD"
+          -p:AndroidSigningKeyPass="$env:KEY_PASSWORD" `
+          -p:ApplicationVersion=$env:BUILD_NUMBER
 
     - name: Upload APK/AAB artifact
       uses: actions/upload-artifact@v4
