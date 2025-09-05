@@ -8,7 +8,7 @@
     Title="{zoft:Translate DependsOnPage_Title}"
     x:DataType="vm:DependsOnViewModel">
 
-    <ScrollView Margin="20">
+    <ScrollView Margin="20" Padding="10">
         <VerticalStackLayout Spacing="20">
             <Label TextColor="Red">
                 <Label.FormattedText>

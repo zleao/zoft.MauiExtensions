@@ -10,7 +10,7 @@
     Title="{zoft:Translate LocalizationPage_Title}"
     x:DataType="vm:LocalizationViewModel">
 
-    <VerticalStackLayout Margin="20">
+    <VerticalStackLayout Margin="20" Padding="10">
         <Picker
             Title="{zoft:Translate LocalizationPage_ChooseLanguageLabel}"
             HorizontalOptions="Center"
