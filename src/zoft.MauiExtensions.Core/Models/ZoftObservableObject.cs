@@ -49,7 +49,7 @@ public abstract partial class ZoftObservableObject : ObservableObject, IDisposab
     /// <param name="isSilent">if set to <c>true</c> [is silent].</param>
     /// <returns></returns>
     /// <exception cref="System.ArgumentNullException">action</exception>
-    protected virtual async Task DoWorkAsync(Func<Task> action, string workMessage = null, bool isSilent = false)
+    protected virtual async Task DoWorkAsync(Func<Task> action, string? workMessage = null, bool isSilent = false)
     {
         ArgumentNullException.ThrowIfNull(action);
 
@@ -76,7 +76,7 @@ public abstract partial class ZoftObservableObject : ObservableObject, IDisposab
     /// <param name="workMessage">The work message.</param>
     /// <param name="isSilent">if set to <c>true</c> [is silent].</param>
     /// <returns></returns>
-    protected virtual async Task<T> DoWorkAsync<T>(Func<Task<T>> action, string workMessage = null, bool isSilent = false)
+    protected virtual async Task<T> DoWorkAsync<T>(Func<Task<T>> action, string? workMessage = null, bool isSilent = false)
     {
         ArgumentNullException.ThrowIfNull(action);
 
@@ -115,11 +115,11 @@ public abstract partial class ZoftObservableObject : ObservableObject, IDisposab
     /// </summary>
     /// <param name="message">The busy message.</param>
     /// <param name="isSilent">if set to <c>true</c> the IsBusy will no be signaled.</param>
-    public virtual void StartWork(string message, bool isSilent = false)
+    public virtual void StartWork(string? message, bool isSilent = false)
     {
         if (!isSilent && !message.IsNullOrWhiteSpace())
         {
-            BusyMessage = message;
+            BusyMessage = message!;
         }
 
         StartWork(isSilent);
@@ -138,7 +138,7 @@ public abstract partial class ZoftObservableObject : ObservableObject, IDisposab
 
             if (_busyCount <= 0)
             {
-                BusyMessage = null;
+                BusyMessage = string.Empty;
             }
         }
     }

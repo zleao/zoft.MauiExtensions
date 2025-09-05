@@ -15,7 +15,7 @@ public interface ILocalizationService : INotifyPropertyChanged
     /// <value>
     /// The current culture.
     /// </value>
-    CultureInfo CurrentCulture { get; }
+    CultureInfo? CurrentCulture { get; }
 
     /// <summary>
     /// Sets the language to use in the service.
@@ -36,7 +36,7 @@ public interface ILocalizationService : INotifyPropertyChanged
     /// </summary>
     /// <param name="key">The key.</param>
     /// <returns></returns>
-    string GetTextForKey(string key);
+    string? GetTextForKey(string key);
 
     /// <summary>
     /// Gets the <see cref="string"/> with the specified key.
@@ -46,5 +46,5 @@ public interface ILocalizationService : INotifyPropertyChanged
     /// </value>
     /// <param name="key">The key.</param>
     /// <returns></returns>
-    string this[string key] { get; }
+    string? this[string key] { get; }
 }
