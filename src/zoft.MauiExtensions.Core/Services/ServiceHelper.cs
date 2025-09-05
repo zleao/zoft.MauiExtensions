@@ -11,16 +11,16 @@ public static class ServiceHelper
     /// <typeparam name="T">The type of service object to get.</typeparam>
     /// <returns></returns>
 
-    public static T GetService<T>() => Current.GetService<T>();
+    public static T? GetService<T>() => Current != null ? Current.GetService<T>() : default;
 
     /// <summary>
     /// Current ServiceProvider
     /// </summary>
-    public static IServiceProvider Current =>
+    public static IServiceProvider? Current =>
 #if WINDOWS10_0_17763_0_OR_GREATER
         MauiWinUIApplication.Current.Services;
 #elif ANDROID || IOS || MACCATALYST
-        IPlatformApplication.Current.Services;
+        IPlatformApplication.Current?.Services;
 #else
         throw new NotSupportedException("ServiceProvider not supported in current platform");
 #endif 

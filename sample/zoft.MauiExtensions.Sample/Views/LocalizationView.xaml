@@ -14,7 +14,7 @@
         <Picker
             Title="{zoft:Translate LocalizationPage_ChooseLanguageLabel}"
             HorizontalOptions="Center"
-            ItemDisplayBinding="{Binding .}"
+            ItemDisplayBinding="{Binding ., x:DataType=x:String}"
             ItemsSource="{Binding Languages}"
             SelectedItem="{Binding SelectedLanguage}" />
 
