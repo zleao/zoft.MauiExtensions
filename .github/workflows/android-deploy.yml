@@ -75,6 +75,7 @@ jobs:
         retention-days: 30
 
   # Deploy to Play Store
+  # https://github.com/marketplace/actions/upload-android-release-to-play-store
   deploy-playstore:
     runs-on: ubuntu-latest
     name: Deploy to Play Store
@@ -94,3 +95,4 @@ jobs:
         packageName: 'com.zoft.mauiextensions.demo'
         releaseFiles: '*.aab'
         track: 'internal'
+        status: 'draft'
