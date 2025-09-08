@@ -50,7 +50,7 @@ builder.Services.AddSingleton<ILocalizationService>(new ResourceManagerLocalizat
 
 </br>
 
-
+---
 
 ### Base Models
 
@@ -77,6 +77,8 @@ Based on the Component Models of the [CommunityToolkit.MVVM](https://learn.micro
 
 </br>
 
+---
+
 ### Busy Notification Management
 Base models provide methods to execute code in a background thread, while providing with updated on `IsBusy` and `BusyMessage` properties that can be bound to an UI element (i.e. `ActivityIndicator`)
 ```csharp
@@ -86,6 +88,8 @@ var result = await DoWorkAsync(() => return some_object, "BusyMessage");
 ```
 
 </br>
+
+---
 
 ### Validation
 
@@ -105,11 +109,10 @@ public partial class ValidationViewModel : ZoftObservableValidator
     [EmailAddress]
     public partial string Email { get; set; }
 
-    protected override void OnErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+    protected override void OnErrorsChanged(INotifyDataErrorInfo source, ZoftObservableValidator target, DataErrorsChangedEventArgs e)
     {
-        base.OnErrorsChanged(sender, e);
-        
-        // Handle validation state changes
+        base.OnErrorsChanged(source, target, e);
+
         ErrorMessage = string.Join(Environment.NewLine, GetErrors().Select(e => e.ErrorMessage));
     }
 
@@ -128,6 +131,8 @@ public partial class ValidationViewModel : ZoftObservableValidator
 ```
 
 </br>
+
+---
 
 ### Messenger and Communication
 
@@ -170,47 +175,17 @@ public partial class MessengerViewModel : ZoftObservableRecipient,
 
 </br>
 
+---
+
 ### Weak Subscription
 
 The package provides a set of extension methods to subscribe to events using weak references, avoiding memory leaks when the subscriber is not disposed properly:
 
-```csharp
-// Subscribe to PropertyChanged events
-INotifyPropertyChanged source = someObject;
-var subscription = source.WeakSubscribe((sender, e) => 
-{
-    // Handle property change
-    Console.WriteLine($"Property {e.PropertyName} changed");
-});
-
-// Subscribe to CollectionChanged events
-INotifyCollectionChanged collection = observableCollection;
-var collectionSubscription = collection.WeakSubscribe((sender, e) => 
-{
-    // Handle collection change
-    Console.WriteLine($"Collection changed: {e.Action}");
-});
-
-// Subscribe to generic events
-var eventSubscription = someObject.WeakSubscribe("SomeEvent", (sender, e) => 
-{
-    // Handle generic event
-});
-
-// Subscribe to events with custom event args
-var customSubscription = someObject.WeakSubscribe<CustomEventArgs>("CustomEvent", (sender, e) => 
-{
-    // Handle custom event
-});
-
-// Dispose subscriptions when no longer needed
-subscription.Dispose();
-collectionSubscription.Dispose();
-eventSubscription.Dispose();
-customSubscription.Dispose();
-```
+_more info will come..._
 
 </br>
+
+---
 
 ### Extensions
 

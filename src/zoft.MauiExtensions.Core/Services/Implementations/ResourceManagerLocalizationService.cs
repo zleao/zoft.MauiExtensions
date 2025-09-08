@@ -19,18 +19,19 @@ public sealed class ResourceManagerLocalizationService : ILocalizationService
     /// Occurs when a property value changes.
     /// </summary>
     /// <returns></returns>
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     private readonly ResourceManager _resourceManager;
 
-    private CultureInfo _currentCulture;
+    private CultureInfo? _currentCulture;
+
     /// <summary>
     /// Gets the current culture being applied in the service when determining the text to show
     /// </summary>
     /// <value>
     /// The current culture.
     /// </value>
-    public CultureInfo CurrentCulture => _currentCulture;
+    public CultureInfo? CurrentCulture => _currentCulture;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ResourceManagerLocalizationService"/> class.
@@ -107,7 +108,7 @@ public sealed class ResourceManagerLocalizationService : ILocalizationService
     /// </summary>
     /// <param name="key">The key.</param>
     /// <returns></returns>
-    public string GetTextForKey(string key)
+    public string? GetTextForKey(string key)
     {
         return _resourceManager.GetString(key, _currentCulture);
     }
@@ -124,7 +125,7 @@ public sealed class ResourceManagerLocalizationService : ILocalizationService
     /// </exception>
     public void SetLanguage(string cultureName, bool throwIfFail = false)
     {
-        CultureInfo newLanguageCultureInfo;
+        CultureInfo? newLanguageCultureInfo;
         try
         {
             newLanguageCultureInfo = CultureInfo.GetCultureInfo(cultureName);
@@ -151,7 +152,7 @@ public sealed class ResourceManagerLocalizationService : ILocalizationService
     /// </summary>
     /// <param name="culture">The culture.</param>
     /// <param name="throwIfFail">if set to <c>true</c> [throw if fail].</param>
-    public void SetLanguage(CultureInfo culture, bool throwIfFail = false)
+    public void SetLanguage(CultureInfo? culture, bool throwIfFail = false)
     {
         _currentCulture = culture;
 
@@ -166,5 +167,5 @@ public sealed class ResourceManagerLocalizationService : ILocalizationService
     /// </value>
     /// <param name="key">The key.</param>
     /// <returns></returns>
-    public string this[string key] => GetTextForKey(key);
+    public string? this[string key] => GetTextForKey(key);
 }

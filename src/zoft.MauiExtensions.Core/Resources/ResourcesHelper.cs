@@ -12,9 +12,9 @@ public static class ResourcesHelper
     /// <typeparam name="T">Type fo the resource to find</typeparam>
     /// <param name="key">Key of the resource to find</param>
     /// <param name="fallbackValue">Fallback value, if resource is not found or is of wrong type</param>
-    public static T GetApplicationResource<T>(string key, T fallbackValue = default)
+    public static T? GetApplicationResource<T>(string key, T? fallbackValue = default)
     {
-        if (Application.Current.Resources.TryGetValue(key, out var resource) && resource is T typedResource)
+        if (Application.Current?.Resources.TryGetValue(key, out var resource) == true && resource is T typedResource)
         {
             return typedResource;
         }

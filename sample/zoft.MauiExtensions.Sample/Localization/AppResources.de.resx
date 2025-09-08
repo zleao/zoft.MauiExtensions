@@ -197,4 +197,10 @@ Nullam aliquet ullamcorper mi, et elementum justo dapibus at. In hac habitasse p
   <data name="MessengerPage_Title" xml:space="preserve">
     <value>Messenger</value>
   </data>
+  <data name="MenuItem_AboutLabel" xml:space="preserve">
+    <value>Über</value>
+  </data>
+  <data name="AboutPage_DescriptionLabel" xml:space="preserve">
+    <value>Ein Satz von Werkzeugen, der in MAUI‑Projekten verwendet werden soll, einschließlich Ansichten, ViewModels, Diensten, Erweiterungen und mehr.</value>
+  </data>
 </root>

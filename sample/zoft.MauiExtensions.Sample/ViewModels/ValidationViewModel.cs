@@ -34,9 +34,9 @@ namespace zoft.MauiExtensions.Sample.ViewModels
         [ObservableProperty]
         public partial string ErrorMessage { get; set; }
 
-        protected override void OnErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        protected override void OnErrorsChanged(INotifyDataErrorInfo source, ZoftObservableValidator target, DataErrorsChangedEventArgs e)
         {
-            base.OnErrorsChanged(sender, e);
+            base.OnErrorsChanged(source, target, e);
 
             ErrorMessage = string.Join(Environment.NewLine, GetErrors().Select(e => e.ErrorMessage));
         }

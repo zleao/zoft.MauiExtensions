@@ -1,34 +1,94 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell x:Class="zoft.MauiExtensions.Sample.AppShell"
-       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:zoft="http://zoft.maui.extensions"
-       xmlns:local="clr-namespace:zoft.MauiExtensions.Sample.Views"
-       FlyoutBehavior="Flyout">
+<Shell
+    x:Class="zoft.MauiExtensions.Sample.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:zoft.MauiExtensions.Sample.Views"
+    xmlns:root="clr-namespace:zoft.MauiExtensions.Sample"
+    xmlns:zoft="http://zoft.maui.extensions"
+    FlyoutBehavior="Flyout">
 
     <ShellContent
         Title="{zoft:Translate MenuItem_DependsOnLabel}"
         ContentTemplate="{DataTemplate local:DependsOnView}"
-        Route="DependsOn" />
+        Route="DependsOn">
+        <ShellContent.Icon>
+            <FontImageSource
+                FontFamily="{x:Static root:IconFont.FontFamily}"
+                Glyph="{x:Static root:IconGlyps.Link}"
+                Color="{AppThemeBinding Light={StaticResource Gray300},
+                                        Dark={StaticResource Gray600}}" />
+        </ShellContent.Icon>
+    </ShellContent>
 
     <ShellContent
         Title="{zoft:Translate MenuItem_LocalizationLabel}"
         ContentTemplate="{DataTemplate local:LocalizationView}"
-        Route="Localization" />
-    
+        Route="Localization">
+        <ShellContent.Icon>
+            <FontImageSource
+                FontFamily="{x:Static root:IconFont.FontFamily}"
+                Glyph="{x:Static root:IconGlyps.Language}"
+                Color="{AppThemeBinding Light={StaticResource Gray300},
+                                        Dark={StaticResource Gray600}}" />
+        </ShellContent.Icon>
+    </ShellContent>
+
     <ShellContent
         Title="{zoft:Translate MenuItem_MainThreadLabel}"
         ContentTemplate="{DataTemplate local:MainThreadView}"
-        Route="MainThread" />
+        Route="MainThread">
+        <ShellContent.Icon>
+            <FontImageSource
+                FontFamily="{x:Static root:IconFont.FontFamily}"
+                Glyph="{x:Static root:IconGlyps.Engineering}"
+                Color="{AppThemeBinding Light={StaticResource Gray300},
+                                        Dark={StaticResource Gray600}}" />
+        </ShellContent.Icon>
+    </ShellContent>
 
     <ShellContent
         Title="{zoft:Translate MenuItem_MessengerLabel}"
         ContentTemplate="{DataTemplate local:MessengerView}"
-        Route="Messenger" />
+        Route="Messenger">
+        <ShellContent.Icon>
+            <FontImageSource
+                FontFamily="{x:Static root:IconFont.FontFamily}"
+                Glyph="{x:Static root:IconGlyps.Communication}"
+                Color="{AppThemeBinding Light={StaticResource Gray300},
+                                        Dark={StaticResource Gray600}}" />
+        </ShellContent.Icon>
+    </ShellContent>
 
     <ShellContent
         Title="{zoft:Translate MenuItem_ValidationLabel}"
         ContentTemplate="{DataTemplate local:ValidationView}"
-        Route="Validation" />
+        Route="Validation">
+        <ShellContent.Icon>
+            <FontImageSource
+                FontFamily="{x:Static root:IconFont.FontFamily}"
+                Glyph="{x:Static root:IconGlyps.Fact_check}"
+                Color="{AppThemeBinding Light={StaticResource Gray300},
+                                        Dark={StaticResource Gray600}}" />
+        </ShellContent.Icon>
+    </ShellContent>
 
+    <ShellContent
+        Title="{zoft:Translate MenuItem_AboutLabel}"
+        ContentTemplate="{DataTemplate local:AboutView}"
+        Route="About">
+        <ShellContent.Icon>
+            <FontImageSource
+                FontFamily="{x:Static root:IconFont.FontFamily}"
+                Glyph="{x:Static root:IconGlyps.Info}"
+                Color="Orange" />
+        </ShellContent.Icon>
+    </ShellContent>
+
+    <Shell.FlyoutFooter>
+        <Label
+            x:Name="VersionLabel"
+            FontAttributes="Italic"
+            HorizontalOptions="Center" />
+    </Shell.FlyoutFooter>
 </Shell>

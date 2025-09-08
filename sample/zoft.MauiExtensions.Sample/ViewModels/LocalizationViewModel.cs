@@ -10,13 +10,13 @@ namespace zoft.MauiExtensions.Sample.ViewModels
     {
         public ILocalizationService LocalizationService { get; }
 
-        public List<CultureInfo> Languages => SupportedLanguages.List;
+        public List<string> Languages => SupportedLanguages.List.Select(l => l.Name).ToList();
 
         [ObservableProperty]
-        public partial CultureInfo SelectedLanguage { get; set; }
-        partial void OnSelectedLanguageChanged(CultureInfo value)
+        public partial string SelectedLanguage { get; set; }
+        partial void OnSelectedLanguageChanged(string value)
         {
-            LocalizationService.SetLanguage(value);
+            LocalizationService.SetLanguage(SupportedLanguages.List.First(l => l.Name == value).Info);
         }
 
         public LocalizationViewModel(ILocalizationService localizationService)
@@ -24,7 +24,7 @@ namespace zoft.MauiExtensions.Sample.ViewModels
         {
             LocalizationService = localizationService;
 
-            SelectedLanguage = LocalizationService.CurrentCulture;
+            SelectedLanguage = SupportedLanguages.List.FirstOrDefault(l => LocalizationService.CurrentCulture == l.Info).Name;
         }
     }
 }

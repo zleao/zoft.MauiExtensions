@@ -5,6 +5,8 @@
         public AppShell()
         {
             InitializeComponent();
+
+            VersionLabel.Text = $"Version {AppInfo.VersionString} (Build {AppInfo.BuildString})";
         }
     }
 }

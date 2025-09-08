@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
@@ -10,22 +10,37 @@
 		<LangVersion>preview</LangVersion>
 		<!--<WindowsSdkPackageVersion>10.0.19041.41</WindowsSdkPackageVersion>-->
 		<!-- Display name -->
-		<ApplicationTitle>zoft.MauiExtensions.Sample</ApplicationTitle>
+		<ApplicationTitle>ZOFT MAUI Extensions Demo</ApplicationTitle>
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.zoft.mauiextensions.sample</ApplicationId>
+		<ApplicationId>com.zoft.mauiextensions.demo</ApplicationId>
 		<ApplicationIdGuid>174cfa00-c5f7-4e54-85a3-3b184b2db0a0</ApplicationIdGuid>
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
+		
+		<!-- Android specific configurations -->
+		<AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
+		<AndroidUseAapt2>true</AndroidUseAapt2>
+		<AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+		<AndroidLinkMode>SdkOnly</AndroidLinkMode>
+		<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+		
+		<!-- Release configuration for store -->
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
+		<!--<RunAOTCompilation>False</RunAOTCompilation>-->
+		<AndroidPackageFormat>aab</AndroidPackageFormat>
+	</PropertyGroup>
+		
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.png" />
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 		<!-- Images -->

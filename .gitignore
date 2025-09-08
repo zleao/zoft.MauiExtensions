@@ -347,3 +347,18 @@ healthchecksdb
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
+
+# Android signing and deployment files
+*.keystore
+*.jks
+keystore.properties
+signing.properties
+
+# Android build outputs
+*.apk
+*.aab
+*.ap_
+
+# MAUI/Xamarin specific
+**/Android/**/Resource.designer.cs
+**/iOS/**/*.storyboard.cs

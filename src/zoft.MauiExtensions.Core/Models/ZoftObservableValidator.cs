@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel;
 using zoft.MauiExtensions.Core.Extensions;
 using zoft.MauiExtensions.Core.WeakSubscription;
+using Zoft.MauiExtensions.Core.WeakSubscription;
 
 namespace zoft.MauiExtensions.Core.Models;
 
@@ -11,7 +12,7 @@ namespace zoft.MauiExtensions.Core.Models;
 /// </summary>
 public abstract partial class ZoftObservableValidator : ObservableValidator, IDisposable
 {
-    private WeakEventSubscription<INotifyDataErrorInfo, DataErrorsChangedEventArgs> _errorsChangedWeakEventSubscription;
+    private WeakEventSubscription<INotifyDataErrorInfo, ZoftObservableValidator, EventHandler<DataErrorsChangedEventArgs>, DataErrorsChangedEventArgs> _errorsChangedWeakEventSubscription;
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is busy.
@@ -44,12 +45,17 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
         : base()
     {
         // Subscribe to the ErrorsChanged event to update the ErrorMessage property
-        _errorsChangedWeakEventSubscription = new WeakEventSubscription<INotifyDataErrorInfo, DataErrorsChangedEventArgs>(this, nameof(ErrorsChanged), OnErrorsChanged);
+        _errorsChangedWeakEventSubscription = this.WeakSubscribe<INotifyDataErrorInfo, ZoftObservableValidator, EventHandler<DataErrorsChangedEventArgs>, DataErrorsChangedEventArgs>(
+            this,
+            (s, h) => s.ErrorsChanged += h,
+            (s, h) => s.ErrorsChanged -= h,
+            a => new EventHandler<DataErrorsChangedEventArgs>(a),
+            OnErrorsChanged);
     }
 
     #endregion
 
-    protected virtual void OnErrorsChanged(object sender, DataErrorsChangedEventArgs e) { }
+    protected virtual void OnErrorsChanged(INotifyDataErrorInfo source, ZoftObservableValidator target, DataErrorsChangedEventArgs e) { }
 
     #region Busy Notification Management
 
@@ -59,7 +65,7 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
     /// Message to be shown in the busy indicator
     /// </summary>
     [ObservableProperty]
-    public partial string BusyMessage { get; set; }
+    public partial string BusyMessage { get; set; } = string.Empty;
    
 
     /// <summary>
@@ -70,7 +76,7 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
     /// <param name="isSilent">if set to <c>true</c> [is silent].</param>
     /// <returns></returns>
     /// <exception cref="System.ArgumentNullException">action</exception>
-    protected virtual async Task DoWorkAsync(Func<Task> action, string workMessage = null, bool isSilent = false)
+    protected virtual async Task DoWorkAsync(Func<Task> action, string? workMessage = null, bool isSilent = false)
     {
         ArgumentNullException.ThrowIfNull(action);
 
@@ -97,7 +103,7 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
     /// <param name="workMessage">The work message.</param>
     /// <param name="isSilent">if set to <c>true</c> [is silent].</param>
     /// <returns></returns>
-    protected virtual async Task<T> DoWorkAsync<T>(Func<Task<T>> action, string workMessage = null, bool isSilent = false)
+    protected virtual async Task<T> DoWorkAsync<T>(Func<Task<T>> action, string? workMessage = null, bool isSilent = false)
     {
         ArgumentNullException.ThrowIfNull(action);
 
@@ -136,11 +142,11 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
     /// </summary>
     /// <param name="message">The busy message.</param>
     /// <param name="isSilent">if set to <c>true</c> the IsBusy will no be signaled.</param>
-    public virtual void StartWork(string message, bool isSilent = false)
+    public virtual void StartWork(string? message, bool isSilent = false)
     {
         if (!isSilent && !message.IsNullOrWhiteSpace())
         {
-            BusyMessage = message;
+            BusyMessage = message!;
         }
 
         StartWork(isSilent);
@@ -159,7 +165,7 @@ public abstract partial class ZoftObservableValidator : ObservableValidator, IDi
 
             if (_busyCount <= 0)
             {
-                BusyMessage = null;
+                BusyMessage = string.Empty;
             }
         }
     }

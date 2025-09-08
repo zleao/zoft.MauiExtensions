@@ -110,7 +110,7 @@ public static class DictionaryExtensions
     /// <param name="source">The source.</param>
     /// <param name="action">The action.</param>
     /// <returns></returns>
-    public static IDictionary<T1, T2> ForEach<T1, T2>(this IDictionary<T1, T2> source, Action<T1, T2> action)
+    public static IDictionary<T1, T2>? ForEach<T1, T2>(this IDictionary<T1, T2>? source, Action<T1, T2> action)
     {
         if (source?.Count > 0)
         {
