@@ -74,7 +74,7 @@ jobs:
         path: sample/zoft.MauiExtensions.Sample/bin/Release/net9.0-android/*-Signed.aab
         retention-days: 30
 
-  # Future: Deploy to Play Store (requires store credentials)
+  # Deploy to Play Store
   deploy-playstore:
     runs-on: ubuntu-latest
     name: Deploy to Play Store
@@ -86,10 +86,11 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: maui-android-aab
-        
-    - name: Deploy to Play Store (Placeholder)
-      run: |
-        echo "This step would deploy to Google Play Store"
-        echo "Requires: Play Console API credentials, app signing key, etc."
-        echo "AAB files available for deployment:"
-        ls -la *.aab || echo "No AAB files found"
+    
+    - name: Upload Android Release to Play Store (internal track)
+      uses: r0adkll/upload-google-play@v1.1.3
+      with:
+        serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+        packageName: 'com.zoft.mauiextensions.demo'
+        releaseFiles: '*.aab'
+        track: 'internal'
