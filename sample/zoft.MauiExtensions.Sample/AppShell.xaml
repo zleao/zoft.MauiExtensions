@@ -16,7 +16,8 @@
             <FontImageSource
                 FontFamily="{x:Static root:IconFont.FontFamily}"
                 Glyph="{x:Static root:IconGlyps.Link}"
-                Color="Black" />
+                Color="{AppThemeBinding Light={StaticResource Gray300},
+                                        Dark={StaticResource Gray600}}" />
         </ShellContent.Icon>
     </ShellContent>
 
@@ -28,7 +29,8 @@
             <FontImageSource
                 FontFamily="{x:Static root:IconFont.FontFamily}"
                 Glyph="{x:Static root:IconGlyps.Language}"
-                Color="Black" />
+                Color="{AppThemeBinding Light={StaticResource Gray300},
+                                        Dark={StaticResource Gray600}}" />
         </ShellContent.Icon>
     </ShellContent>
 
@@ -40,7 +42,8 @@
             <FontImageSource
                 FontFamily="{x:Static root:IconFont.FontFamily}"
                 Glyph="{x:Static root:IconGlyps.Engineering}"
-                Color="Black" />
+                Color="{AppThemeBinding Light={StaticResource Gray300},
+                                        Dark={StaticResource Gray600}}" />
         </ShellContent.Icon>
     </ShellContent>
 
@@ -52,7 +55,8 @@
             <FontImageSource
                 FontFamily="{x:Static root:IconFont.FontFamily}"
                 Glyph="{x:Static root:IconGlyps.Communication}"
-                Color="Black" />
+                Color="{AppThemeBinding Light={StaticResource Gray300},
+                                        Dark={StaticResource Gray600}}" />
         </ShellContent.Icon>
     </ShellContent>
 
@@ -64,7 +68,8 @@
             <FontImageSource
                 FontFamily="{x:Static root:IconFont.FontFamily}"
                 Glyph="{x:Static root:IconGlyps.Fact_check}"
-                Color="Black" />
+                Color="{AppThemeBinding Light={StaticResource Gray300},
+                                        Dark={StaticResource Gray600}}" />
         </ShellContent.Icon>
     </ShellContent>
 
@@ -80,4 +85,10 @@
         </ShellContent.Icon>
     </ShellContent>
 
+    <Shell.FlyoutFooter>
+        <Label
+            x:Name="VersionLabel"
+            FontAttributes="Italic"
+            HorizontalOptions="Center" />
+    </Shell.FlyoutFooter>
 </Shell>
