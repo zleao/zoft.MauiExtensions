@@ -6,6 +6,9 @@ Nuget Package | Current Version
 --- | ---
 | zoft.MauiExtensions.Core | [![NuGet](https://img.shields.io/nuget/v/zoft.MauiExtensions.Core.svg)](https://www.nuget.org/packages/zoft.MauiExtensions.Core/)
 
+## !! Sample App !!
+
+I'm currently in the process of deploying a sample app (Android) to demonstrate the capabilities of the package. If you're interested in becoming a tester to allow the app to be published, please add your email in the issue created for this purpose: [Sample App Testing](https://github.com/zleao/zoft.MauiExtensions/issues/12)
 
 ## Getting Started
 
