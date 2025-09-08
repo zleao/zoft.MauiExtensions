@@ -61,6 +61,15 @@ namespace zoft.MauiExtensions.Sample.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set of tools designed to be used in MAUI projects, including Views, ViewModels, Services, extensions and more..
+        /// </summary>
+        public static string AboutPage_DescriptionLabel {
+            get {
+                return ResourceManager.GetString("AboutPage_DescriptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Writting on the TriggerText entry, will trigger an update the TargetText and the TargeDate.
         /// </summary>
         public static string DependsOnPage_MainLabel {
@@ -156,6 +165,15 @@ namespace zoft.MauiExtensions.Sample.Localization {
         public static string MainThreadPage_Title {
             get {
                 return ResourceManager.GetString("MainThreadPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string MenuItem_AboutLabel {
+            get {
+                return ResourceManager.GetString("MenuItem_AboutLabel", resourceCulture);
             }
         }
         

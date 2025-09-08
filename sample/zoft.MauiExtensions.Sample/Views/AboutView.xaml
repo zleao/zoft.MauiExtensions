@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="zoft.MauiExtensions.Sample.Views.AboutView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:root="clr-namespace:zoft.MauiExtensions.Sample"
+    xmlns:zoft="http://zoft.maui.extensions"
+    Title="About">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Margin="20"
+            HorizontalOptions="Fill"
+            Spacing="15"
+            VerticalOptions="Start">
+            <Label
+                FontAttributes="Bold"
+                FontSize="22"
+                HorizontalOptions="Center"
+                Text="Zoft.MauiExtensions" />
+
+            <Label
+                x:Name="VersionLabel"
+                FontAttributes="Italic"
+                HorizontalOptions="Center" />
+
+            <Label
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                LineBreakMode="WordWrap"
+                Text="{zoft:Translate AboutPage_DescriptionLabel}" />
+
+            <Label
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Text="Developer: José Pereira (GitHub: zleao)" />
+
+            <!--  Repository hyperlink  -->
+            <Label
+                HorizontalOptions="Center"
+                Text="Project repository on GitHub"
+                TextColor="Blue"
+                TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnGitHubLinkTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!--  Email hyperlink  -->
+            <Label
+                HorizontalOptions="Center"
+                Text="Contact via email"
+                TextColor="Blue"
+                TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnEmailLinkTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!--  Community tagline  -->
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            FontAttributes="Italic"
+                            FontFamily="OpenSansRegular"
+                            Text="Made for the community with" />
+                        <Span
+                            CharacterSpacing="10"
+                            FontFamily="{x:Static root:IconFont.FontFamily}"
+                            Text="{x:Static root:IconGlyps.Favorite}"
+                            TextColor="IndianRed" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
