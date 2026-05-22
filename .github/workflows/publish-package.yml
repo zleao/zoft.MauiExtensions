@@ -1,0 +1,183 @@
+name: Publish package
+
+on:
+  push:
+    tags:
+      - '[0-9]*.[0-9]*.[0-9]*'
+      - '[0-9]*.[0-9]*.[0-9]*-*'
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Git ref to build (branch, tag, or SHA)
+        required: false
+        default: main
+      publish_to_nuget:
+        description: Push packages to NuGet.org
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+env:
+  BUILD_CONFIGURATION: Release
+  PROJECT_FILE: src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj
+  PACKAGE_OUTPUT: src\zoft.MauiExtensions.Core\bin\Release
+  NUGET_SOURCE: https://api.nuget.org/v3/index.json
+
+jobs:
+  publish-package:
+    name: Build and publish package
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+          fetch-depth: 0
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Extract release notes from CHANGELOG.md
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.publish_to_nuget == 'true')
+        shell: pwsh
+        run: |
+          $changelog = Get-Content 'CHANGELOG.md' -Raw
+          $tag = git describe --tags --exact-match 2>$null
+
+          if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($tag)) {
+              Write-Warning "The checked-out ref is not an exact tag. Package will have no release notes."
+              $version = ""
+              $notes = ""
+          } else {
+              $version = $tag.Trim().TrimStart('v')
+              $escapedVersion = [regex]::Escape($version)
+              $pattern = "(?m)^## \[$escapedVersion\][^\n]*\r?\n(.*?)(?=\r?\n## \[|\z)"
+              $notes = [regex]::Match($changelog, $pattern, [System.Text.RegularExpressions.RegexOptions]::Singleline).Groups[1].Value.Trim()
+
+              if ([string]::IsNullOrWhiteSpace($notes)) {
+                  Write-Warning "No release notes found in CHANGELOG.md for version '$version'. Package will have no release notes."
+                  $notes = ""
+              } else {
+                  Write-Host "Release notes extracted for version '$version'."
+              }
+          }
+
+          $xmlEscaped = [System.Security.SecurityElement]::Escape($notes)
+          @"
+          <Project>
+            <PropertyGroup>
+              <PackageReleaseNotes>$xmlEscaped</PackageReleaseNotes>
+            </PropertyGroup>
+          </Project>
+          "@ | Set-Content 'src\ReleaseNotes.g.props' -Encoding utf8
+
+      - name: Restore MAUI workloads
+        shell: pwsh
+        run: dotnet workload restore $env:PROJECT_FILE --ignore-failed-sources --skip-manifest-update
+
+      - name: Restore package project
+        shell: pwsh
+        run: dotnet restore $env:PROJECT_FILE --ignore-failed-sources
+
+      - name: Build package
+        shell: pwsh
+        run: dotnet build $env:PROJECT_FILE -c $env:BUILD_CONFIGURATION --no-restore --nologo
+
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-packages
+          path: |
+            src/zoft.MauiExtensions.Core/bin/Release/*.nupkg
+            src/zoft.MauiExtensions.Core/bin/Release/*.snupkg
+          if-no-files-found: error
+
+      - name: Validate tag and package version
+        if: github.event_name == 'push'
+        shell: pwsh
+        run: |
+          $tag = '${{ github.ref_name }}'
+
+          if ($tag -notmatch '^\d+\.\d+\.\d+(-[a-zA-Z0-9._-]+)?$') {
+              throw "Tag '$tag' does not match the required MAJOR.MINOR.PATCH or MAJOR.MINOR.PATCH-prerelease format."
+          }
+
+          $nupkg = Get-ChildItem -Path "$env:PACKAGE_OUTPUT" -Filter *.nupkg |
+                     Where-Object { $_.Name -notlike '*.snupkg' } |
+                     Select-Object -First 1
+
+          if (-not $nupkg) {
+              throw "No .nupkg file found in '$env:PACKAGE_OUTPUT'."
+          }
+
+          $packageId = 'zoft.MauiExtensions.Core'
+          $expectedPrefix = "$packageId."
+
+          if (-not $nupkg.BaseName.StartsWith($expectedPrefix, [System.StringComparison]::Ordinal)) {
+              throw "Package file '$($nupkg.Name)' does not match the expected package ID '$packageId'. Expected file name to start with '$expectedPrefix'."
+          }
+
+          $packageVersion = $nupkg.BaseName.Substring($expectedPrefix.Length)
+
+          if ($packageVersion -ne $tag) {
+              throw "Package version '$packageVersion' does not match tag '$tag'. Aborting publish."
+          }
+
+          Write-Host "Tag and package version both match: $tag"
+
+      - name: Push package to NuGet.org
+        if: github.event_name == 'push' || fromJSON(github.event.inputs.publish_to_nuget || 'false')
+        shell: pwsh
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:NUGET_API_KEY)) {
+              throw "Repository secret 'NUGET_API_KEY' is required to publish packages."
+          }
+
+          Push-Location $env:PACKAGE_OUTPUT
+
+          try {
+              Get-ChildItem . -Filter *.nupkg |
+                Where-Object { $_.Name -notlike '*.snupkg' } |
+                ForEach-Object {
+                  dotnet nuget push $_.Name `
+                    --source $env:NUGET_SOURCE `
+                    --api-key $env:NUGET_API_KEY `
+                    --skip-duplicate
+                }
+          }
+          finally {
+              Pop-Location
+          }
+
+      - name: Create or update GitHub release and attach packages
+        if: github.event_name == 'push'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = '${{ github.ref_name }}'
+
+          $releaseExists = gh release view $tag --json tagName 2>$null
+          if (-not $releaseExists) {
+              gh release create $tag --title "Release $tag" --generate-notes
+          }
+
+          Push-Location $env:PACKAGE_OUTPUT
+
+          try {
+              @(Get-ChildItem -Filter *.nupkg; Get-ChildItem -Filter *.snupkg -ErrorAction SilentlyContinue) |
+                ForEach-Object {
+                  gh release upload $tag $_.Name --clobber
+                }
+          }
+          finally {
+              Pop-Location
+          }

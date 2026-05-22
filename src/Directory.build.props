@@ -11,7 +11,7 @@
 		<PackageProjectUrl>https://github.com/zleao/zoft.MauiExtensions</PackageProjectUrl>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<NeutralLanguage>en</NeutralLanguage>
-		<Version>5.2.0</Version>
+		<MinVerMinimumMajorMinorPatch>5.2.0</MinVerMinimumMajorMinorPatch>
 		<Description>
 			Extension library for .NET9 MAUI. Built on top of CommunityToolkit.MVVM
 			Provides extra functionalities for ViewModels and Services, including:
@@ -23,10 +23,6 @@
 			- WeakSubscriptions
 		</Description>
 		<PackageTags>net9 mvvm mvvmhelper maui zoft</PackageTags>
-		<PackageReleaseNotes>
-			Removed reflection logic from the WeakEventSubscription
-			Updated NuGet package references.
-		</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 
 		<Platform>AnyCPU</Platform>
@@ -44,6 +40,9 @@
 		<DebugType>portable</DebugType>
 		<DebugSymbols>true</DebugSymbols>
 	</PropertyGroup>
+
+	<!-- Release notes are injected at publish time from CHANGELOG.md via ReleaseNotes.g.props (CI-generated, git-ignored) -->
+	<Import Project="$(MSBuildThisFileDirectory)ReleaseNotes.g.props" Condition="Exists('$(MSBuildThisFileDirectory)ReleaseNotes.g.props')" />
 
 	<!-- Nuget package included files -->
 	<ItemGroup>

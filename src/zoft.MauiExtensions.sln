@@ -6,8 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{098F9012-79B5-4664-BE27-4F4CD3A69B65}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
-		..\azure-pipelines.yml = ..\azure-pipelines.yml
+		..\CHANGELOG.md = ..\CHANGELOG.md
 		..\DEPLOYMENT_SUMMARY.md = ..\DEPLOYMENT_SUMMARY.md
+		..\global.json = ..\global.json
 		Directory.build.props = Directory.build.props
 		..\LICENSE.md = ..\LICENSE.md
 		..\validate-deployment.sh = ..\validate-deployment.sh
@@ -22,8 +23,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github-workflow", "github-workflow", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\android-deploy.yml = ..\.github\workflows\android-deploy.yml
-		..\.github\workflows\dotnet-maui-nuget.yml = ..\.github\workflows\dotnet-maui-nuget.yml
-		..\.github\workflows\dotnet-maui-sample.yml = ..\.github\workflows\dotnet-maui-sample.yml
+		..\.github\release.yml = ..\.github\release.yml
+		..\.github\workflows\ci.yml = ..\.github\workflows\ci.yml
+		..\.github\workflows\publish-package.yml = ..\.github\workflows\publish-package.yml
 	EndProjectSection
 EndProject
 Global
