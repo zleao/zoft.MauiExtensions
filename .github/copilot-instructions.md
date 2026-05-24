@@ -13,7 +13,7 @@ dotnet build src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj -c Rel
 # Sample app CI build
 dotnet workload restore sample\zoft.MauiExtensions.Sample\zoft.MauiExtensions.Sample.csproj --ignore-failed-sources --skip-manifest-update
 dotnet restore sample\zoft.MauiExtensions.Sample\zoft.MauiExtensions.Sample.csproj --ignore-failed-sources
-dotnet build sample\zoft.MauiExtensions.Sample\zoft.MauiExtensions.Sample.csproj -c Release -f net9.0-windows10.0.19041.0 --no-restore
+dotnet build sample\zoft.MauiExtensions.Sample\zoft.MauiExtensions.Sample.csproj -c Release -f net10.0-windows10.0.19041.0 --no-restore
 
 # Local package build
 dotnet build src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj -c Release
@@ -31,7 +31,7 @@ There are no dedicated test projects yet, so there is currently no single-test c
 
 There is no separate lint command in the repository. Style/analyzer feedback comes from `.editorconfig`, `MemoryAnalyzers`, and the normal `dotnet build` pipeline.
 
-The repository is pinned through the root `global.json` to the .NET 10.0.300 SDK, even though the library and sample target .NET 9 MAUI TFMs.
+The repository is pinned through the root `global.json` to the .NET 10.0.300 SDK, and both the library and sample target .NET 10 MAUI TFMs.
 
 Package versioning is tag-driven through MinVer. Do not hardcode package versions in project files; release tags and `CHANGELOG.md` drive the published package version and release notes.
 
@@ -41,7 +41,7 @@ Untagged local builds will produce prerelease package versions derived from the 
 
 ## High-level architecture
 
-- `src\zoft.MauiExtensions.Core` is the package that gets published. It is a multi-targeted MAUI library (`net9.0`, Android, iOS, Mac Catalyst, and Windows on Windows hosts).
+- `src\zoft.MauiExtensions.Core` is the package that gets published. It is a multi-targeted MAUI library (`net10.0`, Android, iOS, Mac Catalyst, and Windows on Windows hosts).
 - `sample\zoft.MauiExtensions.Sample` is the demo app. It references the local core project directly and acts as the main usage example for the package APIs.
 - The core library is organized by feature area rather than by app layer:
   - `Models` contains the three main base types: `ZoftObservableObject`, `ZoftObservableRecipient`, and `ZoftObservableValidator`. They wrap CommunityToolkit.Mvvm types and standardize busy-state handling, disposal, and validation behavior.
@@ -62,6 +62,7 @@ Untagged local builds will produce prerelease package versions derived from the 
 - `ZoftObservableValidator` descendants are expected to react to validation changes by overriding `OnErrorsChanged(...)`; the base class already wires the event using weak subscriptions.
 - If you add weak-event usage, keep the returned `WeakEventSubscription<...>` alive in a field and dispose it with the owning object.
 - C# preview features are enabled in both projects (`LangVersion=preview`), and the repository already uses newer syntax such as primary constructors.
+- The sample app uses `CommunityToolkit.Maui` 14.x because earlier 12.x releases target MAUI 9 and conflict with `Microsoft.Maui.Controls` 10.x.
 - Repository style is driven by `.editorconfig`: block-scoped namespaces, `using` directives outside namespaces, CRLF line endings, 4-space indentation, and interface names prefixed with `I`.
 - Public surface area in the core library is documented with XML comments and Release builds generate documentation files; avoid adding public APIs without XML docs.
 - Keep `CHANGELOG.md` version headers aligned with release tags (`## [5.2.0]`, `## [5.2.0-beta.1]`, etc.), because the publish workflow extracts NuGet release notes from that exact section.

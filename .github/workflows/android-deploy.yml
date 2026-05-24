@@ -5,7 +5,7 @@ on:
 
 env:
   PROJECT_PATH: 'sample/zoft.MauiExtensions.Sample/zoft.MauiExtensions.Sample.csproj'
-  DOTNET_VERSION: '9.0.x'
+  DOTNET_VERSION: '10.0.x'
 
 jobs:
   build-android:
@@ -59,7 +59,7 @@ jobs:
       run: |
         dotnet publish ${{ env.PROJECT_PATH }} `
           -c Release `
-          -f net9.0-android `
+          -f net10.0-android `
           -p:AndroidKeyStore=true `
           -p:AndroidSigningKeyStore="$env:KEYSTORE_PATH" `
           -p:AndroidSigningStorePass="$env:KEYSTORE_PASSWORD" `
@@ -71,7 +71,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: maui-android-aab
-        path: sample/zoft.MauiExtensions.Sample/bin/Release/net9.0-android/*-Signed.aab
+        path: sample/zoft.MauiExtensions.Sample/bin/Release/net10.0-android/*-Signed.aab
         retention-days: 30
 
   # Deploy to Play Store

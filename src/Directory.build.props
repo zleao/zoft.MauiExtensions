@@ -13,7 +13,7 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<MinVerMinimumMajorMinorPatch>5.2.0</MinVerMinimumMajorMinorPatch>
 		<Description>
-			Extension library for .NET9 MAUI. Built on top of CommunityToolkit.MVVM
+			Extension library for .NET 10 MAUI. Built on top of CommunityToolkit.MVVM
 			Provides extra functionalities for ViewModels and Services, including:
 			- Translation markup extension
 			- Localization Service
@@ -22,7 +22,7 @@
 			- Base Model (ZoftObservableValidator) with support for 'ObservableValidator'
 			- WeakSubscriptions
 		</Description>
-		<PackageTags>net9 mvvm mvvmhelper maui zoft</PackageTags>
+		<PackageTags>net10 mvvm mvvmhelper maui zoft</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 
 		<Platform>AnyCPU</Platform>

@@ -6,6 +6,12 @@ The repository now uses tag-based package versioning. When publishing a release,
 
 ## [Unreleased]
 
+### Changed
+
+- Updated the core library and sample app from .NET 9 MAUI to .NET 10 MAUI.
+- Updated CI and Android deployment workflows to build the .NET 10 targets.
+- Removed sample references to MAUI 10-deprecated APIs such as `DisplayAlert()` and deprecated `Frame` / `ListView` styles.
+
 ## [5.2.0]
 
 ### Changed
