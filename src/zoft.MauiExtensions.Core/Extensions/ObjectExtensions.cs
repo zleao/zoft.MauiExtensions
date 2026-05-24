@@ -78,11 +78,7 @@ public static class ObjectExtensions
     /// <exception cref="System.ArgumentNullException"></exception>
     public static T ThrowIfNull<T>(this T argument, string propertyName)
     {
-        if (argument == null)
-        {
-            throw new ArgumentNullException($"{propertyName} is null");
-        }
-
+        ArgumentNullException.ThrowIfNull(argument, propertyName);
         return argument;
     }
 }

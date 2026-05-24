@@ -17,19 +17,16 @@ public static class TaskExtensions
     /// <typeparam name="T">The 1st type parameter.</typeparam>
     public async static Task<T> WithTimeout<T>(this Task<T> task, int timeoutInMilliseconds)
     {
-        using var timeoutCts = new CancellationTokenSource();
-        var timeoutTask = Task.Delay(timeoutInMilliseconds, timeoutCts.Token);
-        
-        var completedTask = await Task.WhenAny(task, timeoutTask)
-            .ConfigureAwait(false);
+        ArgumentNullException.ThrowIfNull(task);
 
-        if (completedTask == task)
+        try
         {
-            timeoutCts.Cancel(); // Cancel timeout task to free resources
-            return await task.ConfigureAwait(false);
+            return await task.WaitAsync(TimeSpan.FromMilliseconds(timeoutInMilliseconds)).ConfigureAwait(false);
         }
-        
-        throw new TimeoutException($"Task timed out after {timeoutInMilliseconds} milliseconds");
+        catch (TimeoutException)
+        {
+            throw new TimeoutException($"Task timed out after {timeoutInMilliseconds} milliseconds");
+        }
     }
 
     /// <summary>
@@ -39,8 +36,19 @@ public static class TaskExtensions
     /// <param name="task">Task.</param>
     /// <param name="timeout">Timeout Duration.</param>
     /// <typeparam name="T">The 1st type parameter.</typeparam>
-    public static Task<T> WithTimeout<T>(this Task<T> task, TimeSpan timeout) =>
-        WithTimeout(task, (int)timeout.TotalMilliseconds);
+    public static async Task<T> WithTimeout<T>(this Task<T> task, TimeSpan timeout)
+    {
+        ArgumentNullException.ThrowIfNull(task);
+
+        try
+        {
+            return await task.WaitAsync(timeout).ConfigureAwait(false);
+        }
+        catch (TimeoutException)
+        {
+            throw new TimeoutException($"Task timed out after {timeout}");
+        }
+    }
 
     /// <summary>
     /// Attempts to await on the task and catches exception
