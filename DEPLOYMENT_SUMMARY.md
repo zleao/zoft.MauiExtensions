@@ -18,7 +18,7 @@
   - Proper app labeling and theming
   - Required permissions (Internet, Network State)
   - Feature declarations for optional hardware
-  - Target API level 34 (Android 14)
+  - Target API level 35 (Android 15)
   - Minimum API level 21 (Android 5.0)
 - **Privacy Policy**: Created comprehensive privacy policy
 - **App Description**: Professional store listing description
@@ -104,7 +104,7 @@
 - [x] Unique app name and package identifier
 - [x] Professional app icon design
 - [x] Privacy policy document
-- [x] Target API compliance (API 34)
+- [x] Target API compliance (API 35)
 - [x] Minimal permissions approach
 - [x] Feature declarations for optional hardware
 - [x] Proper app labeling and metadata
