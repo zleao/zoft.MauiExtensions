@@ -4,7 +4,7 @@ All notable changes to this project should be documented in this file.
 
 The repository now uses tag-based package versioning. When publishing a release, keep the section header aligned with the Git tag so the publish workflow can inject the matching notes into the NuGet package metadata.
 
-## [Unreleased]
+## [6.0.0]
 
 ### Changed
 
