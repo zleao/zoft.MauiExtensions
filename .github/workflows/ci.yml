@@ -93,7 +93,7 @@ jobs:
 
       - name: Restore sample app
         shell: pwsh
-        run: dotnet restore $env:SAMPLE_PROJECT_FILE --ignore-failed-sources
+        run: dotnet restore $env:SAMPLE_PROJECT_FILE -r win-x64 --ignore-failed-sources
 
       - name: Build sample app
         shell: pwsh
