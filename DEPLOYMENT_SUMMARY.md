@@ -18,7 +18,7 @@
   - Proper app labeling and theming
   - Required permissions (Internet, Network State)
   - Feature declarations for optional hardware
-  - Target API level 35 (Android 15)
+  - Target API level determined by the installed MAUI workload (currently resolves to API 35 / Android 15)
   - Minimum API level 21 (Android 5.0)
 - **Privacy Policy**: Created comprehensive privacy policy
 - **App Description**: Professional store listing description
@@ -91,7 +91,7 @@
 ### Android Specifics
 - **Target Framework**: net10.0-android
 - **Min SDK**: 21 (Android 5.0)
-- **Target SDK**: 35 (Android 15)
+- **Target SDK**: Determined by installed MAUI workload (currently API 35 / Android 15)
 - **Package Format**: APK/AAB
 - **Signing**: Configured for release builds
 
@@ -104,7 +104,7 @@
 - [x] Unique app name and package identifier
 - [x] Professional app icon design
 - [x] Privacy policy document
-- [x] Target API compliance (API 35)
+- [x] Target API compliance (workload-driven, currently API 35)
 - [x] Minimal permissions approach
 - [x] Feature declarations for optional hardware
 - [x] Proper app labeling and metadata
