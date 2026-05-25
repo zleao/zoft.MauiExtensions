@@ -5,7 +5,6 @@ on:
 
 env:
   PROJECT_PATH: 'sample/zoft.MauiExtensions.Sample/zoft.MauiExtensions.Sample.csproj'
-  DOTNET_VERSION: '10.0.x'
 
 jobs:
   build-android:
@@ -19,7 +18,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+        global-json-file: global.json
 
     # Install/restore Android workload for MAUI (idempotent; safe if already present)
     - name: Install MAUI Workloads

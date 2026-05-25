@@ -19,9 +19,18 @@ public static class TaskExtensions
     {
         ArgumentNullException.ThrowIfNull(task);
 
+        if (timeoutInMilliseconds < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(timeoutInMilliseconds), timeoutInMilliseconds, "Timeout must be -1 (infinite) or a non-negative value.");
+        }
+
+        var timeout = timeoutInMilliseconds == -1
+            ? Timeout.InfiniteTimeSpan
+            : TimeSpan.FromMilliseconds(timeoutInMilliseconds);
+
         try
         {
-            return await task.WaitAsync(TimeSpan.FromMilliseconds(timeoutInMilliseconds)).ConfigureAwait(false);
+            return await task.WaitAsync(timeout).ConfigureAwait(false);
         }
         catch (TimeoutException ex)
         {
