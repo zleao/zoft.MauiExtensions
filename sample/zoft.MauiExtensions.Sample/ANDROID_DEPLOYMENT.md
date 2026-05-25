@@ -20,7 +20,7 @@ This guide covers the deployment of the MAUI Extensions Demo app to the Google P
 ## Prerequisites
 
 ### Development Environment
-- .NET 9.0 SDK with MAUI workloads
+- .NET 10.0 SDK with MAUI workloads
 - Android SDK (API 21-34)
 - Java Development Kit (JDK 11+)
 
@@ -40,7 +40,7 @@ cd sample/zoft.MauiExtensions.Sample
 dotnet restore
 
 # Build for Android
-dotnet build -c Release -f net9.0-android
+dotnet build -c Release -f net10.0-android
 ```
 
 ### GitHub Actions
@@ -114,7 +114,7 @@ All store metadata is prepared in the `PlayStore/` directory:
 - Educational/utility app category
 
 ### Technical Requirements
-- Targets Android API 34
+- Targets the Android API level configured by the installed .NET 10 MAUI workload
 - Supports Android 5.0+ (API 21)
 - 64-bit compatible
 - Follows Material Design guidelines

@@ -362,3 +362,4 @@ signing.properties
 # MAUI/Xamarin specific
 **/Android/**/Resource.designer.cs
 **/iOS/**/*.storyboard.cs
+src/ReleaseNotes.g.props

@@ -17,7 +17,4 @@
 	<uses-feature 
 		android:name="android.hardware.telephony" 
 		android:required="false" />
-	
-	<!-- Target API level -->
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="35" />
 </manifest>

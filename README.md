@@ -1,6 +1,6 @@
 # zoft.MauiExtensions
 
-Set of tools designed to be used in MAUI projects, including Views, ViewModels, Services, Extensions and more...
+Set of tools designed to be used in .NET 10 MAUI projects, including Views, ViewModels, Services, Extensions and more...
 
 Nuget Package | Current Version
 --- | ---

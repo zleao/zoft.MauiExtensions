@@ -37,7 +37,7 @@ namespace zoft.MauiExtensions.Sample.Views
 
         private async Task OnNotificationGenericMessageAsync(NotificationGenericMessage msg)
         {
-            await DisplayAlert(msg.Severity.ToString(), msg.Message, "OK");
+            await DisplayAlertAsync(msg.Severity.ToString(), msg.Message, "OK");
         }
     }
 }

@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/**/*.cs'
+      - 'src/**/*.xaml'
+      - 'src/**/*.csproj'
+      - 'src/**/*.props'
+      - 'src/**/*.targets'
+      - 'src/**/*.sln'
+      - 'sample/**'
+      - '.github/workflows/**'
+      - 'global.json'
+      - 'CHANGELOG.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  BUILD_CONFIGURATION: Release
+  PROJECT_FILE: src\zoft.MauiExtensions.Core\zoft.MauiExtensions.Core.csproj
+  SOLUTION_FILE: src\zoft.MauiExtensions.sln
+  SAMPLE_PROJECT_FILE: sample\zoft.MauiExtensions.Sample\zoft.MauiExtensions.Sample.csproj
+
+jobs:
+  build-library:
+    name: Build library
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore MAUI workloads
+        shell: pwsh
+        run: dotnet workload restore $env:PROJECT_FILE --ignore-failed-sources --skip-manifest-update
+
+      - name: Restore library
+        shell: pwsh
+        run: dotnet restore $env:PROJECT_FILE --ignore-failed-sources
+
+      - name: Build library
+        shell: pwsh
+        run: dotnet build $env:PROJECT_FILE -c $env:BUILD_CONFIGURATION --no-restore --nologo
+
+      - name: Run solution test entry point
+        shell: pwsh
+        run: dotnet test $env:SOLUTION_FILE --no-build --configuration $env:BUILD_CONFIGURATION --logger "trx;LogFileName=test_results.trx"
+
+      - name: Upload NuGet artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-packages
+          path: |
+            src/zoft.MauiExtensions.Core/bin/Release/*.nupkg
+            src/zoft.MauiExtensions.Core/bin/Release/*.snupkg
+          if-no-files-found: error
+
+  build-sample:
+    name: Build sample app (Windows)
+    runs-on: windows-latest
+    needs: build-library
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore MAUI workloads
+        shell: pwsh
+        run: dotnet workload restore $env:SAMPLE_PROJECT_FILE
+
+      - name: Build sample app
+        shell: pwsh
+        run: dotnet build $env:SAMPLE_PROJECT_FILE -f net10.0-windows10.0.19041.0 -c $env:BUILD_CONFIGURATION --nologo
