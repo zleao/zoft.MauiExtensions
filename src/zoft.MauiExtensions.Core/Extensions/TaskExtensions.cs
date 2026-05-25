@@ -44,9 +44,9 @@ public static class TaskExtensions
         {
             return await task.WaitAsync(timeout).ConfigureAwait(false);
         }
-        catch (TimeoutException)
+        catch (TimeoutException ex)
         {
-            throw new TimeoutException($"Task timed out after {timeout}");
+            throw new TimeoutException($"Task timed out after {timeout.TotalMilliseconds} milliseconds", ex);
         }
     }
 
