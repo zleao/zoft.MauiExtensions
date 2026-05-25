@@ -93,8 +93,8 @@ jobs:
 
       - name: Restore sample app
         shell: pwsh
-        run: dotnet restore $env:SAMPLE_PROJECT_FILE --ignore-failed-sources
+        run: dotnet restore $env:SAMPLE_PROJECT_FILE -f net10.0-windows10.0.19041.0 -r win-x64 --ignore-failed-sources
 
       - name: Build sample app
         shell: pwsh
-        run: dotnet build $env:SAMPLE_PROJECT_FILE -f net10.0-windows10.0.19041.0 -c $env:BUILD_CONFIGURATION --no-restore --nologo
+        run: dotnet build $env:SAMPLE_PROJECT_FILE -f net10.0-windows10.0.19041.0 -r win-x64 -c $env:BUILD_CONFIGURATION --no-restore --nologo
