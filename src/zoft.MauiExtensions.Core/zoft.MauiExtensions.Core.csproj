@@ -18,13 +18,16 @@
 	
 	<!-- Referenced Nuget Packages -->
 	<ItemGroup>
-		<PackageReference Include="MinVer" Version="7.0.0" PrivateAssets="all" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="MinVer" Version="8.0.0" PrivateAssets="all" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
 		<PackageReference Include="MemoryAnalyzers" Version="0.1.0-beta.5">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.70" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.101" />
 	</ItemGroup>
 </Project>

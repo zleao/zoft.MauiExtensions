@@ -11,7 +11,6 @@
 		<PackageProjectUrl>https://github.com/zleao/zoft.MauiExtensions</PackageProjectUrl>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<NeutralLanguage>en</NeutralLanguage>
-		<MinVerMinimumMajorMinorPatch>5.2.0</MinVerMinimumMajorMinorPatch>
 		<Description>
 			Extension library for .NET 10 MAUI. Built on top of CommunityToolkit.MVVM
 			Provides extra functionalities for ViewModels and Services, including:

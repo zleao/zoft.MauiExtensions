@@ -12,6 +12,8 @@ I'm currently in the process of deploying a sample app (Android) to demonstrate 
 
 ## Getting Started
 
+For repository contributions, see [development and validation](docs/development.md), [architecture](docs/architecture.md), and [versioning and releases](docs/versioning.md). AI coding assistants should start with [AGENTS.md](AGENTS.md).
+
 ### Install nuget package: [zoft.MauiExtensions.Core](https://www.nuget.org/packages/zoft.MauiExtensions.Core/)
  
 ```
@@ -62,17 +64,17 @@ Based on the Component Models of the [CommunityToolkit.MVVM](https://learn.micro
 - **ZoftObservableObject**: Based on the `ObservableObject` class, provides a base implementation of the `INotifyPropertyChanged` interface with additional features:
   - `IsBusy` and `IsNotBusy` properties for UI binding
   - `BusyMessage` property for displaying status messages
-  - `DoWorkAsync()` methods for executing background tasks with busy state management
+  - `DoWorkAsync()` methods for awaiting asynchronous work with busy state management
   - Implements `IDisposable` for proper resource cleanup
 
 - **ZoftObservableRecipient**: Based on the `ObservableRecipient` class, provides messaging capabilities:
-  - Inherits all features from `ZoftObservableObject`
+  - Provides the same busy-state and disposal helpers as `ZoftObservableObject` through a separate implementation
   - Built-in messenger functionality for communication between ViewModels
   - Automatic message registration and cleanup
   - `Broadcast()` method for sending property change messages
 
 - **ZoftObservableValidator**: Based on the `ObservableValidator` class, provides validation capabilities:
-  - All features of `ZoftObservableObject`
+  - Provides the same busy-state and disposal helpers as `ZoftObservableObject` through a separate implementation
   - Data annotation validation support
   - `ValidateAllProperties()` and `ClearErrors()` methods
   - Override `OnErrorsChanged()` to handle validation state changes
@@ -83,7 +85,7 @@ Based on the Component Models of the [CommunityToolkit.MVVM](https://learn.micro
 ---
 
 ### Busy Notification Management
-Base models provide methods to execute code in a background thread, while providing with updated on `IsBusy` and `BusyMessage` properties that can be bound to an UI element (i.e. `ActivityIndicator`)
+Base models provide methods to await asynchronous work while updating `IsBusy` and `BusyMessage`, which can be bound to UI elements such as `ActivityIndicator`. These helpers do not automatically move work to a background thread or dispatch UI updates to the main thread; explicitly dispatch UI operations when needed.
 ```csharp
 await DoWorkAsync(() => ..., "Busy Message");
 

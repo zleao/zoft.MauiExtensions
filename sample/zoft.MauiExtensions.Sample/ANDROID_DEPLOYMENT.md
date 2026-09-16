@@ -1,161 +1,49 @@
-# Android App Store Deployment Guide
+# Android deployment guide
 
-This guide covers the deployment of the MAUI Extensions Demo app to the Google Play Store.
+The [Android workflow](../../.github/workflows/android-deploy.yml) is the source of truth for automation. The [sample project](zoft.MauiExtensions.Sample.csproj) defines application identity, target frameworks, minimum platform versions, and the PNG app icon. See [versioning](../../docs/versioning.md) for the distinction between NuGet and application versions.
 
-## App Configuration
+## Local setup and validation
 
-### App Identity
-- **App Name**: MAUI Extensions Demo
-- **Package ID**: `com.zoft.mauiextensions.demo`
-- **Version**: 1.0 (Version Code: 1)
+Follow [development setup](../../docs/development.md) to install an SDK compatible with the repository's `global.json` and the MAUI workloads. Use the Android SDK and JDK required by that workload; do not rely on fixed Android/JDK versions from historical deployment summaries.
 
-### Key Features
-- Demonstrates zoft.MauiExtensions library capabilities
-- Dependency injection patterns
-- Localization examples
-- Main thread operations
-- Messaging patterns
-- Input validation
+From the repository root:
 
-## Prerequisites
-
-### Development Environment
-- .NET 10.0 SDK with MAUI workloads
-- Android SDK (API 21-34)
-- Java Development Kit (JDK 11+)
-
-### Google Play Console
-- Google Play Console developer account
-- App registration in Play Console
-- Compliance with Play Store policies
-
-## Build Process
-
-### Local Build
-```bash
-# Navigate to sample project
-cd sample/zoft.MauiExtensions.Sample
-
-# Restore dependencies
-dotnet restore
-
-# Build for Android
-dotnet build -c Release -f net10.0-android
+```powershell
+dotnet workload restore sample/zoft.MauiExtensions.Sample/zoft.MauiExtensions.Sample.csproj
+dotnet build sample/zoft.MauiExtensions.Sample/zoft.MauiExtensions.Sample.csproj -c Release -f net10.0-android
 ```
 
-### GitHub Actions
-The repository includes a GitHub workflow (`.github/workflows/android-deploy.yml`) that:
-1. Builds the Android APK automatically
-2. Uploads build artifacts
-3. Provides deployment pipeline structure
+Launch a debug build on an emulator or physical device with your IDE to exercise the feature checks in the development guide. A successful build alone does not establish device behavior or store readiness. The project configures Release Android packaging as AAB.
 
-## App Signing
+## Workflow behavior
 
-### Development Signing
-For development and testing, generate a debug keystore:
-```bash
-cd sample/zoft.MauiExtensions.Sample/PlayStore
-./generate-keystore.sh
-```
+The workflow is manually triggered with `workflow_dispatch`; pushes and pull requests do not trigger it.
 
-### Production Signing
-For Play Store deployment:
-1. **Option A**: Use Play App Signing (Recommended)
-   - Upload an app bundle (.aab)
-   - Google manages signing keys
-   
-2. **Option B**: Manual signing
-   - Generate production keystore
-   - Configure signing in project file
-   - Store keystore securely
+1. A Windows runner installs the SDK and Android workload, restores dependencies, and reconstructs the keystore from a secret.
+2. It computes `ApplicationVersion` from the current year concatenated with the workflow run number, then publishes the signed Android output. `ApplicationDisplayVersion` stays at the project value.
+3. It uploads `*-Signed.aab` files as the `maui-android-aab` artifact with 30-day retention. Some step names still say APK; the configured artifact is AAB.
+4. A dependent job uses the `production` environment and uploads the AAB to Google Play's `internal` track with status `draft`. This is an external upload, not just a build. Any environment protection rules are configured in GitHub, outside this repository.
 
-## Store Submission
+Before a deployment, check that the computed application version code exceeds previously uploaded codes. Concatenating a year and an unpadded run number is not a general guarantee of monotonic version codes across year changes.
 
-### Required Assets
-- **App Icon**: 512x512 PNG high-resolution icon
-- **Feature Graphic**: 1024x500 PNG promotional image  
-- **Screenshots**: Minimum 2 phone screenshots
-- **Store Listing**: Title, description, keywords
-- **Privacy Policy**: Required for all apps
+## Signing and credentials
 
-### Metadata Files
-All store metadata is prepared in the `PlayStore/` directory:
-- `app-description.md` - Full app description
-- `privacy-policy.md` - Privacy policy text
-- `store-metadata.md` - Complete store listing information
+Configure the secrets consumed by the workflow:
 
-### Submission Steps
-1. **Prepare Release**
-   - Build signed app bundle (.aab)
-   - Test on physical devices
-   - Verify all features work correctly
+| Secret | Purpose |
+| --- | --- |
+| `ANDROID_KEYSTORE_BASE64` | Base64-encoded signing keystore. |
+| `ANDROID_KEYSTORE_PASSWORD` | Keystore password. |
+| `ANDROID_KEY_ALIAS` | Signing key alias. |
+| `ANDROID_KEY_PASSWORD` | Signing key password. |
+| `SERVICE_ACCOUNT_JSON` | Google Play service-account credentials for the upload job. |
 
-2. **Upload to Play Console**
-   - Create new release in Play Console
-   - Upload app bundle
-   - Fill out store listing
-   - Upload required graphics
+Keep keys and credentials out of source control and logs. Confirm that the signing key and Play account match the application being updated.
 
-3. **Review Process**
-   - Submit for review
-   - Address any policy violations
-   - Monitor review status
+The repository contains a Windows demo helper, [generate_keystore.bat](PlayStore/generate_keystore.bat). Inspect and configure it before running: it contains a machine-specific `KEYTOOL` path and demo credentials. It is not a production key-management procedure. There is no `generate-keystore.sh` in this repository.
 
-## Compliance
+## Store material and release checks
 
-### Privacy
-- App collects no personal data
-- Minimal permissions (Internet, Network State)
-- Clear privacy policy provided
+The `PlayStore/` directory contains [app description](PlayStore/app-description.md), [privacy policy](PlayStore/privacy-policy.md), and [store metadata](PlayStore/store-metadata.md) drafts. Review these against actual app behavior and current Play Console requirements before submission; historical checklists do not prove current compliance.
 
-### Content Rating
-- Target audience: Everyone
-- No inappropriate content
-- Educational/utility app category
-
-### Technical Requirements
-- Targets the Android API level configured by the installed .NET 10 MAUI workload
-- Supports Android 5.0+ (API 21)
-- 64-bit compatible
-- Follows Material Design guidelines
-
-## Monitoring
-
-### Post-Launch
-- Monitor crash reports in Play Console
-- Review user feedback and ratings
-- Track download and engagement metrics
-- Plan updates based on user feedback
-
-### Updates
-- Use semantic versioning
-- Test thoroughly before release
-- Provide clear release notes
-- Monitor rollout for issues
-
-## Security
-
-### Key Management
-- Store signing keys securely
-- Use environment variables for sensitive data
-- Enable Play App Signing for automatic key management
-- Backup signing keys safely
-
-### GitHub Secrets
-For automated deployment, configure these secrets:
-- `ANDROID_KEYSTORE_FILE` - Base64 encoded keystore
-- `ANDROID_KEYSTORE_PASSWORD` - Keystore password
-- `ANDROID_KEY_ALIAS` - Key alias name
-- `ANDROID_KEY_PASSWORD` - Key password
-
-## Support
-
-For issues with the deployment process:
-1. Check GitHub Actions logs for build errors
-2. Review Play Console for policy violations
-3. Consult MAUI documentation for platform-specific issues
-4. Open issues in the repository for deployment questions
-
----
-
-**Note**: This is a demonstration app. For production apps, ensure proper security practices, comprehensive testing, and adherence to all applicable store policies.
+Before uploading, verify the application ID, signing identity, display version and version code, test the intended release on Android devices, and review the artifact. Confirm that store graphics, listing, privacy disclosures, and account configuration are ready in Play Console. The workflow's internal draft upload does not itself publish a production release.
